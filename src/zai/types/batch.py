@@ -33,7 +33,7 @@ class Batch(BaseModel):
 		id (str): Batch identifier
 		completion_window (str): Address information for executing the request
 		created_at (int): This is the creation time represented by the Unix timestamp (in seconds)
-		endpoint (str): This is the address of the ZaiClient endpoint
+		endpoint (str): This is the address of the Z.ai endpoint
 		input_file_id (str): The ID of the input file marked as batch
 		object (Literal['batch']): This type is always `batch`
 		status (Literal): The status of the batch

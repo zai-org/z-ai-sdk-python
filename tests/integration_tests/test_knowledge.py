@@ -29,7 +29,7 @@ class TestZaiClientKnowledgeServer:
 			result = test_server.client.knowledge.create(
 				embedding_id=1,
 				name='test',
-				description='测试',
+				description='test',
 				background='blue',
 				icon='question',
 			)
@@ -66,7 +66,7 @@ class TestZaiClientKnowledgeServer:
 			result = test_server.client.knowledge.modify(
 				knowledge_id=test_server.test_knowledge_id,
 				embedding_id=1,
-				name='测试1',
+				name='test1',
 				background='red',
 				icon='book',
 			)

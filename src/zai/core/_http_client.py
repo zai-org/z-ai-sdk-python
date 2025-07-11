@@ -289,7 +289,7 @@ class HttpClient:
 		return {
 			'Accept': 'application/json',
 			'Content-Type': 'application/json; charset=UTF-8',
-			'ZaiClient-SDK-Ver': self._version,
+			'Zai-SDK-Ver': self._version,
 			'source_type': 'z-ai-sdk-python',
 			'x-request-sdk': 'z-ai-sdk-python',
 			**self.auth_headers,
@@ -411,7 +411,7 @@ class HttpClient:
 		serialized: dict[str, object] = {}
 		for key, value in items:
 			if key in serialized:
-				raise ValueError(f'存在重复的键: {key};')
+				raise ValueError(f'Key {key} already exists in multipart form data.')
 			serialized[key] = value
 		return serialized
 

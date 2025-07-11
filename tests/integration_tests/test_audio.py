@@ -13,7 +13,7 @@ def test_audio_speech(logging_conf):
 		speech_file_path = Path(__file__).parent / 'speech.wav'
 		response = client.audio.speech(
 			model='cogtts',
-			input='你好呀,欢迎来到智谱开放平台',
+			input='Hello, welcome to Z.ai Open Platform',
 			voice='female',
 			response_format='wav',
 		)
@@ -35,8 +35,8 @@ def test_audio_customization(logging_conf):
 			speech_file_path = Path(__file__).parent / 'speech.wav'
 			response = client.audio.customization(
 				model='cogtts',
-				input='你好呀,欢迎来到智谱开放平台',
-				voice_text='这是一条测试用例',
+				input='Hello, welcome to Z.ai Open Platform',
+				voice_text='This is a test case',
 				voice_data=file,
 				response_format='wav',
 			)

@@ -9,16 +9,16 @@ __all__ = ['KnowledgeBaseParams']
 
 class KnowledgeBaseParams(TypedDict):
 	"""
-	知识库参数类型定义
+	Knowledge base parameters.
 
 	Attributes:
-	    embedding_id (int): 知识库绑定的向量化模型ID
-	    name (str): 知识库名称，限制100字
-	    customer_identifier (Optional[str]): 用户标识，长度32位以内
-	    description (Optional[str]): 知识库描述，限制500字
-	    background (Optional[Literal['blue', 'red', 'orange', 'purple', 'sky']]): 背景颜色
-	    icon (Optional[Literal['question', 'book', 'seal', 'wrench', 'tag', 'horn', 'house']]): 知识库图标
-	    bucket_id (Optional[str]): 桶ID，限制32位
+	    embedding_id (int): Embedding ID
+	    name (str): Knowledge base name, limited to 100 characters
+	    customer_identifier (Optional[str]): Customer identifier, limited to 32 characters
+	    description (Optional[str]): Knowledge base description, limited to 500 characters
+	    background (Optional[Literal['blue', 'red', 'orange', 'purple', 'sky']]): Background color
+	    icon (Optional[Literal['question', 'book', 'seal', 'wrench', 'tag', 'horn', 'house']]): Knowledge base icon
+	    bucket_id (Optional[str]): Bucket ID, limited to 32 characters
 	"""
 
 	embedding_id: int
@@ -26,7 +26,5 @@ class KnowledgeBaseParams(TypedDict):
 	customer_identifier: Optional[str]
 	description: Optional[str]
 	background: Optional[Literal['blue', 'red', 'orange', 'purple', 'sky']] = None
-	icon: Optional[
-		Literal['question', 'book', 'seal', 'wrench', 'tag', 'horn', 'house']
-	] = None
+	icon: Optional[Literal['question', 'book', 'seal', 'wrench', 'tag', 'horn', 'house']] = None
 	bucket_id: Optional[str]

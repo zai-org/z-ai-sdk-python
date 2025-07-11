@@ -16,22 +16,31 @@ def test_completions_emohaa(logging_conf):
 			messages=[
 				{
 					'role': 'assistant',
-					'content': '你好，我是Emohaa，很高兴见到你。请问有什么我可以帮忙的吗？',
+					'content': 'Hello, I am Emohaa. Nice to meet you. How can I help you today?',
 				},
 				{
 					'role': 'user',
-					'content': '今天我休息，决定去西安保密逛逛，心情很好地喷上了我最爱的烟熏木制香',
+					'content': (
+						"Today is my day off. I decided to take a stroll in Xi'an Baomi,"
+						' wearing my favorite smoky wood fragrance.'
+					),
 				},
 				{
 					'role': 'assistant',
-					'content': '今天我休息，决定去西安保密逛逛，心情很好地喷上了我最爱的烟熏木制香',
+					'content': (
+						"Today is my day off. I decided to take a stroll in Xi'an Baomi,"
+						' wearing my favorite smoky wood fragrance.'
+					),
 				},
 			],
 			meta={
-				'user_info': '30岁的男性软件工程师，兴趣包括阅读、徒步和编程',
-				'bot_info': 'Emohaa是一款基于Hill助人理论的情感支持AI，拥有专业的心理咨询话术能力',
+				'user_info': '30-year-old male software engineer interested in reading, hiking and programming',
+				'bot_info': (
+					"Emohaa is an emotional support AI based on Hill's helping "
+					'theory with professional counseling skills'
+				),
 				'bot_name': 'Emohaa',
-				'user_name': '陆星辰',
+				'user_name': 'Lu Xingchen',
 			},
 		)
 		print(response)

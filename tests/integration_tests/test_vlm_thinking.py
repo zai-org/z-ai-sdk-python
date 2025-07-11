@@ -20,7 +20,7 @@ def test_completions_vlm_thinking(logging_conf):
 				{
 					'role': 'user',
 					'content': [
-						{'type': 'text', 'text': '图里有什么'},
+						{'type': 'text', 'text': 'What is in the image?'},
 						{
 							'type': 'image_url',
 							'image_url': {
@@ -58,7 +58,7 @@ def test_completions_vlm_thinking_stream(logging_conf):
 				{
 					'role': 'user',
 					'content': [
-						{'type': 'text', 'text': '图里有什么'},
+						{'type': 'text', 'text': 'What is in the image?'},
 						{
 							'type': 'image_url',
 							'image_url': {

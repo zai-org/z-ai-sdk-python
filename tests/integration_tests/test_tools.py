@@ -13,7 +13,7 @@ def test_tools(logging_conf):
 			model='web-search-pro',
 			messages=[
 				{
-					'content': '你好',
+					'content': 'hello',
 					'role': 'user',
 				}
 			],
@@ -37,7 +37,7 @@ def test_tools_stream(logging_conf):
 			model='web-search-pro',
 			messages=[
 				{
-					'content': '你好',
+					'content': 'hello',
 					'role': 'user',
 				}
 			],

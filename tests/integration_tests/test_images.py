@@ -11,7 +11,7 @@ def test_images(logging_conf):
 	try:
 		response = client.images.generations(
 			model='cogview-3',  # Fill in the model name to call
-			prompt='一只可爱的小猫咪',
+			prompt='a cute little kitten',
 			extra_body={'user_id': '1222212'},
 			user_id='12345678',
 		)
@@ -31,7 +31,7 @@ def test_images_sensitive_word_check(logging_conf):
 	try:
 		response = client.images.generations(
 			model='cogview-3',  # Fill in the model name to call
-			prompt='一只可爱的小猫咪',
+			prompt='a cute little kitten',
 			sensitive_word_check={'type': 'ALL', 'status': 'DISABLE'},
 			extra_body={'user_id': '1222212'},
 			user_id='12345678',
