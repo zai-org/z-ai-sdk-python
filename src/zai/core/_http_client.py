@@ -289,7 +289,7 @@ class HttpClient:
 		return {
 			'Accept': 'application/json',
 			'Content-Type': 'application/json; charset=UTF-8',
-			'ZaiClient-SDK-Ver': self._version,
+			'Zai-SDK-Ver': self._version,
 			'source_type': 'z-ai-sdk-python',
 			'x-request-sdk': 'z-ai-sdk-python',
 			**self.auth_headers,

@@ -1,4 +1,4 @@
-# ZaiClient Open Platform Python SDK
+# Z.ai Open Platform Python SDK
 
 [![PyPI version](https://img.shields.io/pypi/v/zai.svg)](https://pypi.org/project/zai/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
