@@ -316,4 +316,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## 📞 Support
 
 For questions and technical support, please visit [Z.ai Open Platform](https://docs.z.ai/) or check our documentation.
-  
+
+### Contact Us
+
+For feedback and support, please contact us at: **user_feedback@z.ai**

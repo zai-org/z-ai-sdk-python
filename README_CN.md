@@ -310,4 +310,8 @@ except Exception as err:
 ## 📞 支持
 
 如有问题和技术支持，请访问 [Z.ai开放平台](https://docs.z.ai/) 或查看我们的文档。
+
+### 联系我们
+
+如有反馈和支持需求，请联系我们：**user_feedback@z.ai**
   
