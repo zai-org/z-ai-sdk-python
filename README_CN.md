@@ -26,7 +26,7 @@
 ### 使用 pip 安装
 
 ```sh
-pip install zai
+pip install z-ai
 ```
 
 ### 📋 核心依赖
@@ -90,88 +90,89 @@ client = ZaiClient(
 
 ## 💡 使用示例
 
-### 基础对话
-
-```python
-from zai import ZaiClient
-
-client = ZaiClient(
-    api_key="your-api-key")  # 请填写您自己的APIKey
-response = client.chat.completions.create(
-    model="glm-4",  # 填写需要调用的模型名称
-    messages=[
-        {"role": "user", "content": "你好，请介绍一下智谱AI"}
-    ],
-    tools=[
-        {
-            "type": "web_search",
-            "web_search": {
-                "search_query": "Search the Z.ai",
-                "search_result": True,
-            }
-        }
-    ],
-    extra_body={"temperature": 0.5, "max_tokens": 50}
-)
-print(response.choices[0].message.content)
-```
-
 ### 流式对话
 
 ```python
 from zai import ZaiClient
 
-client = ZaiClient(api_key="your-api-key")  # 请填写您自己的APIKey
+# 初始化客户端
+client = ZaiClient(api_key="your-api-key")
+
+# 创建对话
 response = client.chat.completions.create(
-    model="glm-4",  # 填写需要调用的模型名称
+    model='glm-4',
     messages=[
-        {"role": "system", "content": "你是一个人工智能助手，你叫ChatGLM"},
-        {"role": "user", "content": "你好！你叫什么名字"},
+        {'role': 'system', 'content': 'You are a helpful assistant.'},
+        {'role': 'user', 'content': 'Tell me a story about AI.'},
     ],
     stream=True,
 )
 
 for chunk in response:
     if chunk.choices[0].delta.content:
-        print(chunk.choices[0].delta)
+        print(chunk.choices[0].delta.content, end='')
+```
+
+### 工具调用
+
+```python
+from zai import ZaiClient
+
+# 初始化客户端
+client = ZaiClient(api_key="your-api-key")
+
+# 创建对话
+response = client.chat.completions.create(
+    model='glm-4',
+    messages=[
+        {'role': 'system', 'content': 'You are a helpful assistant.'},
+        {'role': 'user', 'content': 'What is artificial intelligence?'},
+    ],
+    tools=[
+        {
+            'type': 'web_search',
+            'web_search': {
+                'search_query': 'What is artificial intelligence?',
+                'search_result': True,
+            },
+        }
+    ],
+    temperature=0.5,
+    max_tokens=2000,
+)
+
+print(response)
 ```
 
 ### 多模态对话
 
 ```python
-import base64
 from zai import ZaiClient
+import base64
 
 def encode_image(image_path):
     """将图片编码为base64格式"""
-    with open(image_path, "rb") as image_file:
+    with open(image_path, 'rb') as image_file:
         return base64.b64encode(image_file.read()).decode('utf-8')
 
-client = ZaiClient()  # 请填写您自己的APIKey
-base64_image = encode_image("path/to/your/image.jpg")
+client = ZaiClient(api_key="your-api-key")
+base64_image = encode_image('examples/test_multi_modal.jpeg')
 
 response = client.chat.completions.create(
-    model="glm-4v",  # 视觉模型
+    model='glm-4v',
     messages=[
         {
-            "role": "user",
-            "content": [
-                {
-                    "type": "text",
-                    "text": "请描述这张图片的内容"
-                },
-                {
-                    "type": "image_url",
-                    "image_url": {
-                        "url": f"data:image/jpeg;base64,{base64_image}"
-                    }
-                }
-            ]
+            'role': 'user',
+            'content': [
+                {'type': 'text', 'text': "请描述这张图片的内容"},
+                {'type': 'image_url', 'image_url': {'url': f'data:image/jpeg;base64,{base64_image}'}},
+            ],
         }
     ],
-    extra_body={"temperature": 0.5, "max_tokens": 50}
+    temperature=0.5,
+    max_tokens=2000,
 )
-print(response.choices[0].message.content)
+print(response)
 ```
 
 ### 角色扮演
@@ -179,23 +180,21 @@ print(response.choices[0].message.content)
 ```python
 from zai import ZaiClient
 
-client = ZaiClient()  # 请填写您自己的APIKey
+# 初始化客户端
+client = ZaiClient(api_key="your-api-key")
+
+# 创建对话
 response = client.chat.completions.create(
-    model="charglm-3",  # 角色扮演模型
-    messages=[
-        {
-            "role": "user",
-            "content": "你好，最近在忙什么呢？"
-        }
-    ],
+    model='charglm-3',
+    messages=[{'role': 'user', 'content': 'Hello, how are you doing lately?'}],
     meta={
-        "user_info": "我是一位电影导演，擅长拍摄音乐题材的电影。",
-        "bot_info": "你是一位当红的国内女歌手及演员，拥有出众的音乐才华。",
-        "bot_name": "小雅",
-        "user_name": "导演"
+        'user_info': 'I am a film director who specializes in music-themed movies.',
+        'bot_info': 'You are a popular domestic female singer and actress with outstanding musical talent.',
+        'bot_name': 'Alice',
+        'user_name': 'Director',
     },
 )
-print(response.choices[0].message.content)
+print(response)
 ```
 
 ### 智能体对话
@@ -203,29 +202,35 @@ print(response.choices[0].message.content)
 ```python
 from zai import ZaiClient
 
-client = ZaiClient()  # 请填写您自己的APIKey
+# Initialize client
+client = ZaiClient(api_key="your-api-key")
 
+# Create assistant conversation
 response = client.assistant.conversation(
-    assistant_id="your_assistant_id",  # 智能体ID
-    model="glm-4-assistant",
+    # 你可使用 65940acff94777010aa6b796 作为测试ID
+    assistant_id='你的assistant_id',
+    model='glm-4-assistant',
     messages=[
         {
-            "role": "user",
-            "content": [{
-                "type": "text",
-                "text": "帮我搜索智谱AI的最新产品信息"
-            }]
+            'role': 'user',
+            'content': [
+                {
+                    'type': 'text',
+                    'text': 'Help me search for the latest ZhipuAI product information',
+                }
+            ],
         }
     ],
     stream=True,
     attachments=None,
     metadata=None,
-    request_id="request_1790291013237211136",
-    user_id="12345678"
+    request_id='request_1790291013237211136',
+    user_id='12345678',
 )
 
 for chunk in response:
-    print(chunk)
+    if chunk.choices[0].delta.type == 'content':
+        print(chunk.choices[0].delta.content, end='')
 ```
 
 ### 视频生成
@@ -235,12 +240,21 @@ from zai import ZaiClient
 
 client = ZaiClient()  # 请填写您自己的APIKey
 
+# 提交生成任务
 response = client.videos.generations(
-    model="cogvideo",
-    prompt="一个美丽的日落海滩场景",
-    user_id="user_12345"
+    model="cogvideox-2",  # 使用的视频生成模型
+    image_url=image_url,  # 提供的图片URL地址或者 Base64 编码
+    prompt="让画面动起来",  
+    quality="speed",  # 输出模式，"quality"为质量优先，"speed"为速度优先
+    with_audio=True,
+    size="1920x1080",  # 视频分辨率，支持最高4K（如: "3840x2160"）
+    fps=30,  # 帧率，可选为30或60
 )
 print(response)
+
+# 获取生成结果
+result = client.videos.retrieve_videos_result(id=response.id)
+print(result)
 ```
 
 ## 🚨 异常处理
@@ -251,7 +265,7 @@ SDK提供了完善的异常处理机制：
 from zai import ZaiClient
 import zai
 
-client = ZaiClient()  # 请填写您自己的APIKey
+client = ZaiClient(api_key="your-api-key")  # 请填写您自己的APIKey
 
 try:
     response = client.chat.completions.create(
@@ -295,5 +309,5 @@ except Exception as err:
 
 ## 📞 支持
 
-如有问题和技术支持，请访问 [智谱AI开放平台](https://open.bigmodel.cn/) 或查看我们的文档。
+如有问题和技术支持，请访问 [Z.ai开放平台](https://docs.z.ai/) 或查看我们的文档。
   

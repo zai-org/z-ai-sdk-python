@@ -62,6 +62,7 @@ class ZaiClient(HttpClient):
 		disable_token_cache: bool = True,
 		_strict_response_validation: bool = False,
 		source_channel: str | None = None,
+		switch_to_zhipu: bool = False,
 	) -> None:
 		"""
 		Initialize the ZAI client
@@ -78,6 +79,7 @@ class ZaiClient(HttpClient):
 			disable_token_cache (bool): Whether to disable JWT token caching
 			_strict_response_validation (bool): Whether to enable strict response validation
 			source_channel (str | None): Source channel identifier
+			switch_to_zhipu (bool): Whether to switch to Zhipu base_url
 		"""
 		if api_key is None:
 			api_key = os.environ.get('ZAI_API_KEY')
@@ -91,6 +93,8 @@ class ZaiClient(HttpClient):
 			base_url = os.environ.get('ZAI_BASE_URL')
 		if base_url is None:
 			base_url = 'https://api.z.ai/api/paas/v4'
+		if switch_to_zhipu:
+			base_url = 'https://open.bigmodel.cn/api/paas/v4'
 		from ._version import __version__
 
 		super().__init__(

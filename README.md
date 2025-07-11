@@ -27,7 +27,7 @@ The official Python SDK for ZaiClient's large model open interface, making it ea
 ### Install via pip
 
 ```bash
-pip install zai
+pip install z-ai
 ```
 
 ### Core Dependencies
@@ -96,86 +96,87 @@ client = ZaiClient(
 
 ## 📖 Usage Examples
 
-### Basic Chat
-
-```python
-from zai import ZaiClient
-
-client = ZaiClient(api_key="your-api-key")  # Uses environment variable ZAI_API_KEY
-response = client.chat.completions.create(
-    model="glm-4",
-    messages=[
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": "What is artificial intelligence?"}
-    ],
-    tools=[
-        {
-            "type": "web_search",
-            "web_search": {
-                "search_query": "Search the Z.ai",
-                "search_result": True,
-            }
-        }
-    ],
-    extra_body={"temperature": 0.5, "max_tokens": 50}
-)
-print(response)
-```
-
 ### Streaming Chat
 
 ```python
 from zai import ZaiClient
 
+# Initialize client
 client = ZaiClient(api_key="your-api-key")
+
+# Create chat completion
 response = client.chat.completions.create(
-    model="glm-4",
+    model='glm-4',
     messages=[
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": "Tell me a story about AI."}
+        {'role': 'system', 'content': 'You are a helpful assistant.'},
+        {'role': 'user', 'content': 'Tell me a story about AI.'},
     ],
-    stream=True
+    stream=True,
 )
 
 for chunk in response:
     if chunk.choices[0].delta.content:
-        print(chunk.choices[0].delta.content)
+        print(chunk.choices[0].delta.content, end='')
+```
+
+### Chat With Tool Call
+
+```python
+from zai import ZaiClient
+
+# Initialize client
+client = ZaiClient(api_key="your-api-key")
+
+# Create chat completion
+response = client.chat.completions.create(
+    model='glm-4',
+    messages=[
+        {'role': 'system', 'content': 'You are a helpful assistant.'},
+        {'role': 'user', 'content': 'What is artificial intelligence?'},
+    ],
+    tools=[
+        {
+            'type': 'web_search',
+            'web_search': {
+                'search_query': 'What is artificial intelligence?',
+                'search_result': True,
+            },
+        }
+    ],
+    temperature=0.5,
+    max_tokens=2000,
+)
+
+print(response)
 ```
 
 ### Multimodal Chat
 
 ```python
-import base64
 from zai import ZaiClient
+import base64
 
 def encode_image(image_path):
     """Encode image to base64 format"""
-    with open(image_path, "rb") as image_file:
+    with open(image_path, 'rb') as image_file:
         return base64.b64encode(image_file.read()).decode('utf-8')
 
 client = ZaiClient(api_key="your-api-key")
-base64_image = encode_image("path/to/your/image.jpg")
+base64_image = encode_image('examples/test_multi_modal.jpeg')
 
 response = client.chat.completions.create(
-    model="glm-4v",
-    extra_body={"temperature": 0.5, "max_tokens": 50},
+    model='glm-4v',
     messages=[
         {
-            "role": "user",
-            "content": [
-                {
-                    "type": "text",
-                    "text": "What's in this image?"
-                },
-                {
-                    "type": "image_url",
-                    "image_url": {
-                        "url": f"data:image/jpeg;base64,{base64_image}"
-                    }
-                }
-            ]
+            'role': 'user',
+            'content': [
+                {'type': 'text', 'text': "What's in this image?"},
+                {'type': 'image_url', 'image_url': {'url': f'data:image/jpeg;base64,{base64_image}'}},
+            ],
         }
-    ]
+    ],
+    temperature=0.5,
+    max_tokens=2000,
 )
 print(response)
 ```
@@ -185,21 +186,19 @@ print(response)
 ```python
 from zai import ZaiClient
 
+# Initialize client
 client = ZaiClient(api_key="your-api-key")
+
+# Create chat completion
 response = client.chat.completions.create(
-    model="charglm-3",
-    messages=[
-        {
-            "role": "user",
-            "content": "Hello, how are you doing lately?"
-        }
-    ],
+    model='charglm-3',
+    messages=[{'role': 'user', 'content': 'Hello, how are you doing lately?'}],
     meta={
-        "user_info": "I am a film director who specializes in music-themed movies.",
-        "bot_info": "You are a popular domestic female singer and actress with outstanding musical talent.",
-        "bot_name": "Xiaoya",
-        "user_name": "Director"
-    }
+        'user_info': 'I am a film director who specializes in music-themed movies.',
+        'bot_info': 'You are a popular domestic female singer and actress with outstanding musical talent.',
+        'bot_name': 'Alice',
+        'user_name': 'Director',
+    },
 )
 print(response)
 ```
@@ -209,42 +208,59 @@ print(response)
 ```python
 from zai import ZaiClient
 
+# Initialize client
 client = ZaiClient(api_key="your-api-key")
+
+# Create assistant conversation
 response = client.assistant.conversation(
-    assistant_id="your_assistant_id",
-    model="glm-4-assistant",
+    # You can use 65940acff94777010aa6b796 for testing
+    # or you can create your own assistant_id in ZhipuAI console
+    assistant_id='your own assistant_id',
+    model='glm-4-assistant',
     messages=[
         {
-            "role": "user",
-            "content": [{
-                "type": "text",
-                "text": "Help me search for the latest ZaiClient product information"
-            }]
+            'role': 'user',
+            'content': [
+                {
+                    'type': 'text',
+                    'text': 'Help me search for the latest ZhipuAI product information',
+                }
+            ],
         }
     ],
     stream=True,
     attachments=None,
     metadata=None,
-    request_id="request_1790291013237211136",
-    user_id="12345678"
+    request_id='request_1790291013237211136',
+    user_id='12345678',
 )
 
 for chunk in response:
-    print(chunk)
+    if chunk.choices[0].delta.type == 'content':
+        print(chunk.choices[0].delta.content, end='')
 ```
 
 ### Video Generation
 
 ```python
 from zai import ZaiClient
-
 client = ZaiClient(api_key="your-api-key")
+
+# Generate video
 response = client.videos.generations(
-    model="cogvideo",
-    prompt="A beautiful sunset beach scene",
-    user_id="user_12345"
+    model="cogvideox-2",
+    prompt="A cat is playing with a ball.",
+    quality="quality",  # Output mode, "quality" for quality priority, "speed" for speed priority
+    with_audio=True, # Whether to include audio
+    size="1920x1080",  # Video resolution, supports up to 4K (e.g., "3840x2160")
+    fps=30,  # Frame rate, can be 30 or 60
+    max_wait_time=300,  # Maximum wait time (seconds)
 )
 print(response)
+
+# Get video result
+result = client.videos.retrieve_videos_result(id=response.id)
+print(result)
 ```
 
 ## 🚨 Error Handling
@@ -255,13 +271,13 @@ The SDK provides comprehensive error handling:
 from zai import ZaiClient
 import zai
 
-client = ZaiClient()
+client = ZaiClient(api_key="your-api-key")
 
 try:
     response = client.chat.completions.create(
         model="glm-4",
         messages=[
-            {"role": "user", "content": "Hello, ZaiClient!"}
+            {"role": "user", "content": "Hello, Z.ai!"}
         ]
     )
     print(response.choices[0].message.content)
@@ -299,5 +315,5 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📞 Support
 
-For questions and technical support, please visit [ZaiClient Open Platform](https://open.bigmodel.cn/) or check our documentation.
+For questions and technical support, please visit [Z.ai Open Platform](https://docs.z.ai/) or check our documentation.
   
