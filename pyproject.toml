@@ -3,7 +3,6 @@ name = "z-ai"
 version = "0.0.1a1"
 description = "A SDK library for accessing big model apis from Z.ai"
 authors = ["Z.ai"]
-email = "user_feedback@z.ai"
 readme = "README.md"
 packages = [{include = "zai", from = "src"}]
 
