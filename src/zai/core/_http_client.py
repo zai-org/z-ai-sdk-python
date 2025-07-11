@@ -411,7 +411,7 @@ class HttpClient:
 		serialized: dict[str, object] = {}
 		for key, value in items:
 			if key in serialized:
-				raise ValueError(f'存在重复的键: {key};')
+				raise ValueError(f'Key {key} already exists in multipart form data.')
 			serialized[key] = value
 		return serialized
 

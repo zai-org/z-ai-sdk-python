@@ -124,24 +124,26 @@ def test_completions(logging_conf):
 			messages=[
 				{
 					'role': 'user',
-					'content': '作为一名营销专家，请为我的产品创作一个吸引人的slogan',
+					'content': 'As a marketing expert, please create an attractive slogan for my product',
 				},
 				{
 					'role': 'assistant',
-					'content': '当然，为了创作一个吸引人的slogan，请告诉我一些关于您产品的信息',
+					'content': (
+						'Of course, to create an attractive slogan, please tell me some information about your product'
+					),
 				},
-				{'role': 'user', 'content': '智谱AI开放平台'},
+				{'role': 'user', 'content': 'Z.ai Open Platform'},
 				{
 					'role': 'assistant',
-					'content': '智启未来，谱绘无限一智谱AI，让创新触手可及!',
+					'content': 'Ignite the future, paint infinity - Z.AI, making innovation within reach!',
 				},
-				{'role': 'user', 'content': '创造一个更精准、吸引人的slogan'},
+				{'role': 'user', 'content': 'Create a more precise and attractive slogan'},
 			],
 			tools=[
 				{
 					'type': 'web_search',
 					'web_search': {
-						'search_query': '帮我看看清华的升学率',
+						'search_query': 'Show me the admission rate of Tsinghua University',
 						'search_result': True,
 					},
 				}
@@ -172,24 +174,26 @@ def test_completions_disenable_web_search(logging_conf):
 			messages=[
 				{
 					'role': 'user',
-					'content': '作为一名营销专家，请为我的产品创作一个吸引人的slogan',
+					'content': 'As a marketing expert, please create an attractive slogan for my product',
 				},
 				{
 					'role': 'assistant',
-					'content': '当然，为了创作一个吸引人的slogan，请告诉我一些关于您产品的信息',
+					'content': (
+						'Of course, to create an attractive slogan, please tell me some information about your product'
+					),
 				},
-				{'role': 'user', 'content': '智谱AI开放平台'},
+				{'role': 'user', 'content': 'Z.ai Open Platform'},
 				{
 					'role': 'assistant',
-					'content': '智启未来，谱绘无限一智谱AI，让创新触手可及!',
+					'content': 'Ignite the future, paint infinity - Z.AI, making innovation within reach!',
 				},
-				{'role': 'user', 'content': '创造一个更精准、吸引人的slogan'},
+				{'role': 'user', 'content': 'Create a more precise and attractive slogan'},
 			],
 			tools=[
 				{
 					'type': 'web_search',
 					'web_search': {
-						'search_query': '帮我看看清华的升学率',
+						'search_query': 'Show me the admission rate of Tsinghua University',
 						'search_result': True,
 						'enable': False,
 					},
@@ -221,24 +225,26 @@ def test_completions_enable_web_search(logging_conf):
 			messages=[
 				{
 					'role': 'user',
-					'content': '作为一名营销专家，请为我的产品创作一个吸引人的slogan',
+					'content': 'As a marketing expert, please create an attractive slogan for my product',
 				},
 				{
 					'role': 'assistant',
-					'content': '当然，为了创作一个吸引人的slogan，请告诉我一些关于您产品的信息',
+					'content': (
+						'Of course, to create an attractive slogan, please tell me some information about your product'
+					),
 				},
-				{'role': 'user', 'content': '智谱AI开放平台'},
+				{'role': 'user', 'content': 'Z.ai Open Platform'},
 				{
 					'role': 'assistant',
-					'content': '智启未来，谱绘无限一智谱AI，让创新触手可及!',
+					'content': 'Ignite the future, paint infinity - Z.AI, making innovation within reach!',
 				},
-				{'role': 'user', 'content': '创造一个更精准、吸引人的slogan'},
+				{'role': 'user', 'content': 'Create a more precise and attractive slogan'},
 			],
 			tools=[
 				{
 					'type': 'web_search',
 					'web_search': {
-						'search_query': '帮我看看清华的升学率',
+						'search_query': 'Show me the admission rate of Tsinghua University',
 						'search_result': True,
 						'enable': True,
 					},
@@ -271,18 +277,20 @@ def test_completions_sensitive_word_check(logging_conf):
 			messages=[
 				{
 					'role': 'user',
-					'content': '作为一名营销专家，请为我的产品创作一个吸引人的slogan',
+					'content': 'As a marketing expert, please create an attractive slogan for my product',
 				},
 				{
 					'role': 'assistant',
-					'content': '当然，为了创作一个吸引人的slogan，请告诉我一些关于您产品的信息',
+					'content': (
+						'Of course, to create an attractive slogan, please tell me some information about your product'
+					),
 				},
-				{'role': 'user', 'content': '智谱AI开放平台'},
+				{'role': 'user', 'content': 'Z.ai Open Platform'},
 				{
 					'role': 'assistant',
-					'content': '智启未来，谱绘无限一智谱AI，让创新触手可及!',
+					'content': 'Ignite the future, paint infinity - Z.AI, making innovation within reach!',
 				},
-				{'role': 'user', 'content': '创造一个更精准、吸引人的slogan'},
+				{'role': 'user', 'content': 'Create a more precise and attractive slogan'},
 			],
 			extra_body={'temperature': 0.5, 'max_tokens': 50},
 			user_id='12345678',
@@ -321,7 +329,7 @@ def test_completions_stream_with_tools(logging_conf):
 				{
 					'role': 'user',
 					'content': [
-						{'type': 'text', 'text': '图里有什么'},
+						{'type': 'text', 'text': 'What is in this image?'},
 						{
 							'type': 'image_url',
 							'image_url': {
@@ -359,7 +367,7 @@ def test_completions_vis_base64(test_file_path, logging_conf):
 				{
 					'role': 'user',
 					'content': [
-						{'type': 'text', 'text': '图里有什么'},
+						{'type': 'text', 'text': 'What is in this image?'},
 						# {
 						#     "type": "image_url",
 						#     "image_url": {
@@ -398,24 +406,26 @@ def test_async_completions(logging_conf):
 			messages=[
 				{
 					'role': 'user',
-					'content': '作为一名营销专家，请为我的产品创作一个吸引人的slogan',
+					'content': 'As a marketing expert, please create an attractive slogan for my product',
 				},
 				{
 					'role': 'assistant',
-					'content': '当然，为了创作一个吸引人的slogan，请告诉我一些关于您产品的信息',
+					'content': (
+						'Of course, to create an attractive slogan, please tell me some information about your product'
+					),
 				},
-				{'role': 'user', 'content': '智谱AI开放平台'},
+				{'role': 'user', 'content': 'Z.ai Open Platform'},
 				{
 					'role': 'assistant',
-					'content': '智启未来，谱绘无限一智谱AI，让创新触手可及!',
+					'content': 'Ignite the future, paint infinity - Z.AI, making innovation within reach!',
 				},
-				{'role': 'user', 'content': '创造一个更精准、吸引人的slogan'},
+				{'role': 'user', 'content': 'Create a more precise and attractive slogan'},
 			],
 			tools=[
 				{
 					'type': 'web_search',
 					'web_search': {
-						'search_query': '帮我看看清华的升学率',
+						'search_query': 'Show me the admission rate of Tsinghua University',
 						'search_result': True,
 					},
 				}

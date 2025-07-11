@@ -6,16 +6,45 @@
 
 [中文文档](README_CN.md) | English
 
-The official Python SDK for ZaiClient's large model open interface, making it easier for developers to call ZaiClient's open APIs.
+The official Python SDK for Z.ai's large model open interface, making it easier for developers to call Z.ai's open APIs.
 
-## ✨ Features
+## ✨ Core Features
 
-- **Type Safety**: Complete type annotations for all interfaces
-- **Easy Integration**: Simple initialization and intuitive method calls
-- **High Performance**: Built-in connection pooling and request optimization
-- **Secure**: Automatic token caching and secure API key management
-- **Lightweight**: Minimal dependencies with efficient resource usage
-- **Streaming Support**: Real-time streaming responses for chat completions
+### 🤖 **Chat Completions**
+- **Standard Chat**: Create chat completions with various models including `glm-4`, `charglm-3`
+- **Streaming Support**: Real-time streaming responses for interactive applications
+- **Tool Calling**: Function calling capabilities for enhanced AI interactions
+- **Character Role-Playing**: Support for character-based conversations with `charglm-3` model
+- **Multimodal Chat**: Image understanding capabilities with vision models
+
+### 🧠 **Embeddings**
+- **Text Embeddings**: Generate high-quality vector embeddings for text
+- **Configurable Dimensions**: Customizable embedding dimensions
+- **Batch Processing**: Support for multiple inputs in a single request
+
+### 🎥 **Video Generation**
+- **Text-to-Video**: Generate videos from text prompts
+- **Image-to-Video**: Create videos from image inputs
+- **Customizable Parameters**: Control quality, duration, FPS, and size
+- **Audio Support**: Optional audio generation for videos
+
+### 🎵 **Audio Processing**
+- **Speech Transcription**: Convert audio files to text
+- **Multiple Formats**: Support for various audio file formats
+
+### 🤝 **Assistant API**
+- **Conversation Management**: Structured conversation handling
+- **Streaming Conversations**: Real-time assistant interactions
+- **Metadata Support**: Rich conversation context and user information
+
+### 🔧 **Advanced Tools**
+- **Web Search**: Integrated web search capabilities
+- **File Management**: Upload, download, and manage files
+- **Batch Operations**: Efficient batch processing for multiple requests
+- **Knowledge Base**: Knowledge management and retrieval
+- **Content Moderation**: Built-in content safety and moderation
+- **Image Generation**: AI-powered image creation
+- **Fine-tuning**: Custom model training capabilities
 
 ## 📦 Installation
 
@@ -30,15 +59,30 @@ The official Python SDK for ZaiClient's large model open interface, making it ea
 pip install z-ai
 ```
 
-### Core Dependencies
+### 📋 **Technical Specifications**
+
+#### **Python Support**
+- **Python Versions**: 3.8, 3.9, 3.10, 3.11, 3.12
+- **Async Support**: Full async/await compatibility
+- **Cross-platform**: Windows, macOS, Linux support
+
+#### **Core Dependencies**
 
 | Package | Version | Purpose |
 |---------|---------|----------|
 | `httpx` | `>=0.23.0` | HTTP client for API requests |
 | `pydantic` | `>=1.9.0,<3.0.0` | Data validation and serialization |
 | `typing-extensions` | `>=4.0.0` | Enhanced type hints support |
+| `cachetools` | `>=4.2.2` | Caching utilities |
+| `pyjwt` | `>=2.8.0` | JSON Web Token (JWT) handling |
 
 ## 🚀 Quick Start
+
+### Create API Key
+1. **Create client with API key**
+2. **Call the corresponding API methods**
+
+For complete examples, please refer to the open platform [API Reference](https://docs.z.ai/api-reference/) and [User Guide](https://docs.z.ai/guides/), and remember to replace with your own API key.
 
 ### Basic Usage
 
@@ -59,6 +103,8 @@ print(response.choices[0].message.content)
 ```
 
 ### Client Configuration
+
+The SDK supports multiple ways to configure API keys:
 
 #### Environment Variables
 

@@ -136,10 +136,10 @@ class Knowledge(BaseAPI):
 		timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
 	) -> httpx.Response:
 		"""
-		Delete a file.
+		Delete a knowledge.
 
 		Args:
-		  knowledge_id: 知识库ID
+		  knowledge_id: Knowledge ID
 		  extra_headers: Send extra headers
 
 		  extra_body: Add additional JSON properties to the request

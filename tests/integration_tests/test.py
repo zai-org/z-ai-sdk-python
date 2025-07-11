@@ -6,9 +6,11 @@ client = ZaiClient()  # Fill in your own API Key
 
 response = client.videos.generations(
 	model='cogvideo',
-	prompt='一个年轻的艺术家在一片彩虹上用调色板作画。',
+	prompt='A young artist painting with a palette on a rainbow.',
 	# prompt="A cartoon fox dancing happily jazz in the forest."
-	# prompt="This is a car commercial describing the racing adventure of a 30-year-old race car driver wearing a red helmet. The background is blue sky and harsh desert environment, filmed in cinematic style using 35mm film with vivid colors."
+	# prompt="This is a car commercial describing the racing adventure of a 30-year-old race car driver
+	# wearing a red helmet. The background is blue sky and harsh desert environment,
+	# filmed in cinematic style using 35mm film with vivid colors."
 )
 print(response)
 task_id = response.id

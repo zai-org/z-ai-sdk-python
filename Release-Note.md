@@ -1,127 +1,255 @@
-## Release Notes
+# Release Notes
 
-### 2024-08-12
+## v0.0.1a1 - Initial Release (2025-01-02)
 
-**New Features:**
-- Modified video prompt to be optional, added file deletion functionality
-- Added Assistant business logic
-- Fixed embedding 3 dimensions
+🎉 **Welcome to the first release of the Z.ai Python SDK!**
 
-### 2024-07-25
+This initial release provides comprehensive access to Z.ai's powerful AI capabilities through a modern, type-safe Python SDK.
 
-**Bug Fixes:**
-- Fixed cogvideo related issues
+### ✨ Core Features
 
-### 2024-07-12
+#### 🤖 **Chat Completions**
+- **Standard Chat**: Create chat completions with various models including `glm-4`, `charglm-3`
+- **Streaming Support**: Real-time streaming responses for interactive applications
+- **Tool Calling**: Function calling capabilities for enhanced AI interactions
+- **Character Role-Playing**: Support for character-based conversations with `charglm-3` model
+- **Multimodal Chat**: Image understanding capabilities with vision models
 
-**New Features:**
-- Added advanced search tool Web search business logic
-- Specified Python versions support (3.8, 3.9, 3.10, 3.11, 3.12)
-- Integrated cogvideo business functionality
+#### 🧠 **Embeddings**
+- **Text Embeddings**: Generate high-quality vector embeddings for text
+- **Configurable Dimensions**: Customizable embedding dimensions
+- **Batch Processing**: Support for multiple inputs in a single request
 
-### 2024-05-20
+#### 🎥 **Video Generation**
+- **Text-to-Video**: Generate videos from text prompts
+- **Image-to-Video**: Create videos from image inputs
+- **Customizable Parameters**: Control quality, duration, FPS, and size
+- **Audio Support**: Optional audio generation for videos
 
-**Improvements:**
-- Fixed some `python3.12` dependency issues
-- Added pagination processing code, rewrote instantiation rules for some response classes
-- Added type conversion validation
-- Added batch task related APIs
-- Added file stream response wrapper
+#### 🎵 **Audio Processing**
+- **Speech Transcription**: Convert audio files to text
+- **Multiple Formats**: Support for various audio file formats
 
-### 2024-04-29
+#### 🤝 **Assistant API**
+- **Conversation Management**: Structured conversation handling
+- **Streaming Conversations**: Real-time assistant interactions
+- **Metadata Support**: Rich conversation context and user information
 
-**Improvements:**
-- Fixed some `python3.7` code compatibility issues
-- Added interface failure retry mechanism, controlled by `retry` parameter with default of 3 retries
-- Adjusted interface timeout strategy, controlled by `Timeout` for interface `connect` and `read` timeout, default `timeout=300.0, connect=8.0`
-- Added support for super-humanoid large model parameters in conversation module, `model="charglm-3"`, `meta` parameter support
+#### 🔧 **Advanced Tools**
+- **Web Search**: Integrated web search capabilities
+- **File Management**: Upload, download, and manage files
+- **Batch Operations**: Efficient batch processing for multiple requests
+- **Knowledge Base**: Knowledge management and retrieval
+- **Content Moderation**: Built-in content safety and moderation
+- **Image Generation**: AI-powered image creation
+- **Fine-tuning**: Custom model training capabilities
 
-### 2024-04-23
+### 🛡️ **Developer Experience**
 
-**Improvements:**
-- Fixed some compatibility issues with `pydantic<3,>=1.9.0`
-- Message processing business request and response parameters can be extended through configuration
-- Compatible with some parameters `top_p:1`, `temperature:0` (do_sample rewritten to false, parameters top_p temperature do not take effect)
-- Image understanding part, image_url parameter base64 content containing `data:image/jpeg;base64` compatibility
-- Removed JWT authentication logic
+#### **Type Safety**
+- Complete type annotations for all APIs
+- Full IDE support with autocomplete and type checking
+- Pydantic-based request/response validation
+
+#### **Error Handling**
+- Comprehensive error types for different failure scenarios
+- Detailed error messages and debugging information
+- Automatic retry mechanisms with configurable settings
+
+#### **Performance & Reliability**
+- Built-in connection pooling and request optimization
+- Configurable timeout and retry strategies
+- Efficient resource management
+
+#### **Security**
+- Secure API key management
+- Optional token caching with security controls
+- Built-in authentication handling
+
+### 📋 **Technical Specifications**
+
+#### **Python Support**
+- **Python Versions**: 3.8, 3.9, 3.10, 3.11, 3.12
+- **Async Support**: Full async/await compatibility
+- **Cross-platform**: Windows, macOS, Linux support
+
+#### **Dependencies**
+- `httpx` (≥0.23.0): Modern HTTP client
+- `pydantic` (≥1.9.0, <3.0): Data validation and serialization
+- `typing-extensions` (≥4.0.0): Enhanced type hints
+- `cachetools` (≥4.2.2): Caching utilities
+- `pyjwt` (~2.8.0): JWT token handling
+
+### 🚀 **Getting Started**
+
+```bash
+pip install z-ai
+```
+
+```python
+from zai import ZaiClient
+
+# Initialize client
+client = ZaiClient(api_key="your-api-key")
+
+# Create chat completion
+response = client.chat.completions.create(
+    model="glm-4",
+    messages=[{"role": "user", "content": "Hello, Z.ai!"}]
+)
+
+print(response.choices[0].message.content)
+```
+
+### 📚 **Documentation & Support**
+
+- **Documentation**: [Z.ai Open Platform](https://docs.z.ai/)
+- **Examples**: Comprehensive examples in the `/examples` directory
+- **Community**: GitHub Issues and Discussions
+- **Contact**: user_feedback@z.ai
+
+### 🔮 **What's Next**
+
+This initial release establishes the foundation for Z.ai's Python SDK. Future releases will include:
+- Additional model support
+- Enhanced streaming capabilities
+- More advanced tool integrations
+- Performance optimizations
+- Extended documentation and examples
 
 ---
 
 ## Migration Guide
 
-For users upgrading from older versions, please note the following breaking changes:
+*This is the initial release - no migration needed!*
 
-### From v3.x to v4.x
-
-- API key configuration has been simplified
-- Some method signatures have changed for better type safety
-- Error handling has been improved with more specific exception types
-
-## Support
-
-For questions about specific versions or upgrade assistance, please visit our [documentation](https://open.bigmodel.cn/) or contact our support team.
+For future versions, migration guides will be provided here to help you upgrade smoothly.
 
 ---
 
-## 版本更新
+# 版本更新
 
-### 2024-08-12
+## v0.0.1a1 - 首次发布 (2025-07-15)
 
-**新功能：**
-- ✅ 视频提示词设为可选，新增文件删除功能
-- ✅ 智能助手业务逻辑
-- 🔧 修复 embedding 3 维度问题
+🎉 **欢迎使用 Z.ai Python SDK 的首个版本！**
 
-### 2024-07-25
+这个初始版本通过现代化、类型安全的 Python SDK 提供了对 Z.ai 强大 AI 能力的全面访问。
 
-**问题修复：**
-- 🔧 修复 cogvideo 相关问题
+### ✨ 核心功能
 
-### 2024-07-12
+#### 🤖 **对话补全**
+- **标准对话**: 支持 `glm-4`、`charglm-3` 等多种模型的对话补全
+- **流式支持**: 实时流式响应，适用于交互式应用
+- **工具调用**: 函数调用能力，增强 AI 交互体验
+- **角色扮演**: 支持基于 `charglm-3` 模型的角色对话
+- **多模态对话**: 支持图像理解的视觉模型
 
-**新功能：**
-- ✅ 高级搜索工具 Web search 业务逻辑
-- ✅ 指定 Python 版本支持 (3.8, 3.9, 3.10, 3.11, 3.12)
-- ✅ 集成 cogvideo 业务功能
+#### 🧠 **向量嵌入**
+- **文本嵌入**: 生成高质量的文本向量嵌入
+- **可配置维度**: 自定义嵌入向量维度
+- **批量处理**: 单次请求支持多个输入
 
-### 2024-05-20
+#### 🎥 **视频生成**
+- **文本生成视频**: 从文本提示生成视频
+- **图像生成视频**: 从图像输入创建视频
+- **参数可定制**: 控制质量、时长、帧率和尺寸
+- **音频支持**: 可选的视频音频生成
 
-**改进优化：**
-- 🔧 修复部分 `python3.12` 依赖问题
-- ✅ 新增分页处理代码，重写部分响应类实例化规则
-- ✅ 新增类型转换校验
-- ✅ 批处理任务相关 API
-- ✅ 文件流响应包装器
+#### 🎵 **音频处理**
+- **语音转录**: 将音频文件转换为文本
+- **多格式支持**: 支持各种音频文件格式
 
-### 2024-04-29
+#### 🤝 **智能助手 API**
+- **对话管理**: 结构化对话处理
+- **流式对话**: 实时助手交互
+- **元数据支持**: 丰富的对话上下文和用户信息
 
-**改进优化：**
-- 🔧 修复部分 `python3.7` 代码兼容性问题
-- ✅ 接口失败重试机制，通过 `retry` 参数控制重试次数，默认 3 次
-- ⏱️ 调整接口超时策略，通过 `Timeout` 控制接口 `connect` 和 `read` 超时时间，默认 `timeout=300.0, connect=8.0`
-- ✅ 对话模块新增超拟人大模型参数支持，`model="charglm-3"`，`meta` 参数支持
+#### 🔧 **高级工具**
+- **网络搜索**: 集成的网络搜索功能
+- **文件管理**: 上传、下载和管理文件
+- **批量操作**: 多请求的高效批量处理
+- **知识库**: 知识管理和检索
+- **内容审核**: 内置内容安全和审核
+- **图像生成**: AI 驱动的图像创建
+- **模型微调**: 自定义模型训练功能
 
-### 2024-04-23
+### 🛡️ **开发者体验**
 
-**改进优化：**
-- 🔧 修复部分 `pydantic<3,>=1.9.0` 兼容性问题
-- ✅ 报文处理的业务请求参数和响应参数可通过配置扩充
-- ✅ 兼容部分参数 `top_p:1`，`temperature:0`（do_sample 重写为 false，参数 top_p temperature 不生效）
-- ✅ 图像理解部分，image_url 参数 base64 内容包含 `data:image/jpeg;base64` 兼容性
-- 🔄 删除 JWT 认证逻辑
+#### **类型安全**
+- 所有 API 的完整类型注解
+- 完整的 IDE 支持，包括自动补全和类型检查
+- 基于 Pydantic 的请求/响应验证
+
+#### **错误处理**
+- 针对不同失败场景的全面错误类型
+- 详细的错误消息和调试信息
+- 可配置设置的自动重试机制
+
+#### **性能与可靠性**
+- 内置连接池和请求优化
+- 可配置的超时和重试策略
+- 高效的资源管理
+
+#### **安全性**
+- 安全的 API 密钥管理
+- 带安全控制的可选令牌缓存
+- 内置身份验证处理
+
+### 📋 **技术规格**
+
+#### **Python 支持**
+- **Python 版本**: 3.8, 3.9, 3.10, 3.11, 3.12
+- **异步支持**: 完整的 async/await 兼容性
+- **跨平台**: Windows、macOS、Linux 支持
+
+#### **依赖项**
+- `httpx` (≥0.23.0): 现代 HTTP 客户端
+- `pydantic` (≥1.9.0, <3.0): 数据验证和序列化
+- `typing-extensions` (≥4.0.0): 增强类型提示
+- `cachetools` (≥4.2.2): 缓存工具
+- `pyjwt` (~2.8.0): JWT 令牌处理
+
+### 🚀 **快速开始**
+
+```bash
+pip install z-ai
+```
+
+```python
+from zai import ZaiClient
+
+# 初始化客户端
+client = ZaiClient(api_key="your-api-key")
+
+# 创建对话补全
+response = client.chat.completions.create(
+    model="glm-4",
+    messages=[{"role": "user", "content": "你好，Z.ai！"}]
+)
+
+print(response.choices[0].message.content)
+```
+
+### 📚 **文档与支持**
+
+- **文档**: [Z.ai 开放平台](https://docs.z.ai/)
+- **示例**: `/examples` 目录中的全面示例
+- **社区**: GitHub Issues 和 Discussions
+- **联系**: user_feedback@z.ai
+
+### 🔮 **未来规划**
+
+这个初始版本为 Z.ai Python SDK 奠定了基础。未来版本将包括：
+- 更多模型支持
+- 增强的流式功能
+- 更多高级工具集成
+- 性能优化
+- 扩展的文档和示例
 
 ---
 
 ## 迁移指南
 
-对于从旧版本升级的用户，请注意以下重大变更：
+*这是初始版本 - 无需迁移！*
 
-### 从 v3.x 到 v4.x
-
-- API 密钥配置已简化
-- 部分方法签名已更改以提供更好的类型安全性
-- 错误处理已改进，提供更具体的异常类型
-
-## 技术支持
-
-如有特定版本问题或升级协助需求，请访问我们的[文档](https://open.bigmodel.cn/)或联系我们的支持团队。
+对于未来版本，我们将在此提供迁移指南，帮助您顺利升级。

@@ -12,7 +12,7 @@ def test_embeddings(logging_conf):
 	try:
 		response = client.embeddings.create(
 			model='embedding-2',  # Fill in the model name to call
-			input='你好',
+			input='hello',
 			extra_body={'model_version': 'v1'},
 		)
 		print(response)
@@ -32,7 +32,7 @@ def test_embeddings_dimensions(logging_conf):
 	try:
 		response = client.embeddings.create(
 			model='embedding-3',  # Fill in the model name to call
-			input='你好',
+			input='hello',
 			dimensions=512,
 			extra_body={'model_version': 'v1'},
 		)

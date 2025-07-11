@@ -12,7 +12,7 @@ def test_finetuning_create(logging_conf):
 		job = client.fine_tuning.jobs.create(
 			model='chatglm3-6b',
 			training_file='file-20240428021923715-xjng4',  # Please fill in the successfully uploaded file id
-		validation_file='file-20240428021923715-xjng4',  # Please fill in the successfully uploaded file id
+			validation_file='file-20240428021923715-xjng4',  # Please fill in the successfully uploaded file id
 			suffix='demo_test',
 		)
 		job_id = job.id
@@ -99,8 +99,8 @@ def test_model_check(logging_conf):
 		response = client.chat.completions.create(
 			model='chatglm3-6b-8572905046912426020-demo_test',  # Fill in the model name to call
 			messages=[
-				{'role': 'user', 'content': '你是一位乐于助人，知识渊博的全能AI助手。'},
-				{'role': 'user', 'content': '创造一个更精准、吸引人的slogan'},
+				{'role': 'user', 'content': 'You are a helpful, knowledgeable, and versatile AI assistant.'},
+				{'role': 'user', 'content': 'Create a more precise and engaging slogan'},
 			],
 			extra_body={'temperature': 0.5, 'max_tokens': 50},
 		)

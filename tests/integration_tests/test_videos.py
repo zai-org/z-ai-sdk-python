@@ -9,7 +9,7 @@ def test_videos(logging_conf):
 	logging.config.dictConfig(logging_conf)  # type: ignore
 	client = ZaiClient()  # Fill in your own API Key
 	try:
-		response = client.videos.generations(model='cogvideox', prompt='一个开船的人', user_id='1212222')
+		response = client.videos.generations(model='cogvideox', prompt='A person sailing a boat', user_id='1212222')
 		print(response)
 
 	except zai.core._errors.APIRequestFailedError as err:
@@ -26,7 +26,7 @@ def test_videos_sensitive_word_check(logging_conf):
 	try:
 		response = client.videos.generations(
 			model='cogvideo',
-			prompt='一个开船的人',
+			prompt='A person sailing a boat',
 			sensitive_word_check={'type': 'ALL', 'status': 'DISABLE'},
 			user_id='1212222',
 		)
@@ -47,7 +47,7 @@ def test_videos_image_url(logging_conf):
 		response = client.videos.generations(
 			model='cogvideo',
 			image_url='https://cdn.bigmodel.cn/static/platform/images/solutions/car/empowerment/icon-metric.png',
-			prompt='一些相信光的人，举着奥特曼',
+			prompt='A person holding a light',
 			user_id='12222211',
 		)
 		print(response)

@@ -14,7 +14,7 @@ def test_assistant(logging_conf) -> None:
 			messages=[
 				{
 					'role': 'user',
-					'content': [{'type': 'text', 'text': '帮我搜索下智谱的cogvideox发布时间'}],
+					'content': [{'type': 'text', 'text': "Help me search for the release date of Z.ai's CogVideoX"}],
 				}
 			],
 			stream=True,
@@ -77,7 +77,7 @@ def test_translate_api(logging_conf) -> None:
 	try:
 		translate_response = client.assistant.conversation(
 			assistant_id='9996ijk789lmn012o345p999',
-			messages=[{'role': 'user', 'content': [{'type': 'text', 'text': '你好呀'}]}],
+			messages=[{'role': 'user', 'content': [{'type': 'text', 'text': 'hello'}]}],
 			stream=True,
 			attachments=None,
 			metadata=None,

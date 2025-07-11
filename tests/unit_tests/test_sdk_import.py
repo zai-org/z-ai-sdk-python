@@ -16,6 +16,6 @@ def test_sdk_import():
 	client = ZaiClient(api_key='empty')  # Please fill in your own API Key
 
 	if client is not None:
-		print('SDK导入成功')
+		print('SDK import success')
 	else:
-		print('SDK导入失败')
+		print('SDK import failed')
