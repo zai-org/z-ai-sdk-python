@@ -1,12 +1,12 @@
 # Z.ai Open Platform Python SDK
 
-[![PyPI version](https://img.shields.io/pypi/v/zai.svg)](https://pypi.org/project/zai/)
+[![PyPI version](https://img.shields.io/pypi/v/zai-sdk.svg)](https://pypi.org/project/zai-sdk/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 
 [中文文档](README_CN.md) | English
 
-The official Python SDK for Z.ai's large model open interface, making it easier for developers to call Z.ai's open APIs.
+[Z.ai Open Platform](https://docs.z.ai/) The official Python SDK for Z.ai's large model open interface, making it easier for developers to call Z.ai's open APIs.
 
 ## ✨ Core Features
 
@@ -56,7 +56,7 @@ The official Python SDK for Z.ai's large model open interface, making it easier 
 ### Install via pip
 
 ```bash
-pip install z-ai
+pip install zai-sdk
 ```
 
 ### 📋 **Technical Specifications**

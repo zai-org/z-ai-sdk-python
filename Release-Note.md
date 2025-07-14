@@ -83,7 +83,7 @@ This initial release provides comprehensive access to Z.ai's powerful AI capabil
 ### 🚀 **Getting Started**
 
 ```bash
-pip install z-ai
+pip install zai-sdk
 ```
 
 ```python
@@ -212,7 +212,7 @@ For future versions, migration guides will be provided here to help you upgrade 
 ### 🚀 **快速开始**
 
 ```bash
-pip install z-ai
+pip install zai-sdk
 ```
 
 ```python
