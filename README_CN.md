@@ -253,7 +253,7 @@ response = client.assistant.conversation(
             'content': [
                 {
                     'type': 'text',
-                    'text': 'Help me search for the latest ZhipuAI product information',
+                    'text': 'Help me search for the latest Z.ai product information',
                 }
             ],
         }
