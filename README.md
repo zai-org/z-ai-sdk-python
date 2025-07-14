@@ -260,7 +260,7 @@ client = ZaiClient(api_key="your-api-key")
 # Create assistant conversation
 response = client.assistant.conversation(
     # You can use 65940acff94777010aa6b796 for testing
-    # or you can create your own assistant_id in ZhipuAI console
+    # or you can create your own assistant_id in Z.ai console
     assistant_id='your own assistant_id',
     model='glm-4-assistant',
     messages=[
@@ -269,7 +269,7 @@ response = client.assistant.conversation(
             'content': [
                 {
                     'type': 'text',
-                    'text': 'Help me search for the latest ZhipuAI product information',
+                    'text': 'Help me search for the latest Z.ai product information',
                 }
             ],
         }
