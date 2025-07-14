@@ -96,7 +96,7 @@ client = ZaiClient(api_key="your-api-key")
 response = client.chat.completions.create(
     model="glm-4",
     messages=[
-        {"role": "user", "content": "Hello, ZaiClient!"}
+        {"role": "user", "content": "Hello, Z.ai!"}
     ]
 )
 print(response.choices[0].message.content)
