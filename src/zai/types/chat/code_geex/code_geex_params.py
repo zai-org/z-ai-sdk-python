@@ -11,13 +11,13 @@ __all__ = [
 
 class CodeGeexTarget(TypedDict, total=False):
 	"""
-	Completion target parameters
+	Code completion target parameters
 
 	Attributes:
-		path (Optional[str]): File path
-		language (Required[Literal[]]): Program language
-		code_prefix (Optional[str]): The text before the completion position
-		code_suffix (Optional[str]): The text after the completion position
+		path (str | None): File path
+		language (Literal[]): Programming language, such as python
+		code_prefix (str): The text before the completion position
+		code_suffix (str): The text after the completion position
 	"""
 
 	path: Optional[str]
@@ -130,7 +130,6 @@ class CodeGeexTarget(TypedDict, total=False):
 			'ada',
 		]
 	]
-	"""Code language type, such as python"""
 	code_prefix: Required[str]
 	code_suffix: Required[str]
 
@@ -140,8 +139,8 @@ class CodeGeexContext(TypedDict, total=False):
 	Additional code
 
 	Attributes:
-		path (Required[str]): Path to the additional code file
-		code (Required[str]): Additional code content
+		path (str): Path to the additional code file
+		code (str): Additional code content
 	"""
 
 	path: Required[str]
@@ -150,11 +149,11 @@ class CodeGeexContext(TypedDict, total=False):
 
 class CodeGeexExtra(TypedDict, total=False):
 	"""
-	Completion extra parameters
+	Code completion extra parameters
 
 	Attributes:
-		target (Required[CodeGeexTarget]): Completion target parameters
-		contexts (Optional[List[CodeGeexContext]]): Additional code
+		target (CodeGeexTarget): Code completion target parameters
+		contexts (List[CodeGeexContext] | None): Additional code
 	"""
 
 	target: Required[CodeGeexTarget]

@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "z-ai"
+name = "zai-sdk"
 version = "0.0.1a1"
 description = "A SDK library for accessing big model apis from Z.ai"
 authors = ["Z.ai"]
