@@ -1,12 +1,12 @@
 #  Z.ai 开放平台 Python SDK
 
-[![PyPI version](https://img.shields.io/pypi/v/z-ai.svg)](https://pypi.org/project/z-ai/)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Python](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/)
+[![PyPI version](https://img.shields.io/pypi/v/zai-sdk.svg)](https://pypi.org/project/zai-sdk/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 
 [English Readme](README.md)
 
-[ Z.ai 开放平台](https://github.com/THUDM/z-ai-sdk-python)官方 Python SDK，帮助开发者快速集成 Z.ai 强大的人工智能能力到Python应用中。
+[Z.ai 开放平台](https://docs.z.ai/)官方 Python SDK，帮助开发者快速集成 Z.ai 强大的人工智能能力到Python应用中。
 
 ## ✨ 核心功能
 
@@ -55,7 +55,7 @@
 ### 使用 pip 安装
 
 ```sh
-pip install z-ai
+pip install zai-sdk
 ```
 ### 📋 **技术规格**
 
