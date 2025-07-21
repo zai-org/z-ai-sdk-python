@@ -2,10 +2,8 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from ..core import BaseModel
-from .chat.chat_completion import CompletionUsage
-
-__all__ = ['Embedding', 'EmbeddingsResponded']
+from zai.core import BaseModel
+from zai.types.chat.chat_completion import CompletionUsage
 
 
 class Embedding(BaseModel):

@@ -3,13 +3,13 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING, Dict, List, Union
 
-from ...core import BaseAPI, deepcopy_minimal
-from ...types.moderation.moderation_completion import Completion
+from zai.core import BaseAPI, deepcopy_minimal
+from zai.types.moderation.moderation_completion import Completion
 
 logger = logging.getLogger(__name__)
 
 if TYPE_CHECKING:
-	from ..._client import ZaiClient
+	from zai._client import ZaiClient
 
 
 class Moderations(BaseAPI):

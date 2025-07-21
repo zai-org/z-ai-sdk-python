@@ -3,7 +3,7 @@ from .assistant import (
 	Assistant,
 )
 from .audio import Audio
-from .batches import Batches
+from .batch import Batches
 from .chat import (
 	AsyncCompletions,
 	Chat,

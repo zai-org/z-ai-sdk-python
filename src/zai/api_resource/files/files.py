@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING, List, Mapping, cast
 import httpx
 from typing_extensions import Literal
 
-from ..core import (
+from zai.core import (
 	NOT_GIVEN,
 	BaseAPI,
 	Body,
@@ -19,7 +19,7 @@ from ..core import (
 	make_request_options,
 	maybe_transform,
 )
-from ..types.files import (
+from zai.types.files import (
 	FileDeleted,
 	FileObject,
 	ListOfFileObject,
@@ -29,8 +29,6 @@ from ..types.files import (
 
 if TYPE_CHECKING:
 	from .._client import ZaiClient
-
-__all__ = ['Files', 'FilesWithRawResponse']
 
 
 class Files(BaseAPI):

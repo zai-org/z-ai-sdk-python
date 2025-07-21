@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING, Dict, List, Mapping, Optional, cast
 import httpx
 from typing_extensions import Literal
 
-from ....core import (
+from zai.core import (
 	NOT_GIVEN,
 	BaseAPI,
 	Body,
@@ -17,19 +17,17 @@ from ....core import (
 	make_request_options,
 	maybe_transform,
 )
-from ....types.files import UploadDetail, file_create_params
-from ....types.knowledge.document import (
+from zai.types.files import UploadDetail, file_create_params
+from zai.types.knowledge.document import (
 	DocumentData,
 	DocumentObject,
 	document_edit_params,
 	document_list_params,
 )
-from ....types.knowledge.document.document_list_resp import DocumentPage
+from zai.types.knowledge.document.document_list_resp import DocumentPage
 
 if TYPE_CHECKING:
-	from ...._client import ZaiClient
-
-__all__ = ['Document']
+	from zai._client import ZaiClient
 
 
 class Document(BaseAPI):

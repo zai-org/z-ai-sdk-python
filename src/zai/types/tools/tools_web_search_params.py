@@ -4,8 +4,6 @@ from typing import List, Optional, Union
 
 from typing_extensions import TypedDict
 
-__all__ = ['WebSearchParams']
-
 
 class WebSearchParams(TypedDict):
 	"""

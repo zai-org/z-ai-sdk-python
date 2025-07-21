@@ -2,9 +2,7 @@ from typing import List
 
 from typing_extensions import Literal
 
-__all__ = ['CodeInterpreterToolBlock']
-
-from .....core import BaseModel
+from zai.core import BaseModel
 
 
 class CodeInterpreterToolOutput(BaseModel):

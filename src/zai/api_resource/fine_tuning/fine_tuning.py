@@ -1,6 +1,7 @@
 from typing import TYPE_CHECKING
 
-from ...core import BaseAPI, cached_property
+from zai.core import BaseAPI, cached_property
+
 from .jobs import Jobs
 from .models import FineTunedModels
 

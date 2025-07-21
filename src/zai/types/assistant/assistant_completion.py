@@ -1,9 +1,7 @@
 from typing import Any, Dict, List, Optional
 
-from ...core import BaseModel
-from .message import MessageContent
-
-__all__ = ['AssistantCompletion', 'CompletionUsage']
+from zai.core import BaseModel
+from zai.types.assistant.message import MessageContent
 
 
 class ErrorInfo(BaseModel):

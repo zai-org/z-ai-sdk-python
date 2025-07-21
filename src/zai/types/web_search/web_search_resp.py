@@ -1,11 +1,6 @@
 from typing import Optional
 
-from ...core import BaseModel
-
-__all__ = [
-	'SearchIntentResp',
-	'SearchResultResp',
-]
+from zai.core import BaseModel
 
 
 class SearchIntentResp(BaseModel):

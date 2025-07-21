@@ -2,7 +2,7 @@ from typing import List
 
 from typing_extensions import Literal
 
-from .....core import BaseModel
+from zai.core import BaseModel
 
 
 class RetrievalToolOutput(BaseModel):

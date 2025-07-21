@@ -2,10 +2,8 @@ from typing import List
 
 from typing_extensions import Literal
 
-from ....core import BaseModel
-from .tools.tools_type import ToolsType
-
-__all__ = ['ToolsDeltaBlock']
+from zai.core import BaseModel
+from zai.types.assistant.message.tools.tools_type import ToolsType
 
 
 class ToolsDeltaBlock(BaseModel):

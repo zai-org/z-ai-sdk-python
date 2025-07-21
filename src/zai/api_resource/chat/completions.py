@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING, Dict, List, Optional, Union
 import httpx
 from typing_extensions import Literal
 
-from ...core import (
+from zai.core import (
 	NOT_GIVEN,
 	BaseAPI,
 	Body,
@@ -18,15 +18,15 @@ from ...core import (
 	make_request_options,
 	maybe_transform,
 )
-from ...types.chat.chat_completion import Completion
-from ...types.chat.chat_completion_chunk import ChatCompletionChunk
-from ...types.chat.code_geex import code_geex_params
-from ...types.sensitive_word_check import SensitiveWordCheckRequest
+from zai.types.chat.chat_completion import Completion
+from zai.types.chat.chat_completion_chunk import ChatCompletionChunk
+from zai.types.chat.code_geex import code_geex_params
+from zai.types.sensitive_word_check import SensitiveWordCheckRequest
 
 logger = logging.getLogger(__name__)
 
 if TYPE_CHECKING:
-	from ..._client import ZaiClient
+	from zai._client import ZaiClient
 
 
 class Completions(BaseAPI):

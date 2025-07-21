@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING, List, Optional
 import httpx
 from typing_extensions import Literal
 
-from ...core import (
+from zai.core import (
 	NOT_GIVEN,
 	BaseAPI,
 	Body,
@@ -16,16 +16,16 @@ from ...core import (
 	make_request_options,
 	maybe_transform,
 )
-from ...types.assistant import AssistantCompletion
-from ...types.assistant.assistant_conversation_resp import (
+from zai.types.assistant import AssistantCompletion
+from zai.types.assistant.assistant_conversation_resp import (
 	ConversationUsageListResp,
 )
-from ...types.assistant.assistant_support_resp import AssistantSupportResp
+from zai.types.assistant.assistant_support_resp import AssistantSupportResp
 
 if TYPE_CHECKING:
-	from ..._client import ZaiClient
+	from zai._client import ZaiClient
 
-from ...types.assistant import assistant_conversation_params, assistant_create_params
+from zai.types.assistant import assistant_conversation_params, assistant_create_params
 
 __all__ = ['Assistant']
 

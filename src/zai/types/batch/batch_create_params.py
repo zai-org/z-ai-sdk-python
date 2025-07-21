@@ -4,8 +4,6 @@ from typing import Dict, Optional
 
 from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ['BatchCreateParams']
-
 
 class BatchCreateParams(TypedDict, total=False):
 	completion_window: Required[str]

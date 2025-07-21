@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING, List, Optional, Union
 import httpx
 from typing_extensions import Literal
 
-from ...core import (
+from zai.core import (
 	NOT_GIVEN,
 	BaseAPI,
 	Body,
@@ -16,14 +16,14 @@ from ...core import (
 	deepcopy_minimal,
 	make_request_options,
 )
-from ...types.agents.agents_completion import AgentsCompletion
-from ...types.agents.agents_completion_chunk import AgentsCompletionChunk
-from ...types.sensitive_word_check import SensitiveWordCheckRequest
+from zai.types.agents.agents_completion import AgentsCompletion
+from zai.types.agents.agents_completion_chunk import AgentsCompletionChunk
+from zai.types.sensitive_word_check import SensitiveWordCheckRequest
 
 logger = logging.getLogger(__name__)
 
 if TYPE_CHECKING:
-	from ..._client import ZaiClient
+	from zai._client import ZaiClient
 
 
 class Agents(BaseAPI):

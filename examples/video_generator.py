@@ -4,6 +4,18 @@ import time
 
 from zai import ZaiClient
 
+# Try to load .env file
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    # If python-dotenv is not installed, continue using system environment variables
+    pass
+
+api_key = os.getenv('ZAI_API_KEY')
+if not api_key:
+    print("Please set the ZAI_API_KEY environment variable or configure it in the .env file")
+    exit()
 
 class VideoGenerator:
     def __init__(self, api_key: str):
@@ -83,20 +95,10 @@ class VideoGenerator:
 
 # Usage example
 async def main():
-    # Please fill in your own API Key
-    api_key = ''
-
-    if not api_key:
-        api_key = os.getenv('ZAI_API_KEY')
-
-    if not api_key:
-        print('Please set your API Key')
-        return
-
-    generator = VideoGenerator()
+    generator = VideoGenerator(api_key)
     try:
         result = await generator.video_generate(
-            prompt='A beautiful sunset beach scene',
+            prompt='A beautiful sunset beach scene with a beautiful girl',
             quality='quality',
             with_audio=True,
         )

@@ -1,8 +1,6 @@
 from typing import List, Optional, Union
 
-from ...core import BaseModel
-
-__all__ = ['FineTuningJob', 'Error', 'Hyperparameters', 'ListOfFineTuningJob']
+from zai.core import BaseModel
 
 
 class Error(BaseModel):

@@ -1,8 +1,6 @@
 from typing_extensions import Literal
 
-from ....core import BaseModel
-
-__all__ = ['TextContentBlock']
+from zai.core import BaseModel
 
 
 class TextContentBlock(BaseModel):

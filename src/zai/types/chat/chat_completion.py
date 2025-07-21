@@ -1,8 +1,6 @@
 from typing import List, Optional
 
-from ...core import BaseModel
-
-__all__ = ['Completion', 'CompletionUsage']
+from zai.core import BaseModel
 
 
 class Function(BaseModel):

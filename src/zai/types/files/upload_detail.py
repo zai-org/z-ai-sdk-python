@@ -1,6 +1,6 @@
 from typing import Dict, List, Optional
 
-from ...core import BaseModel
+from zai.core import BaseModel
 
 
 class UploadDetail(BaseModel):

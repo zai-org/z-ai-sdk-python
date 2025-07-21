@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING, Dict, Literal, Optional
 
 import httpx
 
-from ..core import (
+from zai.core import (
 	NOT_GIVEN,
 	BaseAPI,
 	Body,
@@ -13,9 +13,8 @@ from ..core import (
 	make_request_options,
 	maybe_transform,
 )
-from ..core.pagination import SyncCursorPage
-from ..types import batch_create_params, batch_list_params
-from ..types.batch import Batch
+from zai.core.pagination import SyncCursorPage
+from zai.types.batch import Batch, BatchCreateParams, BatchListParams
 
 if TYPE_CHECKING:
 	from .._client import ZaiClient
@@ -47,7 +46,7 @@ class Batches(BaseAPI):
 					'metadata': metadata,
 					'auto_delete_input_file': auto_delete_input_file,
 				},
-				batch_create_params.BatchCreateParams,
+				BatchCreateParams,
 			),
 			options=make_request_options(extra_headers=extra_headers, extra_body=extra_body, timeout=timeout),
 			cast_type=Batch,
@@ -119,7 +118,7 @@ class Batches(BaseAPI):
 						'after': after,
 						'limit': limit,
 					},
-					batch_list_params.BatchListParams,
+					BatchListParams,
 				),
 			),
 			model=Batch,

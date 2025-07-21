@@ -4,9 +4,7 @@ from typing import Optional
 
 from typing_extensions import TypedDict
 
-from ...types.sensitive_word_check import SensitiveWordCheckRequest
-
-__all__ = ['WebSearchCreatParams']
+from zai.types.sensitive_word_check import SensitiveWordCheckRequest
 
 
 class WebSearchCreatParams(TypedDict):

@@ -1,8 +1,6 @@
 from typing import List, Optional, Union
 
-from ...core import BaseModel
-
-__all__ = ['FineTuningJobEvent', 'Metric', 'JobEvent']
+from zai.core import BaseModel
 
 
 class Metric(BaseModel):

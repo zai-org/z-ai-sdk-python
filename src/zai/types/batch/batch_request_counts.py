@@ -1,6 +1,4 @@
-from ..core import BaseModel
-
-__all__ = ['BatchRequestCounts']
+from zai.core import BaseModel
 
 
 class BatchRequestCounts(BaseModel):

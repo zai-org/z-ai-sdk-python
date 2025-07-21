@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 
 import httpx
 
-from ....core import (
+from zai.core import (
 	NOT_GIVEN,
 	BaseAPI,
 	Body,
@@ -12,12 +12,10 @@ from ....core import (
 	NotGiven,
 	make_request_options,
 )
-from ....types.fine_tuning.models import FineTunedModelsStatus
+from zai.types.fine_tuning.models import FineTunedModelsStatus
 
 if TYPE_CHECKING:
-	from ...._client import ZaiClient
-
-__all__ = ['FineTunedModels']
+	from zai._client import ZaiClient
 
 
 class FineTunedModels(BaseAPI):
