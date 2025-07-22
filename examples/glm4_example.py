@@ -2,20 +2,6 @@ import os
 import time
 from zai import ZaiClient
 
-# Try to load .env file
-try:
-    from dotenv import load_dotenv
-    load_dotenv()
-except ImportError:
-    pass
-
-api_key = os.getenv('ZAI_API_KEY')
-if not api_key:
-    print("Please set the ZAI_API_KEY environment variable or configure it in the .env file.")
-    exit()
-
-client = ZaiClient(api_key=api_key)
-
 def stream_web_search_example():
     print("=== GLM-4 Streaming Web Search Example ===")
     tools = [{
@@ -35,6 +21,7 @@ def stream_web_search_example():
         "role": "user",
         "content": "Major financial events, policy changes, and market data in April 2025."
     }]
+    client = ZaiClient()
     response = client.chat.completions.create(
         model="glm-4-air",
         messages=messages,
@@ -46,6 +33,7 @@ def stream_web_search_example():
 
 def sync_example():
     print("=== GLM-4 Synchronous Example ===")
+    client = ZaiClient()
     response = client.chat.completions.create(
         model="glm-4-plus",
         messages=[
@@ -57,6 +45,7 @@ def sync_example():
 
 def async_example():
     print("=== GLM-4 Async Example ===")
+    client = ZaiClient()
     response = client.chat.asyncCompletions.create(
         model="glm-4-plus",
         messages=[
@@ -73,6 +62,7 @@ def async_result_example(task_id):
     print("=== GLM-4 Async Result Polling Example ===")
     task_status = ''
     get_cnt = 0
+    client = ZaiClient()
     while task_status != 'SUCCESS' and task_status != 'FAILED' and get_cnt <= 40:
         result_response = client.chat.asyncCompletions.retrieve_completion_result(id=task_id)
         print(result_response)

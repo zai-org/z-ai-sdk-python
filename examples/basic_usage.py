@@ -1,6 +1,5 @@
 from zai import ZaiClient
 
-
 def completion():
 	# Initialize client
 	client = ZaiClient()
@@ -161,8 +160,9 @@ def audio_transcription():
 
 
 if __name__ == '__main__':
+    completion()
 	# completion_with_websearch()
 	# multi_modal_chat()
 	# role_play()
 	# assistant_conversation()
-	video_generation()
+	# video_generation()

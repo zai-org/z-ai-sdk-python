@@ -31,15 +31,18 @@ class Videos(BaseAPI):
 
 	def generations(
 		self,
-		model: str,
 		*,
+		model: str,
 		prompt: str = None,
-		image_url: str | List[str] | None = None,
+		image_url: str | List[str] | dict | None = None,
 		quality: str = None,
 		with_audio: bool = None,
 		size: str = None,
 		duration: int = None,
 		fps: int = None,
+		style: str = None,
+		aspect_ratio: str = None,
+		movement_amplitude: str = None,
 		sensitive_word_check: Optional[SensitiveWordCheckRequest] | NotGiven = NOT_GIVEN,
 		request_id: str = None,
 		user_id: str = None,
@@ -53,12 +56,15 @@ class Videos(BaseAPI):
 		Arguments:
 			model (str): The model to use for video generation
 			prompt (str): Text description for video generation
-			image_url (str): URL of image to use as video input
-			quality (str): Quality level of the generated video
+			image_url (str | List[str] | dict): Image(s) for video generation (URL, Base64, or object)
+			quality (str): Output mode, "quality" or "speed"
 			with_audio (bool): Whether to include audio in the video
 			size (str): Size/resolution of the generated video
 			duration (int): Duration of the video in seconds
 			fps (int): Frames per second for the video
+			style (str): Style, e.g., "general", "anime"
+			aspect_ratio (str): Aspect ratio, e.g., "16:9", "9:16", "1:1"
+			movement_amplitude (str): Movement amplitude, e.g., "auto", "small", "medium", "large"
 			sensitive_word_check (Optional[SensitiveWordCheckRequest]): Sensitive word check configuration
 			request_id (str): Unique identifier for the request
 			user_id (str): User identifier
@@ -66,21 +72,24 @@ class Videos(BaseAPI):
 			extra_body (Body): Additional body parameters
 			timeout (float | httpx.Timeout): Request timeout
 		"""
-		if not model and not model:
-			raise ValueError('At least one of `model` and `prompt` must be provided.')
+		if not model:
+			raise ValueError('`model` must be provided.')
 		body = deepcopy_minimal(
 			{
 				'model': model,
 				'prompt': prompt,
 				'image_url': image_url,
-				'sensitive_word_check': sensitive_word_check,
-				'request_id': request_id,
-				'user_id': user_id,
 				'quality': quality,
 				'with_audio': with_audio,
 				'size': size,
 				'duration': duration,
 				'fps': fps,
+				'style': style,
+				'aspect_ratio': aspect_ratio,
+				'movement_amplitude': movement_amplitude,
+				'sensitive_word_check': sensitive_word_check,
+				'request_id': request_id,
+				'user_id': user_id,
 			}
 		)
 		return self._post(
