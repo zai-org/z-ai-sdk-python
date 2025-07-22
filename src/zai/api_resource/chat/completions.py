@@ -62,6 +62,7 @@ class Completions(BaseAPI):
 		extra_body: Body | None = None,
 		timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
 		response_format: object | None = None,
+		thinking: object | None = None,
 	) -> Completion | StreamResponse[ChatCompletionChunk]:
 		"""
 		Create a chat completion
@@ -87,6 +88,7 @@ class Completions(BaseAPI):
 			extra_body (Body): Additional request body parameters
 			timeout (float | httpx.Timeout): Request timeout
 			response_format (object): Response format specification
+			thinking (Optional[object]): Configuration parameters for model reasoning
 		"""
 		logger.debug(f'temperature:{temperature}, top_p:{top_p}')
 		if temperature is not None and temperature != NOT_GIVEN:
@@ -131,6 +133,7 @@ class Completions(BaseAPI):
 				'meta': meta,
 				'extra': maybe_transform(extra, code_geex_params.CodeGeexExtra),
 				'response_format': response_format,
+				"thinking": thinking
 			}
 		)
 		return self._post(
