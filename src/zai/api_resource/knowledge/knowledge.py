@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING, Optional
 import httpx
 from typing_extensions import Literal
 
-from ...core import (
+from zai.core import (
 	NOT_GIVEN,
 	BaseAPI,
 	Body,
@@ -16,19 +16,18 @@ from ...core import (
 	make_request_options,
 	maybe_transform,
 )
-from ...types.knowledge import (
+from zai.types.knowledge import (
 	KnowledgeInfo,
 	KnowledgeUsed,
 	knowledge_create_params,
 	knowledge_list_params,
 )
-from ...types.knowledge.knowledge_list_resp import KnowledgePage
+from zai.types.knowledge.knowledge_list_resp import KnowledgePage
+
 from .document import Document
 
 if TYPE_CHECKING:
-	from ..._client import ZaiClient
-
-__all__ = ['Knowledge']
+	from zai._client import ZaiClient
 
 
 class Knowledge(BaseAPI):

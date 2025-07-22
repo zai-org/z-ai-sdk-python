@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING, List, Optional, Union
 import httpx
 from typing_extensions import Literal
 
-from ...core import (
+from zai.core import (
 	NOT_GIVEN,
 	BaseAPI,
 	Body,
@@ -17,14 +17,12 @@ from ...core import (
 	make_request_options,
 	maybe_transform,
 )
-from ...types.tools import WebSearch, WebSearchChunk, tools_web_search_params
+from zai.types.tools import WebSearch, WebSearchChunk, tools_web_search_params
 
 logger = logging.getLogger(__name__)
 
 if TYPE_CHECKING:
-	from ..._client import ZaiClient
-
-__all__ = ['Tools']
+	from zai._client import ZaiClient
 
 
 class Tools(BaseAPI):

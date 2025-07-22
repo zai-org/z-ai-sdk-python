@@ -1,9 +1,7 @@
 from typing import List, Optional
 
-from ...core import BaseModel
-from .web_search import SearchIntent, SearchRecommend, SearchResult
-
-__all__ = ['WebSearchChunk']
+from zai.core import BaseModel
+from zai.types.tools.web_search import SearchIntent, SearchRecommend, SearchResult
 
 
 class ChoiceDeltaToolCall(BaseModel):

@@ -1,8 +1,6 @@
 from typing import ClassVar
 
-from ....core import PYDANTIC_V2, BaseModel, ConfigDict
-
-__all__ = ['FineTunedModelsStatus']
+from zai.core import PYDANTIC_V2, BaseModel, ConfigDict
 
 
 class FineTunedModelsStatus(BaseModel):

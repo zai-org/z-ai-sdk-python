@@ -1,7 +1,5 @@
 from typing import Dict, List, Optional, TypedDict
 
-__all__ = ['DocumentEditParams']
-
 
 class DocumentEditParams(TypedDict):
 	"""

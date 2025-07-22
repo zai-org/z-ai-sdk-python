@@ -2,9 +2,7 @@ from typing import List
 
 from typing_extensions import Literal
 
-from .....core import BaseModel
-
-__all__ = ['DrawingToolBlock']
+from zai.core import BaseModel
 
 
 class DrawingToolOutput(BaseModel):

@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 	from zai.api_resource.agents import Agents
 	from zai.api_resource.assistant import Assistant
 	from zai.api_resource.audio import Audio
-	from zai.api_resource.batches import Batches
+	from zai.api_resource.batch import Batches
 	from zai.api_resource.chat import Chat
 	from zai.api_resource.embeddings import Embeddings
 	from zai.api_resource.files import Files
@@ -139,7 +139,7 @@ class ZaiClient(HttpClient):
 
 	@cached_property
 	def batches(self) -> Batches:
-		from zai.api_resource.batches import Batches
+		from zai.api_resource.batch import Batches
 
 		return Batches(self)
 

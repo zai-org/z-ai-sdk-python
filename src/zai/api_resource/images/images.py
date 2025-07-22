@@ -4,12 +4,12 @@ from typing import TYPE_CHECKING, Optional
 
 import httpx
 
-from ..core import NOT_GIVEN, BaseAPI, Body, Headers, NotGiven, make_request_options
-from ..types.image import ImagesResponded
-from ..types.sensitive_word_check import SensitiveWordCheckRequest
+from zai.core import NOT_GIVEN, BaseAPI, Body, Headers, NotGiven, make_request_options
+from zai.types.image import ImagesResponded
+from zai.types.sensitive_word_check import SensitiveWordCheckRequest
 
 if TYPE_CHECKING:
-	from .._client import ZaiClient
+	from zai._client import ZaiClient
 
 
 class Images(BaseAPI):

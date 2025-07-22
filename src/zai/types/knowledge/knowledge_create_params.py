@@ -4,8 +4,6 @@ from typing import Optional
 
 from typing_extensions import Literal, TypedDict
 
-__all__ = ['KnowledgeBaseParams']
-
 
 class KnowledgeBaseParams(TypedDict):
 	"""

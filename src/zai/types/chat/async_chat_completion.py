@@ -1,9 +1,7 @@
 from typing import List, Optional
 
-from ...core import BaseModel
-from .chat_completion import CompletionChoice, CompletionUsage
-
-__all__ = ['AsyncTaskStatus', 'AsyncCompletion']
+from zai.core import BaseModel
+from zai.types.chat.chat_completion import CompletionChoice, CompletionUsage
 
 
 class AsyncTaskStatus(BaseModel):

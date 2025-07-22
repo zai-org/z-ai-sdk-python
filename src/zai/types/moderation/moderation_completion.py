@@ -1,8 +1,6 @@
 from typing import Dict, List, Optional, Union
 
-from ...core import BaseModel
-
-__all__ = ['Completion']
+from zai.core import BaseModel
 
 
 class Completion(BaseModel):

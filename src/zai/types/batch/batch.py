@@ -5,11 +5,9 @@ from typing import List, Optional
 
 from typing_extensions import Literal
 
-from ..core import BaseModel
-from .batch_error import BatchError
-from .batch_request_counts import BatchRequestCounts
-
-__all__ = ['Batch', 'Errors']
+from zai.core import BaseModel
+from zai.types.batch.batch_error import BatchError
+from zai.types.batch.batch_request_counts import BatchRequestCounts
 
 
 class Errors(BaseModel):

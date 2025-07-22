@@ -2,9 +2,7 @@ from typing import List
 
 from typing_extensions import Literal
 
-from .....core import BaseModel
-
-__all__ = ['WebBrowserToolBlock']
+from zai.core import BaseModel
 
 
 class WebBrowserOutput(BaseModel):

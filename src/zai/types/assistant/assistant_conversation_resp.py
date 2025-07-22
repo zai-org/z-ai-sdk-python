@@ -1,8 +1,6 @@
 from typing import List
 
-from ...core import BaseModel
-
-__all__ = ['ConversationUsageListResp']
+from zai.core import BaseModel
 
 
 class Usage(BaseModel):

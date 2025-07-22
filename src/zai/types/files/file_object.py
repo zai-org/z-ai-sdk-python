@@ -1,8 +1,6 @@
 from typing import List, Optional
 
-from ...core import BaseModel
-
-__all__ = ['FileObject', 'ListOfFileObject']
+from zai.core import BaseModel
 
 
 class FileObject(BaseModel):

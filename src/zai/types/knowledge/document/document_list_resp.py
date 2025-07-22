@@ -2,10 +2,8 @@ from __future__ import annotations
 
 from typing import List
 
-from ....core import BaseModel
-from . import DocumentData
-
-__all__ = ['DocumentPage']
+from zai.core import BaseModel
+from zai.types.knowledge.document.document import DocumentData
 
 
 class DocumentPage(BaseModel):

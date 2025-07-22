@@ -2,9 +2,7 @@
 
 from typing import Optional
 
-from ..core import BaseModel
-
-__all__ = ['BatchError']
+from zai.core import BaseModel
 
 
 class BatchError(BaseModel):

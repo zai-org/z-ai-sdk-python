@@ -4,9 +4,7 @@ from typing import Optional
 
 from typing_extensions import TypedDict
 
-__all__ = ['AudioCustomizationParam']
-
-from ..sensitive_word_check import SensitiveWordCheckRequest
+from zai.types.sensitive_word_check import SensitiveWordCheckRequest
 
 
 class AudioCustomizationParam(TypedDict, total=False):

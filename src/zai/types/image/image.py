@@ -2,9 +2,7 @@ from __future__ import annotations
 
 from typing import List, Optional
 
-from ..core import BaseModel
-
-__all__ = ['GeneratedImage', 'ImagesResponded']
+from zai.core import BaseModel
 
 
 class GeneratedImage(BaseModel):

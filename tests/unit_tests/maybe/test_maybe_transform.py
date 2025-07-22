@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from zai.core import maybe_transform
-from zai.types import batch_create_params
+from zai.types.batch import BatchCreateParams
 
 
 def test_response_joblist_model_cast() -> None:
@@ -10,6 +10,6 @@ def test_response_joblist_model_cast() -> None:
 			'endpoint': None,
 			'metadata': {'key': 'value'},
 		},
-		batch_create_params.BatchCreateParams,
+		BatchCreateParams,
 	)
 	assert isinstance(params, dict)

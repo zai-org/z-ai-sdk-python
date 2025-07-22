@@ -1,10 +1,10 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING, Optional, List
 
 import httpx
 
-from ...core import (
+from zai.core import (
 	NOT_GIVEN,
 	BaseAPI,
 	Body,
@@ -14,13 +14,11 @@ from ...core import (
 	make_request_options,
 	maybe_transform,
 )
-from ...types.sensitive_word_check import SensitiveWordCheckRequest
-from ...types.video import VideoObject, video_create_params
+from zai.types.sensitive_word_check import SensitiveWordCheckRequest
+from zai.types.video import VideoObject, video_create_params
 
 if TYPE_CHECKING:
-	from ..._client import ZaiClient
-
-__all__ = ['Videos']
+	from zai._client import ZaiClient
 
 
 class Videos(BaseAPI):
@@ -36,7 +34,7 @@ class Videos(BaseAPI):
 		model: str,
 		*,
 		prompt: str = None,
-		image_url: str = None,
+		image_url: str | List[str] | None = None,
 		quality: str = None,
 		with_audio: bool = None,
 		size: str = None,

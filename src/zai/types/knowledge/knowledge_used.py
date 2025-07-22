@@ -1,8 +1,6 @@
 from typing import Optional
 
-from ...core import BaseModel
-
-__all__ = ['KnowledgeStatistics', 'KnowledgeUsed']
+from zai.core import BaseModel
 
 
 class KnowledgeStatistics(BaseModel):

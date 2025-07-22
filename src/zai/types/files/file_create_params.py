@@ -4,10 +4,8 @@ from typing import List, Optional
 
 from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ['FileCreateParams']
-
-from ...core import FileTypes
-from . import UploadDetail
+from zai.core import FileTypes
+from zai.types.files.upload_detail import UploadDetail
 
 
 class FileCreateParams(TypedDict, total=False):

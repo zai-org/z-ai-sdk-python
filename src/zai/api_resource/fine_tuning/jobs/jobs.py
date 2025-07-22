@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING, Optional
 
 import httpx
 
-from ....core import (
+from zai.core import (
 	NOT_GIVEN,
 	BaseAPI,
 	Body,
@@ -12,7 +12,7 @@ from ....core import (
 	NotGiven,
 	make_request_options,
 )
-from ....types.fine_tuning import (
+from zai.types.fine_tuning import (
 	FineTuningJob,
 	FineTuningJobEvent,
 	ListOfFineTuningJob,
@@ -20,9 +20,7 @@ from ....types.fine_tuning import (
 )
 
 if TYPE_CHECKING:
-	from ...._client import ZaiClient
-
-__all__ = ['Jobs']
+	from zai._client import ZaiClient
 
 
 class Jobs(BaseAPI):

@@ -4,11 +4,11 @@ from typing import TYPE_CHECKING, List, Optional, Union
 
 import httpx
 
-from ..core import NOT_GIVEN, BaseAPI, Body, Headers, NotGiven, make_request_options
-from ..types.embeddings import EmbeddingsResponded
+from zai.core import NOT_GIVEN, BaseAPI, Body, Headers, NotGiven, make_request_options
+from zai.types.embeddings import EmbeddingsResponded
 
 if TYPE_CHECKING:
-	from .._client import ZaiClient
+	from zai._client import ZaiClient
 
 
 class Embeddings(BaseAPI):

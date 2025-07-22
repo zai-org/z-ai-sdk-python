@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING, Optional
 
 import httpx
 
-from ...core import (
+from zai.core import (
 	NOT_GIVEN,
 	BaseAPI,
 	Body,
@@ -15,16 +15,14 @@ from ...core import (
 	make_request_options,
 	maybe_transform,
 )
-from ...types.sensitive_word_check import SensitiveWordCheckRequest
-from ...types.web_search import web_search_create_params
-from ...types.web_search.web_search_resp import WebSearchResp
+from zai.types.sensitive_word_check import SensitiveWordCheckRequest
+from zai.types.web_search import web_search_create_params
+from zai.types.web_search.web_search_resp import WebSearchResp
 
 logger = logging.getLogger(__name__)
 
 if TYPE_CHECKING:
-	from ..._client import ZaiClient
-
-__all__ = ['WebSearchApi']
+	from zai._client import ZaiClient
 
 
 class WebSearchApi(BaseAPI):
