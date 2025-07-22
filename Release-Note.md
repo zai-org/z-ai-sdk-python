@@ -1,6 +1,196 @@
 # Release Notes
 
-## v0.0.1a1 - Initial Release (2025-01-02)
+## v0.0.1b1 - Major Enhancements & Restructuring (2025-07-22)
+
+🚀 **A comprehensive update focusing on developer experience, code organization, and expanded examples!**
+
+This release brings significant improvements to the SDK structure, comprehensive examples for all features, and enhanced developer experience.
+
+### 🎯 **Major Features Examples**
+
+#### 📹 **Comprehensive Video Generation Examples**
+- **Complete Model Coverage**: Added examples for all supported video generation models:
+  - `cogvideox-3`: Text-to-video, image-to-video, start-end frame video
+  - `cogvideox-2`: Enhanced text-to-video generation
+  - `viduq1-text`, `viduq1-image`, `viduq1-start-end`: VidU Q1 series models
+  - `vidu2-image`, `vidu2-start-end`, `vidu2-reference`: VidU 2 series models
+- **Advanced Features**: Support for 4K resolution, 60fps, audio generation, and custom quality settings
+- **Async Task Management**: Comprehensive polling and timeout handling for video generation tasks
+
+#### 🤖 **Agent Invocation System Examples**
+- **General Translation Agent**: Multi-language translation with streaming support
+  - Supports 10 languages: English, Chinese, Japanese, Korean, French, German, Spanish, Russian, Arabic, Portuguese
+  - Real-time streaming translation responses
+- **Special Effects Video Agent**: Advanced video creation with template support
+  - Async task submission and result polling
+  - Template-based video generation (e.g., "french_kiss" template)
+  - Image input support for video effects
+
+#### 🧠 **GLM-4 Model Integration Examples**
+- **Synchronous Calls**: Direct model invocation with web search tool integration
+- **Streaming Responses**: Real-time text generation with SSE support
+- **Asynchronous Operations**: Task-based async processing with result polling
+- **Tool Integration**: Built-in web search capabilities for enhanced responses
+
+#### 🔍 **Web Search Examples**
+- **Advanced Search Filters**: Domain filtering, recency filtering, content size control
+- **Multiple Search Engines**: Support for different search engines including "search_pro"
+- **Configurable Results**: Customizable result count (1-50) and content detail level
+- **GLM-4 Integration**: Seamless integration with chat models for search-enhanced responses
+
+### 🏗️ **Architecture & Code Organization**
+
+#### 📁 **Module Structure Refactoring**
+- **API Resources Reorganization**:
+  ```
+  src/zai/api_resource/
+  ├── embeddings/
+  │   ├── __init__.py
+  │   └── embeddings.py
+  ├── files/
+  │   ├── __init__.py
+  │   └── files.py
+  ├── images/
+  │   ├── __init__.py
+  │   └── images.py
+  └── batch/
+      ├── __init__.py
+      └── batches.py
+  ```
+
+- **Type Definitions Reorganization**:
+  ```
+  src/zai/types/
+  ├── batch/
+  │   ├── __init__.py
+  │   ├── batch.py
+  │   ├── batch_create_params.py
+  │   ├── batch_error.py
+  │   ├── batch_list_params.py
+  │   └── batch_request_counts.py
+  ├── image/
+  │   ├── __init__.py
+  │   └── image.py
+  ├── embeddings/
+  │   ├── __init__.py
+  │   └── embeddings.py
+  └── [other organized modules...]
+  ```
+
+#### 🔗 **Import System Overhaul**
+- **Absolute Imports**: Converted all relative imports (`from ..core`) to absolute imports (`from zai.core`)
+- **Centralized Exports**: Moved all `__all__` definitions from individual modules to `__init__.py` files
+- **Backward Compatibility**: Maintained full compatibility with existing import patterns
+- **Clean Dependencies**: Eliminated circular imports and improved module loading
+
+### 🛠️ **Developer Experience Improvements**
+
+#### ⚙️ **Environment Configuration**
+- **Enhanced .env Support**: Robust environment variable loading with `python-dotenv`
+- **Fallback Mechanisms**: Graceful fallback to system environment variables
+- **API Key Validation**: Comprehensive error handling for missing or invalid API keys
+- **Setup Guidance**: Clear instructions for environment configuration
+
+#### 🌍 **Internationalization**
+- **Complete English Translation**: All Chinese content translated to English
+  - Code comments and documentation
+  - Print statements and user messages
+  - Error messages and status updates
+  - Example code and variable names
+- **Consistent Terminology**: Standardized technical terms across all examples
+
+### 📚 **Comprehensive Example Suite**
+
+#### 📖 **New Example Files**
+- **`examples/video_models_examples.py`**: Complete guide for all video generation models
+- **`examples/agent_examples.py`**: Agent invocation patterns and best practices
+- **`examples/glm4_example.py`**: GLM-4 model usage in all modes (sync, async, streaming)
+- **`examples/web_search_example.py`**: Web search integration and configuration
+- **`examples/video_generator.py`**: Enhanced async video generation (updated)
+
+#### 🔧 **Enhanced Existing Examples**
+- **`examples/basic_usage.py`**: Maintained comprehensive basic SDK usage
+- **Error Handling**: Added proper exception handling across all examples
+- **Type Hints**: Enhanced type annotations for better IDE support
+- **Documentation**: Improved inline documentation and usage explanations
+
+### 🐛 **Bug Fixes & Stability**
+
+#### 🔧 **Import Resolution**
+- Fixed `ModuleNotFoundError` issues after module restructuring
+- Corrected import paths in `src/zai/_client.py` for batch operations
+- Resolved circular dependency issues in type definitions
+- Ensured backward compatibility for existing test imports
+
+#### 🔑 **API Key Management**
+- Fixed API key loading from `.env` files
+- Enhanced error messages for authentication issues
+- Improved error handling for missing environment variables
+
+#### ⏱️ **Async Operations**
+- Enhanced timeout and polling mechanisms for video generation
+- Improved error handling in async task management
+- Better exception handling for network and API errors
+
+### 📋 **Technical Improvements**
+
+#### 🏃‍♂️ **Performance Optimizations**
+- Optimized module loading with improved import structure
+- Reduced memory footprint through better resource management
+- Enhanced async operation handling in examples
+
+#### 🛡️ **Code Quality**
+- Consistent error handling patterns across all modules
+- Enhanced type safety with comprehensive type hints
+- Improved code documentation and comments
+- Standardized coding conventions
+
+### 📦 **Dependencies & Compatibility**
+
+#### 📌 **New Optional Dependencies**
+- `python-dotenv`: For enhanced environment variable management
+- Maintained backward compatibility - all dependencies remain optional
+
+#### 🔄 **Python Version Support**
+- Continued support for Python 3.8, 3.9, 3.10, 3.11, 3.12
+- Enhanced async/await compatibility
+- Cross-platform stability improvements
+
+### 🚀 **Migration Guide**
+
+#### ✅ **For Existing Users**
+1. **No Breaking Changes**: All existing code continues to work without modifications
+2. **Optional Enhancements**: Consider adding `.env` file for API key management
+3. **New Examples**: Explore new example files for advanced usage patterns
+4. **Import Compatibility**: All existing imports remain functional
+
+#### 📝 **Recommended Updates**
+```python
+# Before (still works)
+from zai import ZaiClient
+client = ZaiClient(api_key="your-key")
+
+# Enhanced (recommended)
+import os
+from zai import ZaiClient
+from dotenv import load_dotenv
+
+load_dotenv()
+api_key = os.getenv('ZAI_API_KEY')
+client = ZaiClient(api_key=api_key)
+```
+
+### 🔮 **What's Coming Next**
+
+- Additional video generation models and features
+- Enhanced streaming capabilities for all APIs
+- More agent templates and scenarios
+- Performance optimizations for large-scale usage
+- Extended tool integrations
+
+---
+
+## v0.0.1a1 - Initial Release (2025-07-14)
 
 🎉 **Welcome to the first release of the Z.ai Python SDK!**
 
@@ -121,135 +311,17 @@ This initial release establishes the foundation for Z.ai's Python SDK. Future re
 
 ## Migration Guide
 
-*This is the initial release - no migration needed!*
+### From v0.0.1a1 to v0.0.1b1
+*No breaking changes - all existing code continues to work!*
 
-For future versions, migration guides will be provided here to help you upgrade smoothly.
+**Optional Enhancements:**
+1. Add `.env` file support for better API key management
+2. Explore new example files for advanced usage patterns
+3. Consider using the new agent invocation examples
+4. Try the comprehensive video generation examples
 
----
-
-# 版本更新
-
-## v0.0.1a1 - 首次发布 (2025-07-15)
-
-🎉 **欢迎使用 Z.ai Python SDK 的首个版本！**
-
-这个初始版本通过现代化、类型安全的 Python SDK 提供了对 Z.ai 强大 AI 能力的全面访问。
-
-### ✨ 核心功能
-
-#### 🤖 **对话补全**
-- **标准对话**: 支持 `glm-4`、`charglm-3` 等多种模型的对话补全
-- **流式支持**: 实时流式响应，适用于交互式应用
-- **工具调用**: 函数调用能力，增强 AI 交互体验
-- **角色扮演**: 支持基于 `charglm-3` 模型的角色对话
-- **多模态对话**: 支持图像理解的视觉模型
-
-#### 🧠 **向量嵌入**
-- **文本嵌入**: 生成高质量的文本向量嵌入
-- **可配置维度**: 自定义嵌入向量维度
-- **批量处理**: 单次请求支持多个输入
-
-#### 🎥 **视频生成**
-- **文本生成视频**: 从文本提示生成视频
-- **图像生成视频**: 从图像输入创建视频
-- **参数可定制**: 控制质量、时长、帧率和尺寸
-- **音频支持**: 可选的视频音频生成
-
-#### 🎵 **音频处理**
-- **语音转录**: 将音频文件转换为文本
-- **多格式支持**: 支持各种音频文件格式
-
-#### 🤝 **智能助手 API**
-- **对话管理**: 结构化对话处理
-- **流式对话**: 实时助手交互
-- **元数据支持**: 丰富的对话上下文和用户信息
-
-#### 🔧 **高级工具**
-- **网络搜索**: 集成的网络搜索功能
-- **文件管理**: 上传、下载和管理文件
-- **批量操作**: 多请求的高效批量处理
-- **知识库**: 知识管理和检索
-- **内容审核**: 内置内容安全和审核
-- **图像生成**: AI 驱动的图像创建
-- **模型微调**: 自定义模型训练功能
-
-### 🛡️ **开发者体验**
-
-#### **类型安全**
-- 所有 API 的完整类型注解
-- 完整的 IDE 支持，包括自动补全和类型检查
-- 基于 Pydantic 的请求/响应验证
-
-#### **错误处理**
-- 针对不同失败场景的全面错误类型
-- 详细的错误消息和调试信息
-- 可配置设置的自动重试机制
-
-#### **性能与可靠性**
-- 内置连接池和请求优化
-- 可配置的超时和重试策略
-- 高效的资源管理
-
-#### **安全性**
-- 安全的 API 密钥管理
-- 带安全控制的可选令牌缓存
-- 内置身份验证处理
-
-### 📋 **技术规格**
-
-#### **Python 支持**
-- **Python 版本**: 3.8, 3.9, 3.10, 3.11, 3.12
-- **异步支持**: 完整的 async/await 兼容性
-- **跨平台**: Windows、macOS、Linux 支持
-
-#### **依赖项**
-- `httpx` (≥0.23.0): 现代 HTTP 客户端
-- `pydantic` (≥1.9.0, <3.0): 数据验证和序列化
-- `typing-extensions` (≥4.0.0): 增强类型提示
-- `cachetools` (≥4.2.2): 缓存工具
-- `pyjwt` (~2.8.0): JWT 令牌处理
-
-### 🚀 **快速开始**
-
-```bash
-pip install zai-sdk
-```
-
-```python
-from zai import ZaiClient
-
-# 初始化客户端
-client = ZaiClient(api_key="your-api-key")
-
-# 创建对话补全
-response = client.chat.completions.create(
-    model="glm-4",
-    messages=[{"role": "user", "content": "你好，Z.ai！"}]
-)
-
-print(response.choices[0].message.content)
-```
-
-### 📚 **文档与支持**
-
-- **文档**: [Z.ai 开放平台](https://docs.z.ai/)
-- **示例**: `/examples` 目录中的全面示例
-- **社区**: GitHub Issues 和 Discussions
-- **联系**: user_feedback@z.ai
-
-### 🔮 **未来规划**
-
-这个初始版本为 Z.ai Python SDK 奠定了基础。未来版本将包括：
-- 更多模型支持
-- 增强的流式功能
-- 更多高级工具集成
-- 性能优化
-- 扩展的文档和示例
+For future versions, detailed migration guides will be provided here to help you upgrade smoothly.
 
 ---
 
-## 迁移指南
-
-*这是初始版本 - 无需迁移！*
-
-对于未来版本，我们将在此提供迁移指南，帮助您顺利升级。
+**Note**: This release significantly enhances the developer experience while maintaining full backward compatibility. All improvements are additive, ensuring your existing code continues to work seamlessly.
