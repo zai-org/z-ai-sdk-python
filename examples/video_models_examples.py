@@ -5,22 +5,9 @@ from typing import List, Optional
 
 from zai import ZaiClient
 
-# Try to load .env file
-try:
-    from dotenv import load_dotenv
-    load_dotenv()
-except ImportError:
-    # If python-dotenv is not installed, continue using system environment variables
-    pass
-
-api_key = os.getenv('ZAI_API_KEY')
-if not api_key:
-    print("Please set the ZAI_API_KEY environment variable or configure it in the .env file")
-    exit()
-
 class VideoModelsExamples:
-    def __init__(self, api_key: str):
-        self.client = ZaiClient(api_key=api_key)
+    def __init__(self):
+        self.client = ZaiClient()
 
     async def cogvideox3_text_to_video(
         self,
@@ -165,21 +152,26 @@ class VideoModelsExamples:
     async def viduq1_text_to_video(
         self,
         prompt: str,
-        quality: str = "quality",
-        with_audio: bool = True,
+        style: str = "general",
+        duration: int = 5,
+        aspect_ratio: str = "16:9",
         size: str = "1920x1080",
-        fps: int = 30,
+        movement_amplitude: str = "auto",
+        quality: str = None,
+        with_audio: bool = None,
         max_wait_time: int = 300,
     ):
         """
         viduq1-text text-to-video generation
-        
         Args:
             prompt: Video generation prompt
-            quality: Output mode, "quality" for quality priority, "speed" for speed priority
-            with_audio: Whether to include audio
+            style: Video style (e.g., "general", "anime")
+            duration: Video duration in seconds
+            aspect_ratio: Aspect ratio (e.g., "16:9")
             size: Video resolution
-            fps: Frame rate
+            movement_amplitude: Movement amplitude (e.g., "auto")
+            quality: Output mode
+            with_audio: Whether to include audio
             max_wait_time: Maximum wait time (seconds)
         """
         print("=== viduq1-text Text-to-Video ===")
@@ -187,10 +179,13 @@ class VideoModelsExamples:
             response = self.client.videos.generations(
                 model="viduq1-text",
                 prompt=prompt,
+                style=style,
+                duration=duration,
+                aspect_ratio=aspect_ratio,
+                size=size,
+                movement_amplitude=movement_amplitude,
                 quality=quality,
                 with_audio=with_audio,
-                size=size,
-                fps=fps,
             )
             return await self._wait_for_completion(response.id, max_wait_time)
         except Exception as e:
@@ -201,22 +196,23 @@ class VideoModelsExamples:
         self,
         image_url: str,
         prompt: str,
-        quality: str = "quality",
-        with_audio: bool = True,
+        duration: int = 5,
         size: str = "1920x1080",
-        fps: int = 30,
+        movement_amplitude: str = "auto",
+        quality: str = None,
+        with_audio: bool = None,
         max_wait_time: int = 300,
     ):
         """
         viduq1-image image-to-video generation
-        
         Args:
             image_url: Image URL or Base64 encoding
             prompt: Video generation prompt
-            quality: Output mode, "quality" for quality priority, "speed" for speed priority
-            with_audio: Whether to include audio
+            duration: Video duration in seconds
             size: Video resolution
-            fps: Frame rate
+            movement_amplitude: Movement amplitude (e.g., "auto")
+            quality: Output mode
+            with_audio: Whether to include audio
             max_wait_time: Maximum wait time (seconds)
         """
         print("=== viduq1-image Image-to-Video ===")
@@ -225,10 +221,11 @@ class VideoModelsExamples:
                 model="viduq1-image",
                 image_url=image_url,
                 prompt=prompt,
+                duration=duration,
+                size=size,
+                movement_amplitude=movement_amplitude,
                 quality=quality,
                 with_audio=with_audio,
-                size=size,
-                fps=fps,
             )
             return await self._wait_for_completion(response.id, max_wait_time)
         except Exception as e:
@@ -239,34 +236,36 @@ class VideoModelsExamples:
         self,
         image_urls: List[str],
         prompt: str,
-        quality: str = "quality",
-        with_audio: bool = True,
+        duration: int = 5,
         size: str = "1920x1080",
-        fps: int = 30,
+        movement_amplitude: str = "auto",
+        quality: str = None,
+        with_audio: bool = None,
         max_wait_time: int = 300,
     ):
         """
         viduq1-start-end start-end frame video generation
-        
         Args:
             image_urls: List of start and end frame image URLs
             prompt: Video generation prompt
-            quality: Output mode, "quality" for quality priority, "speed" for speed priority
-            with_audio: Whether to include audio
+            duration: Video duration in seconds
             size: Video resolution
-            fps: Frame rate
+            movement_amplitude: Movement amplitude (e.g., "auto")
+            quality: Output mode
+            with_audio: Whether to include audio
             max_wait_time: Maximum wait time (seconds)
         """
         print("=== viduq1-start-end Start-End Frame Video ===")
         try:
             response = self.client.videos.generations(
                 model="viduq1-start-end",
-                image_urls=image_urls,
+                image_url=image_urls,
                 prompt=prompt,
+                duration=duration,
+                size=size,
+                movement_amplitude=movement_amplitude,
                 quality=quality,
                 with_audio=with_audio,
-                size=size,
-                fps=fps,
             )
             return await self._wait_for_completion(response.id, max_wait_time)
         except Exception as e:
@@ -277,22 +276,23 @@ class VideoModelsExamples:
         self,
         image_url: str,
         prompt: str,
-        quality: str = "quality",
+        duration: int = 4,
+        size: str = "1280x720",
+        movement_amplitude: str = "auto",
         with_audio: bool = True,
-        size: str = "1920x1080",
-        fps: int = 30,
+        quality: str = None,
         max_wait_time: int = 300,
     ):
         """
         vidu2-image image-to-video generation
-        
         Args:
             image_url: Image URL or Base64 encoding
             prompt: Video generation prompt
-            quality: Output mode, "quality" for quality priority, "speed" for speed priority
-            with_audio: Whether to include audio
+            duration: Video duration in seconds
             size: Video resolution
-            fps: Frame rate
+            movement_amplitude: Movement amplitude (e.g., "auto")
+            with_audio: Whether to include audio
+            quality: Output mode
             max_wait_time: Maximum wait time (seconds)
         """
         print("=== vidu2-image Image-to-Video ===")
@@ -301,10 +301,11 @@ class VideoModelsExamples:
                 model="vidu2-image",
                 image_url=image_url,
                 prompt=prompt,
-                quality=quality,
-                with_audio=with_audio,
+                duration=duration,
                 size=size,
-                fps=fps,
+                movement_amplitude=movement_amplitude,
+                with_audio=with_audio,
+                quality=quality,
             )
             return await self._wait_for_completion(response.id, max_wait_time)
         except Exception as e:
@@ -315,34 +316,36 @@ class VideoModelsExamples:
         self,
         image_urls: List[str],
         prompt: str,
-        quality: str = "quality",
+        duration: int = 4,
+        size: str = "1280x720",
+        movement_amplitude: str = "auto",
         with_audio: bool = True,
-        size: str = "1920x1080",
-        fps: int = 30,
+        quality: str = None,
         max_wait_time: int = 300,
     ):
         """
         vidu2-start-end start-end frame video generation
-        
         Args:
             image_urls: List of start and end frame image URLs
             prompt: Video generation prompt
-            quality: Output mode, "quality" for quality priority, "speed" for speed priority
-            with_audio: Whether to include audio
+            duration: Video duration in seconds
             size: Video resolution
-            fps: Frame rate
+            movement_amplitude: Movement amplitude (e.g., "auto")
+            with_audio: Whether to include audio
+            quality: Output mode
             max_wait_time: Maximum wait time (seconds)
         """
         print("=== vidu2-start-end Start-End Frame Video ===")
         try:
             response = self.client.videos.generations(
                 model="vidu2-start-end",
-                image_urls=image_urls,
+                image_url=image_urls,
                 prompt=prompt,
-                quality=quality,
-                with_audio=with_audio,
+                duration=duration,
                 size=size,
-                fps=fps,
+                movement_amplitude=movement_amplitude,
+                with_audio=with_audio,
+                quality=quality,
             )
             return await self._wait_for_completion(response.id, max_wait_time)
         except Exception as e:
@@ -351,24 +354,27 @@ class VideoModelsExamples:
 
     async def vidu2_reference_video(
         self,
-        image_url: str,
+        image_url: List[str],
         prompt: str,
-        quality: str = "quality",
+        duration: int = 4,
+        aspect_ratio: str = "16:9",
+        size: str = "1280x720",
+        movement_amplitude: str = "auto",
         with_audio: bool = True,
-        size: str = "1920x1080",
-        fps: int = 30,
+        quality: str = None,
         max_wait_time: int = 300,
     ):
         """
         vidu2-reference reference video generation
-        
         Args:
-            image_url: Reference video URL
+            image_url: Reference image URLs
             prompt: Video generation prompt
-            quality: Output mode, "quality" for quality priority, "speed" for speed priority
-            with_audio: Whether to include audio
+            duration: Video duration in seconds
+            aspect_ratio: Aspect ratio (e.g., "16:9")
             size: Video resolution
-            fps: Frame rate
+            movement_amplitude: Movement amplitude (e.g., "auto")
+            with_audio: Whether to include audio
+            quality: Output mode
             max_wait_time: Maximum wait time (seconds)
         """
         print("=== vidu2-reference Reference Video Generation ===")
@@ -377,10 +383,12 @@ class VideoModelsExamples:
                 model="vidu2-reference",
                 image_url=image_url,
                 prompt=prompt,
-                quality=quality,
-                with_audio=with_audio,
+                duration=duration,
+                aspect_ratio=aspect_ratio,
                 size=size,
-                fps=fps,
+                movement_amplitude=movement_amplitude,
+                with_audio=with_audio,
+                quality=quality,
             )
             return await self._wait_for_completion(response.id, max_wait_time)
         except Exception as e:
@@ -426,7 +434,7 @@ class VideoModelsExamples:
 # Usage examples
 async def main():
     # Please fill in your API Key
-    examples = VideoModelsExamples(api_key)
+    examples = VideoModelsExamples()
 
     # Sample image and video URLs (please replace with actual URLs)
     sample_image_url = "https://i0.sinaimg.cn/edu/2011/1125/U4999P42DT20111125164101.jpg"
@@ -461,7 +469,7 @@ async def main():
         # 3. cogvideox-3 start-end frame video
         print("\n" + "="*50)
         result3 = await examples.cogvideox3_start_end_video(
-            image_urls=[sample_first_frame, sample_last_frame],
+            image_url=[sample_first_frame, sample_last_frame],
             prompt="Make the scene come alive",
             quality="speed",
             with_audio=True,
@@ -483,6 +491,11 @@ async def main():
         print("\n" + "="*50)
         result5 = await examples.viduq1_text_to_video(
             prompt="Peter Rabbit driving a car, wandering on the road, with a happy and joyful expression on his face.",
+            style="general",
+            duration=5,
+            aspect_ratio="16:9",
+            size="1920x1080",
+            movement_amplitude="auto",
             quality="speed",
             with_audio=True,
         )
@@ -493,6 +506,9 @@ async def main():
         result6 = await examples.viduq1_image_to_video(
             image_url=sample_image_url,
             prompt="Peter Rabbit driving a car, wandering on the road, with a happy and joyful expression on his face.",
+            duration=5,
+            size="1920x1080",
+            movement_amplitude="auto",
             quality="speed",
             with_audio=True,
         )
@@ -503,6 +519,9 @@ async def main():
         result7 = await examples.viduq1_start_end_video(
             image_url=[sample_first_frame, sample_last_frame],
             prompt="Peter Rabbit driving a car, wandering on the road, with a happy and joyful expression on his face.",
+            duration=5,
+            size="1920x1080",
+            movement_amplitude="auto",
             quality="speed",
             with_audio=True,
         )
@@ -513,8 +532,11 @@ async def main():
         result8 = await examples.vidu2_image_to_video(
             image_url=sample_image_url,
             prompt="Peter Rabbit driving a car, wandering on the road, with a happy and joyful expression on his face.",
-            quality="speed",
+            duration=4,
+            size="1280x720",
+            movement_amplitude="auto",
             with_audio=True,
+            quality="speed",
         )
         print("vidu2-image image-to-video result:", result8)
 
@@ -523,8 +545,11 @@ async def main():
         result9 = await examples.vidu2_start_end_video(
             image_url=[sample_first_frame, sample_last_frame],
             prompt="Peter Rabbit driving a car, wandering on the road, with a happy and joyful expression on his face.",
-            quality="speed",
+            duration=4,
+            size="1280x720",
+            movement_amplitude="auto",
             with_audio=True,
+            quality="speed",
         )
         print("vidu2-start-end start-end frame video result:", result9)
 
@@ -533,8 +558,12 @@ async def main():
         result10 = await examples.vidu2_reference_video(
             image_url=ref_image_url,
             prompt="Peter Rabbit driving a car, wandering on the road, with a happy and joyful expression on his face.",
-            quality="speed",
+            duration=4,
+            aspect_ratio="16:9",
+            size="1280x720",
+            movement_amplitude="auto",
             with_audio=True,
+            quality="speed",
         )
         print("vidu2-reference reference video generation result:", result10)
     except Exception as e:

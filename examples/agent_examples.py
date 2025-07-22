@@ -1,26 +1,12 @@
-import os
 from zai import ZaiClient
 import asyncio
 import time
-
-# Try to load .env file
-try:
-    from dotenv import load_dotenv
-    load_dotenv()
-except ImportError:
-    # If python-dotenv is not installed, continue using system environment variables
-    pass
-
-api_key = os.getenv('ZAI_API_KEY')
-if not api_key:
-    print("Please set the ZAI_API_KEY environment variable or configure it in the .env file")
-    exit()
-client = ZaiClient(api_key=api_key)
 
 # ==================== General Translation Scenario ====================
 
 def translate_text():
     """General translation example"""
+    client = ZaiClient()
     response = client.agents.invoke(
         agent_id="general_translation",
         stream=True,
@@ -57,6 +43,7 @@ async def async_special_effects_video_example():
         
         # Submit async task
         print("Submitting async special effects video generation task...")
+        client = ZaiClient()
         response = client.agents.invoke(
             agent_id="vidu_template_agent",
             custom_variables={

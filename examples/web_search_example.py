@@ -1,21 +1,10 @@
 import os
+from pydoc import cli
 from zai import ZaiClient
 
-# Try to load .env file
-try:
-    from dotenv import load_dotenv
-    load_dotenv()
-except ImportError:
-    pass
-
-api_key = os.getenv('ZAI_API_KEY')
-if not api_key:
-    print("Please set the ZAI_API_KEY environment variable or configure it in the .env file")
-    exit()
-
-client = ZaiClient(api_key=api_key)
 
 def web_search_example():
+    client = ZaiClient()
     response = client.web_search.web_search(
         search_engine="search_pro",
         search_query="Search for financial news in April 2025",
