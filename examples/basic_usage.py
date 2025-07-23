@@ -179,12 +179,13 @@ def ofZhipu():
 	print(response.choices[0].message.content)
 
 if __name__ == '__main__':
-    # completion()
-	# completion_with_websearch()
-	# multi_modal_chat()
-	# role_play()
-	# assistant_conversation()
-	# video_generation()
+    completion()
+    completion_with_stream()
+    completion_with_websearch()
+    multi_modal_chat()
+    role_play()
+    assistant_conversation()
+    video_generation()
     ofZai()
     ofZhipu()
 

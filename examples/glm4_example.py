@@ -29,7 +29,7 @@ def stream_web_search_example():
         stream=True
     )
     for chunk in response:
-        print(chunk.choices[0].delta)
+        print(chunk.choices[0].delta.content, end="", flush=True)
 
 def sync_example():
     print("=== GLM-4 Synchronous Example ===")
