@@ -418,108 +418,113 @@ async def main():
     sample_image_url = "https://i0.sinaimg.cn/edu/2011/1125/U4999P42DT20111125164101.jpg"
     sample_first_frame = "https://gd-hbimg.huaban.com/ccee58d77afe8f5e17a572246b1994f7e027657fe9e6-qD66In_fw1200webp"
     sample_last_frame = "https://gd-hbimg.huaban.com/cc2601d568a72d18d90b2cc7f1065b16b2d693f7fa3f7-hDAwNq_fw1200webp"
-    ref_image_url = ["ref1", "ref2", "ref3"]
+    ref_image_url = [
+        "https://gd-hbimg.huaban.com/ccee58d77afe8f5e17a572246b1994f7e027657fe9e6-qD66In_fw1200webp", 
+        "https://gd-hbimg.huaban.com/cc2601d568a72d18d90b2cc7f1065b16b2d693f7fa3f7-hDAwNq_fw1200webp", 
+        "https://gd-hbimg.huaban.com/cc2601d568a72d18d90b2cc7f1065b16b2d693f7fa3f7-hDAwNq_fw1200webp"
+        ]
 
     try:
         # 1. cogvideox-3 text-to-video
-        print("\n" + "="*50)
-        result1 = await examples.cogvideox3_text_to_video(
-            prompt="Peter Rabbit driving a car, wandering on the road, with a happy and joyful expression on his face.",
-            quality="quality",
-            with_audio=True,
-            size="1920x1080",
-            fps=30,
-        )
-        print("cogvideox-3 text-to-video result:", result1)
+        # print("\n" + "="*50)
+        # result1 = await examples.cogvideox3_text_to_video(
+        #     prompt="Peter Rabbit driving a car, wandering on the road, with a happy and joyful expression on his face.",
+        #     quality="quality",
+        #     with_audio=True,
+        #     size="1920x1080",
+        #     fps=30,
+        # )
+        # print("cogvideox-3 text-to-video result:", result1)
 
         # 2. cogvideox-3 image-to-video
-        print("\n" + "="*50)
-        result2 = await examples.cogvideox3_image_to_video(
-            image_url=sample_image_url,
-            prompt="Make the scene come alive",
-            quality="quality",
-            with_audio=True,
-            size="1920x1080",
-            fps=30,
-        )
-        print("cogvideox-3 image-to-video result:", result2)
+        # print("\n" + "="*50)
+        # result2 = await examples.cogvideox3_image_to_video(
+        #     image_url=sample_image_url,
+        #     prompt="Make the scene come alive",
+        #     quality="quality",
+        #     with_audio=True,
+        #     size="1920x1080",
+        #     fps=30,
+        # )
+        # print("cogvideox-3 image-to-video result:", result2)
 
         # 3. cogvideox-3 start-end frame video
-        print("\n" + "="*50)
-        result3 = await examples.cogvideox3_start_end_video(
-            image_urls=[sample_first_frame, sample_last_frame],
-            prompt="Make the scene come alive",
-            quality="speed",
-            with_audio=True,
-            size="1920x1080",
-            fps=30,
-        )
-        print("cogvideox-3 start-end frame video result:", result3)
+        # print("\n" + "="*50)
+        # result3 = await examples.cogvideox3_start_end_video(
+        #     image_urls=[sample_first_frame, sample_last_frame],
+        #     prompt="Make the scene come alive",
+        #     quality="speed",
+        #     with_audio=True,
+        #     size="1920x1080",
+        #     fps=30,
+        # )
+        # print("cogvideox-3 start-end frame video result:", result3)
 
         # 4. cogvideox-2 text-to-video
-        print("\n" + "="*50)
-        result4 = await examples.cogvideox2_text_to_video(
-            prompt="Peter Rabbit driving a car, wandering on the road, with a happy and joyful expression on his face.",
-            quality="speed",
-            with_audio=True,
-        )
-        print("cogvideox-2 text-to-video result:", result4)
+        # print("\n" + "="*50)
+        # result4 = await examples.cogvideox2_text_to_video(
+        #     prompt="Peter Rabbit driving a car, wandering on the road, with a happy and joyful expression on his face.",
+        #     quality="speed",
+        #     with_audio=True,
+        # )
+        # print("cogvideox-2 text-to-video result:", result4)
 
         # 5. viduq1-text text-to-video
-        print("\n" + "="*50)
-        result5 = await examples.viduq1_text_to_video(
-            prompt="Peter Rabbit driving a car, wandering on the road, with a happy and joyful expression on his face.",
-            style="general",
-            duration=5,
-            aspect_ratio="16:9",
-            size="1920x1080",
-            movement_amplitude="auto",
-        )
-        print("viduq1-text text-to-video result:", result5)
+        # print("\n" + "="*50)
+        # print(os.environ.get("ZAI_API_KEY"))
+        # result5 = await examples.viduq1_text_to_video(
+        #     prompt="Peter Rabbit driving a car, wandering on the road, with a happy and joyful expression on his face.",
+        #     style="general",
+        #     duration=5,
+        #     aspect_ratio="16:9",
+        #     size="1920x1080",
+        #     movement_amplitude="auto",
+        # )
+        # print("viduq1-text text-to-video result:", result5)
 
         # 6. viduq1-image image-to-video
-        print("\n" + "="*50)
-        result6 = await examples.viduq1_image_to_video(
-            image_url=sample_image_url,
-            prompt="Peter Rabbit driving a car, wandering on the road, with a happy and joyful expression on his face.",
-            duration=5,
-            size="1920x1080",
-            movement_amplitude="auto",
-        )
-        print("viduq1-image image-to-video result:", result6)
+        # print("\n" + "="*50)
+        # result6 = await examples.viduq1_image_to_video(
+        #     image_url=sample_image_url,
+        #     prompt="Peter Rabbit driving a car, wandering on the road, with a happy and joyful expression on his face.",
+        #     duration=5,
+        #     size="1920x1080",
+        #     movement_amplitude="auto",
+        # )
+        # print("viduq1-image image-to-video result:", result6)
 
         # 7. viduq1-start-end start-end frame video
-        print("\n" + "="*50)
-        result7 = await examples.viduq1_start_end_video(
-            image_urls=[sample_first_frame, sample_last_frame],
-            prompt="Peter Rabbit driving a car, wandering on the road, with a happy and joyful expression on his face.",
-            duration=5,
-            size="1920x1080",
-            movement_amplitude="auto",
-        )
-        print("viduq1-start-end start-end frame video result:", result7)
+        # print("\n" + "="*50)
+        # result7 = await examples.viduq1_start_end_video(
+        #     image_urls=[sample_first_frame, sample_last_frame],
+        #     prompt="Peter Rabbit driving a car, wandering on the road, with a happy and joyful expression on his face.",
+        #     duration=5,
+        #     size="1920x1080",
+        #     movement_amplitude="auto",
+        # )
+        # print("viduq1-start-end start-end frame video result:", result7)
 
         # 8. vidu2-image image-to-video
-        print("\n" + "="*50)
-        result8 = await examples.vidu2_image_to_video(
-            image_url=sample_image_url,
-            prompt="Peter Rabbit driving a car, wandering on the road, with a happy and joyful expression on his face.",
-            duration=4,
-            size="1280x720",
-            movement_amplitude="auto",
-        )
-        print("vidu2-image image-to-video result:", result8)
+        # print("\n" + "="*50)
+        # result8 = await examples.vidu2_image_to_video(
+        #     image_url=sample_image_url,
+        #     prompt="Peter Rabbit driving a car, wandering on the road, with a happy and joyful expression on his face.",
+        #     duration=4,
+        #     size="1280x720",
+        #     movement_amplitude="auto",
+        # )
+        # print("vidu2-image image-to-video result:", result8)
 
         # 9. vidu2-start-end start-end frame video
-        print("\n" + "="*50)
-        result9 = await examples.vidu2_start_end_video(
-            image_urls=[sample_first_frame, sample_last_frame],
-            prompt="Peter Rabbit driving a car, wandering on the road, with a happy and joyful expression on his face.",
-            duration=4,
-            size="1280x720",
-            movement_amplitude="auto",
-        )
-        print("vidu2-start-end start-end frame video result:", result9)
+        # print("\n" + "="*50)
+        # result9 = await examples.vidu2_start_end_video(
+        #     image_urls=[sample_first_frame, sample_last_frame],
+        #     prompt="Peter Rabbit driving a car, wandering on the road, with a happy and joyful expression on his face.",
+        #     duration=4,
+        #     size="1280x720",
+        #     movement_amplitude="auto",
+        # )
+        # print("vidu2-start-end start-end frame video result:", result9)
 
         # 10. vidu2-reference reference video generation
         print("\n" + "="*50)

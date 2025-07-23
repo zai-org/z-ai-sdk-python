@@ -1,6 +1,5 @@
 import os
 
-
 def check_apikey():
     api_key = os.getenv('ZAI_API_KEY')
     if api_key and api_key.strip():
@@ -11,4 +10,4 @@ def check_apikey():
 
 
 if __name__ == '__main__':
-    check_apikey() 
+    check_apikey()

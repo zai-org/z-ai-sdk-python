@@ -30,7 +30,7 @@ class VideoCreateParams(TypedDict, total=False):
 	"""
 	model: str
 	prompt: str
-	image_url: str | list | dict
+	image_url: str | list[str] | dict
 	quality: str
 	with_audio: bool
 	size: str
