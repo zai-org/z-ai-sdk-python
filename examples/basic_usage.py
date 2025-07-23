@@ -158,11 +158,21 @@ def audio_transcription():
 	)
 	print(response.text)
 
+def ofZhipu():
+	client = ZaiClient()
+	response = client.zhipu.chat.completions.create(
+		model='glm-4',
+		messages=[{'role': 'user', 'content': 'Hello, Z.ai!'}],
+		temperature=0.7,
+	)
+	print(response.choices[0].message.content)
 
 if __name__ == '__main__':
-    completion()
+    # completion()
 	# completion_with_websearch()
 	# multi_modal_chat()
 	# role_play()
 	# assistant_conversation()
 	# video_generation()
+    ofZhipu()
+ 
