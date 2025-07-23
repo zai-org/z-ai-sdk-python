@@ -1,5 +1,4 @@
-from zai import ZaiClient
-from zai import ZhipuAIClient
+from zai import ZaiClient, ZhipuAiClient
 
 def completion():
 	# Initialize client
@@ -170,7 +169,7 @@ def ofZai():
     print(response.choices[0].message.content)
 
 def ofZhipu():
-	client = ZhipuAIClient()
+	client = ZhipuAiClient()
 	print(client.base_url)
 	response = client.chat.completions.create(
 		model='glm-4',

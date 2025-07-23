@@ -223,7 +223,7 @@ class ZaiClient(BaseClient):
 	def default_base_url(self):
 		return 'https://api.z.ai/api/paas/v4'
 
-class ZhipuAIClient(BaseClient):
+class ZhipuAiClient(BaseClient):
 	@property
 	def default_base_url(self):
 		return 'https://open.bigmodel.cn/api/paas/v4'
