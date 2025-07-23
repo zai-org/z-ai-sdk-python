@@ -157,8 +157,6 @@ class VideoModelsExamples:
         aspect_ratio: str = "16:9",
         size: str = "1920x1080",
         movement_amplitude: str = "auto",
-        quality: str = None,
-        with_audio: bool = None,
         max_wait_time: int = 300,
     ):
         """
@@ -184,8 +182,6 @@ class VideoModelsExamples:
                 aspect_ratio=aspect_ratio,
                 size=size,
                 movement_amplitude=movement_amplitude,
-                quality=quality,
-                with_audio=with_audio,
             )
             return await self._wait_for_completion(response.id, max_wait_time)
         except Exception as e:
@@ -199,8 +195,6 @@ class VideoModelsExamples:
         duration: int = 5,
         size: str = "1920x1080",
         movement_amplitude: str = "auto",
-        quality: str = None,
-        with_audio: bool = None,
         max_wait_time: int = 300,
     ):
         """
@@ -224,8 +218,6 @@ class VideoModelsExamples:
                 duration=duration,
                 size=size,
                 movement_amplitude=movement_amplitude,
-                quality=quality,
-                with_audio=with_audio,
             )
             return await self._wait_for_completion(response.id, max_wait_time)
         except Exception as e:
@@ -239,8 +231,6 @@ class VideoModelsExamples:
         duration: int = 5,
         size: str = "1920x1080",
         movement_amplitude: str = "auto",
-        quality: str = None,
-        with_audio: bool = None,
         max_wait_time: int = 300,
     ):
         """
@@ -264,8 +254,6 @@ class VideoModelsExamples:
                 duration=duration,
                 size=size,
                 movement_amplitude=movement_amplitude,
-                quality=quality,
-                with_audio=with_audio,
             )
             return await self._wait_for_completion(response.id, max_wait_time)
         except Exception as e:
@@ -279,8 +267,6 @@ class VideoModelsExamples:
         duration: int = 4,
         size: str = "1280x720",
         movement_amplitude: str = "auto",
-        with_audio: bool = True,
-        quality: str = None,
         max_wait_time: int = 300,
     ):
         """
@@ -304,8 +290,6 @@ class VideoModelsExamples:
                 duration=duration,
                 size=size,
                 movement_amplitude=movement_amplitude,
-                with_audio=with_audio,
-                quality=quality,
             )
             return await self._wait_for_completion(response.id, max_wait_time)
         except Exception as e:
@@ -319,8 +303,6 @@ class VideoModelsExamples:
         duration: int = 4,
         size: str = "1280x720",
         movement_amplitude: str = "auto",
-        with_audio: bool = True,
-        quality: str = None,
         max_wait_time: int = 300,
     ):
         """
@@ -344,8 +326,6 @@ class VideoModelsExamples:
                 duration=duration,
                 size=size,
                 movement_amplitude=movement_amplitude,
-                with_audio=with_audio,
-                quality=quality,
             )
             return await self._wait_for_completion(response.id, max_wait_time)
         except Exception as e:
@@ -360,9 +340,8 @@ class VideoModelsExamples:
         aspect_ratio: str = "16:9",
         size: str = "1280x720",
         movement_amplitude: str = "auto",
-        with_audio: bool = True,
-        quality: str = None,
         max_wait_time: int = 300,
+        with_audio: bool = True,
     ):
         """
         vidu2-reference reference video generation
@@ -388,7 +367,6 @@ class VideoModelsExamples:
                 size=size,
                 movement_amplitude=movement_amplitude,
                 with_audio=with_audio,
-                quality=quality,
             )
             return await self._wait_for_completion(response.id, max_wait_time)
         except Exception as e:
@@ -496,8 +474,6 @@ async def main():
             aspect_ratio="16:9",
             size="1920x1080",
             movement_amplitude="auto",
-            quality="speed",
-            with_audio=True,
         )
         print("viduq1-text text-to-video result:", result5)
 
@@ -509,8 +485,6 @@ async def main():
             duration=5,
             size="1920x1080",
             movement_amplitude="auto",
-            quality="speed",
-            with_audio=True,
         )
         print("viduq1-image image-to-video result:", result6)
 
@@ -522,8 +496,6 @@ async def main():
             duration=5,
             size="1920x1080",
             movement_amplitude="auto",
-            quality="speed",
-            with_audio=True,
         )
         print("viduq1-start-end start-end frame video result:", result7)
 
@@ -535,8 +507,6 @@ async def main():
             duration=4,
             size="1280x720",
             movement_amplitude="auto",
-            with_audio=True,
-            quality="speed",
         )
         print("vidu2-image image-to-video result:", result8)
 
@@ -548,8 +518,6 @@ async def main():
             duration=4,
             size="1280x720",
             movement_amplitude="auto",
-            with_audio=True,
-            quality="speed",
         )
         print("vidu2-start-end start-end frame video result:", result9)
 
@@ -563,7 +531,6 @@ async def main():
             size="1280x720",
             movement_amplitude="auto",
             with_audio=True,
-            quality="speed",
         )
         print("vidu2-reference reference video generation result:", result10)
     except Exception as e:
