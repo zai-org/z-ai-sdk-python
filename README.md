@@ -116,11 +116,17 @@ export ZAI_BASE_URL="https://api.z.ai/api/paas/v4/"  # Optional
 #### Code Configuration
 
 ```python
-from zai import ZaiClient
+from zai import ZaiClient, ZhipuAIClient
 
 client = ZaiClient(
     api_key="your-api-key",
     base_url="https://api.z.ai/api/paas/v4/"  # Optional
+)
+
+# if you want to use ZhipuAIClient
+zhipu_client = ZhipuAIClient(
+    api_key="your-api-key",
+    base_url="https://open.bigmodel.cn/api/paas/v4/"  # Optional
 )
 ```
 

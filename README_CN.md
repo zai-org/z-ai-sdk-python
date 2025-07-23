@@ -97,12 +97,20 @@ export ZAI_BASE_URL="https://api.z.ai/api/paas/v4/"  # 可选
 
 **代码配置：**
 ```python
-from zai import ZaiClient
+from zai import ZaiClient, ZhipuAIClient
 
 client = ZaiClient(
     api_key="your_api_key_here",  # 填写您的 APIKey
-) 
+    base_url="https://api.z.ai/api/paas/v4/"  # 可选
+)
+
+# if you want to use ZhipuAIClient
+zhipu_client = ZhipuAIClient(
+    api_key="your_api_key_here",  # 填写您的 APIKey
+    base_url="https://open.bigmodel.cn/api/paas/v4/"  # 可选
+)
 ```
+
 **高级配置：**
 
 SDK提供了灵活的客户端配置选项：
