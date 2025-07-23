@@ -78,7 +78,6 @@ class ZaiClient(HttpClient):
 			disable_token_cache (bool): Whether to disable JWT token caching
 			_strict_response_validation (bool): Whether to enable strict response validation
 			source_channel (str | None): Source channel identifier
-			switch_to_zhipu (bool): Whether to switch to Zhipu base_url
 		"""
 		if api_key is None:
 			api_key = os.environ.get('ZAI_API_KEY')
