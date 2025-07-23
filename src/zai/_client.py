@@ -92,7 +92,7 @@ class BaseClient(HttpClient):
 		if base_url is None:
 			base_url = self.default_base_url
 		self.base_url = base_url
-  
+
 		from ._version import __version__
 		super().__init__(
 			version=__version__,
