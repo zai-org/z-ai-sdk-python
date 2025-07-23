@@ -447,7 +447,7 @@ async def main():
         # 3. cogvideox-3 start-end frame video
         print("\n" + "="*50)
         result3 = await examples.cogvideox3_start_end_video(
-            image_url=[sample_first_frame, sample_last_frame],
+            image_urls=[sample_first_frame, sample_last_frame],
             prompt="Make the scene come alive",
             quality="speed",
             with_audio=True,
@@ -491,7 +491,7 @@ async def main():
         # 7. viduq1-start-end start-end frame video
         print("\n" + "="*50)
         result7 = await examples.viduq1_start_end_video(
-            image_url=[sample_first_frame, sample_last_frame],
+            image_urls=[sample_first_frame, sample_last_frame],
             prompt="Peter Rabbit driving a car, wandering on the road, with a happy and joyful expression on his face.",
             duration=5,
             size="1920x1080",
@@ -513,7 +513,7 @@ async def main():
         # 9. vidu2-start-end start-end frame video
         print("\n" + "="*50)
         result9 = await examples.vidu2_start_end_video(
-            image_url=[sample_first_frame, sample_last_frame],
+            image_urls=[sample_first_frame, sample_last_frame],
             prompt="Peter Rabbit driving a car, wandering on the road, with a happy and joyful expression on his face.",
             duration=4,
             size="1280x720",
