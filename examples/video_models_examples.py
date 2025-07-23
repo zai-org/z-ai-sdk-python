@@ -418,7 +418,11 @@ async def main():
     sample_image_url = "https://i0.sinaimg.cn/edu/2011/1125/U4999P42DT20111125164101.jpg"
     sample_first_frame = "https://gd-hbimg.huaban.com/ccee58d77afe8f5e17a572246b1994f7e027657fe9e6-qD66In_fw1200webp"
     sample_last_frame = "https://gd-hbimg.huaban.com/cc2601d568a72d18d90b2cc7f1065b16b2d693f7fa3f7-hDAwNq_fw1200webp"
-    ref_image_url = ["ref1", "ref2", "ref3"]
+    ref_image_url = [
+        "https://gd-hbimg.huaban.com/ccee58d77afe8f5e17a572246b1994f7e027657fe9e6-qD66In_fw1200webp", 
+        "https://gd-hbimg.huaban.com/cc2601d568a72d18d90b2cc7f1065b16b2d693f7fa3f7-hDAwNq_fw1200webp", 
+        "https://gd-hbimg.huaban.com/cc2601d568a72d18d90b2cc7f1065b16b2d693f7fa3f7-hDAwNq_fw1200webp"
+        ]
 
     try:
         # 1. cogvideox-3 text-to-video
@@ -467,6 +471,7 @@ async def main():
 
         # 5. viduq1-text text-to-video
         print("\n" + "="*50)
+        print(os.environ.get("ZAI_API_KEY"))
         result5 = await examples.viduq1_text_to_video(
             prompt="Peter Rabbit driving a car, wandering on the road, with a happy and joyful expression on his face.",
             style="general",
