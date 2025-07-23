@@ -1,6 +1,6 @@
 # Release Notes
 
-## v0.0.1b1 - Major Enhancements & Restructuring (2025-07-22)
+## v0.0.1b2 - Major Enhancements & Restructuring (2025-07-22)
 
 🚀 **A comprehensive update focusing on developer experience, code organization, and expanded examples!**
 
@@ -311,7 +311,7 @@ This initial release establishes the foundation for Z.ai's Python SDK. Future re
 
 ## Migration Guide
 
-### From v0.0.1a1 to v0.0.1b1
+### From v0.0.1a1 to v0.0.1b2
 *No breaking changes - all existing code continues to work!*
 
 **Optional Enhancements:**
