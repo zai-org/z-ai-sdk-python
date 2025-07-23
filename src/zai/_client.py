@@ -62,7 +62,6 @@ class ZaiClient(HttpClient):
 		disable_token_cache: bool = True,
 		_strict_response_validation: bool = False,
 		source_channel: str | None = None,
-		switch_to_zhipu: bool = False,
 	) -> None:
 		"""
 		Initialize the ZAI client
@@ -93,8 +92,6 @@ class ZaiClient(HttpClient):
 			base_url = os.environ.get('ZAI_BASE_URL')
 		if base_url is None:
 			base_url = 'https://api.z.ai/api/paas/v4'
-		if switch_to_zhipu:
-			base_url = 'https://open.bigmodel.cn/api/paas/v4'
 		from ._version import __version__
 
 		super().__init__(
@@ -106,6 +103,11 @@ class ZaiClient(HttpClient):
 			custom_headers=custom_headers,
 			_strict_response_validation=_strict_response_validation,
 		)
+
+	@cached_property
+	def zhipu(self):
+		self.base_url = 'https://open.bigmodel.cn/api/paas/v4'
+		return self
 
 	@cached_property
 	def chat(self) -> Chat:
