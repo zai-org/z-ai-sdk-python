@@ -33,8 +33,7 @@ from .core import (
 	_jwt_token,
 )
 
-
-class ZaiClient(HttpClient):
+class BaseClient(HttpClient):
 	"""
 	Main client for interacting with the ZAI API
 
@@ -47,7 +46,8 @@ class ZaiClient(HttpClient):
 
 	chat: Chat
 	api_key: str
-	_disable_token_cache: bool = True
+	base_url: str
+	disable_token_cache: bool = True
 	source_channel: str
 
 	def __init__(
@@ -62,7 +62,6 @@ class ZaiClient(HttpClient):
 		disable_token_cache: bool = True,
 		_strict_response_validation: bool = False,
 		source_channel: str | None = None,
-		switch_to_zhipu: bool = False,
 	) -> None:
 		"""
 		Initialize the ZAI client
@@ -79,7 +78,6 @@ class ZaiClient(HttpClient):
 			disable_token_cache (bool): Whether to disable JWT token caching
 			_strict_response_validation (bool): Whether to enable strict response validation
 			source_channel (str | None): Source channel identifier
-			switch_to_zhipu (bool): Whether to switch to Zhipu base_url
 		"""
 		if api_key is None:
 			api_key = os.environ.get('ZAI_API_KEY')
@@ -87,16 +85,15 @@ class ZaiClient(HttpClient):
 			raise ZaiError('api_key not provided, please provide it through parameters or environment variables')
 		self.api_key = api_key
 		self.source_channel = source_channel
-		self._disable_token_cache = disable_token_cache
+		self.disable_token_cache = disable_token_cache
 
 		if base_url is None:
 			base_url = os.environ.get('ZAI_BASE_URL')
 		if base_url is None:
-			base_url = 'https://api.z.ai/api/paas/v4'
-		if switch_to_zhipu:
-			base_url = 'https://open.bigmodel.cn/api/paas/v4'
-		from ._version import __version__
+			base_url = self.default_base_url
+		self.base_url = base_url
 
+		from ._version import __version__
 		super().__init__(
 			version=__version__,
 			base_url=base_url,
@@ -106,6 +103,10 @@ class ZaiClient(HttpClient):
 			custom_headers=custom_headers,
 			_strict_response_validation=_strict_response_validation,
 		)
+
+	@property
+	def default_base_url(self):
+		raise NotImplementedError("Subclasses must define default_base_url")
 
 	@cached_property
 	def chat(self) -> Chat:
@@ -196,7 +197,7 @@ class ZaiClient(HttpClient):
 	def auth_headers(self) -> dict[str, str]:
 		api_key = self.api_key
 		source_channel = self.source_channel or 'python-sdk'
-		if self._disable_token_cache:
+		if self.disable_token_cache:
 			return {
 				'Authorization': f'Bearer {api_key}',
 				'x-source-channel': source_channel,
@@ -216,3 +217,13 @@ class ZaiClient(HttpClient):
 			return
 
 		self.close()
+
+class ZaiClient(BaseClient):
+	@property
+	def default_base_url(self):
+		return 'https://api.z.ai/api/paas/v4'
+
+class ZhipuAiClient(BaseClient):
+	@property
+	def default_base_url(self):
+		return 'https://open.bigmodel.cn/api/paas/v4'

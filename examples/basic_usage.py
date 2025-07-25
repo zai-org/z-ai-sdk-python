@@ -1,5 +1,4 @@
-from zai import ZaiClient
-
+from zai import ZaiClient, ZhipuAiClient
 
 def completion():
 	# Initialize client
@@ -159,10 +158,33 @@ def audio_transcription():
 	)
 	print(response.text)
 
+def ofZai():
+    client = ZaiClient()
+    print(client.base_url)
+    response = client.chat.completions.create(
+        model='glm-4',
+        messages=[{'role': 'user', 'content': 'Hello, Z.ai!'}],
+        temperature=0.7,
+    )
+    print(response.choices[0].message.content)
+
+def ofZhipu():
+	client = ZhipuAiClient()
+	print(client.base_url)
+	response = client.chat.completions.create(
+		model='glm-4',
+		messages=[{'role': 'user', 'content': 'Hello, Z.ai!'}],
+		temperature=0.7,
+	)
+	print(response.choices[0].message.content)
 
 if __name__ == '__main__':
+    # completion()
 	# completion_with_websearch()
 	# multi_modal_chat()
 	# role_play()
 	# assistant_conversation()
-	video_generation()
+	# video_generation()
+    ofZai()
+    ofZhipu()
+
