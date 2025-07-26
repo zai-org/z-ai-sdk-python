@@ -43,7 +43,7 @@ class AgentsCompletionUsage(BaseModel):
 	total_tokens: int
 
 
-class AgentsError:
+class AgentsError(BaseModel):
 	"""
 	Represents an error in agents completion chunk.
 
