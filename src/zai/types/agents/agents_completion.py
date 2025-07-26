@@ -46,7 +46,7 @@ class AgentsCompletionChoice(BaseModel):
 	message: AgentsCompletionMessage
 
 
-class AgentsError:
+class AgentsError(BaseModel):
 	"""
 	Represents an error in agents completion.
 

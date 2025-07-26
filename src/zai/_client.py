@@ -16,9 +16,7 @@ if TYPE_CHECKING:
 	from zai.api_resource.chat import Chat
 	from zai.api_resource.embeddings import Embeddings
 	from zai.api_resource.files import Files
-	from zai.api_resource.fine_tuning import FineTuning
 	from zai.api_resource.images import Images
-	from zai.api_resource.knowledge import Knowledge
 	from zai.api_resource.moderations import Moderations
 	from zai.api_resource.tools import Tools
 	from zai.api_resource.videos import Videos
@@ -133,22 +131,10 @@ class BaseClient(HttpClient):
 		return Embeddings(self)
 
 	@cached_property
-	def fine_tuning(self) -> FineTuning:
-		from zai.api_resource.fine_tuning import FineTuning
-
-		return FineTuning(self)
-
-	@cached_property
 	def batches(self) -> Batches:
 		from zai.api_resource.batch import Batches
 
 		return Batches(self)
-
-	@cached_property
-	def knowledge(self) -> Knowledge:
-		from zai.api_resource.knowledge import Knowledge
-
-		return Knowledge(self)
 
 	@cached_property
 	def tools(self) -> Tools:

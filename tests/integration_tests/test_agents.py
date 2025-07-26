@@ -3,7 +3,7 @@ import logging.config
 import time
 
 import zai
-from zai import ZaiClient
+from zai import ZaiClient, ZhipuAiClient
 
 
 def test_completions_sync(logging_conf):

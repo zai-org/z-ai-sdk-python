@@ -180,11 +180,12 @@ def ofZhipu():
 
 if __name__ == '__main__':
     # completion()
-	# completion_with_websearch()
-	# multi_modal_chat()
-	# role_play()
-	# assistant_conversation()
-	# video_generation()
-    ofZai()
-    ofZhipu()
+    # completion_with_stream()
+    # completion_with_websearch()
+    multi_modal_chat()
+    # role_play()
+    # assistant_conversation()
+    # video_generation()
+    # ofZai()
+    # ofZhipu()
 
