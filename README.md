@@ -41,16 +41,14 @@
 - **Web Search**: Integrated web search capabilities
 - **File Management**: Upload, download, and manage files
 - **Batch Operations**: Efficient batch processing for multiple requests
-- **Knowledge Base**: Knowledge management and retrieval
 - **Content Moderation**: Built-in content safety and moderation
 - **Image Generation**: AI-powered image creation
-- **Fine-tuning**: Custom model training capabilities
 
 ## 📦 Installation
 
 ### Requirements
 
-- **Python**: 3.9+
+- **Python**: 3.8+
 - **Package Manager**: pip
 
 ### Install via pip
