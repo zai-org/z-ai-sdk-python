@@ -76,12 +76,44 @@ pip install zai-sdk
 
 ## 🚀 快速开始
 
-### 基本用法
+### 创建 API Key
+
+#### 获取 API Key
+- **海外区域**: 访问 [Z.ai 开放平台](https://docs.z.ai/) 获取 API Key
+- **中国大陆区域**: 访问 [智谱 AI 开放平台](https://www.bigmodel.cn/) 获取 API Key
+
+#### API BASE URL
+- **中国大陆区域**: `https://open.bigmodel.cn/api/paas/v4/`
+- **海外区域**: `https://api.z.ai/api/paas/v4/`
+
+#### 使用步骤
 
 1. **使用API密钥创建客户端**
 2. **调用相应的API方法**
 
 完整示例请参考开放平台[接口文档](https://docs.z.ai/api-reference/)以及[使用指南](https://docs.z.ai/guides/)，记得替换为您自己的API密钥。
+
+### 基本用法
+### Basic Usage
+
+```python
+from zai import ZaiClient, ZhipuAiClient
+
+# 对于海外用户，使用ZaiClient
+client = ZaiClient(api_key="your-api-key")
+
+# 对于中国大陆用户，使用ZhipuAiClient
+client = ZhipuAiClient(api_key="your-api-key")
+
+# Create chat completion
+response = client.chat.completions.create(
+    model="glm-4",
+    messages=[
+        {"role": "user", "content": "Hello, Z.ai!"}
+    ]
+)
+print(response.choices[0].message.content)
+```
 
 ### 客户端配置
 
