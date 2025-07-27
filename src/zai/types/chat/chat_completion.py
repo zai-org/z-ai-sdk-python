@@ -6,11 +6,12 @@ from zai.core import BaseModel
 class Function(BaseModel):
 	"""
 	Function call information
-	
+
 	Attributes:
 		arguments: Function call arguments
 		name: Function name
 	"""
+
 	arguments: str
 	name: str
 
@@ -18,12 +19,13 @@ class Function(BaseModel):
 class CompletionMessageToolCall(BaseModel):
 	"""
 	Tool call information in completion message
-	
+
 	Attributes:
 		id: Unique identifier for the tool call
 		function: Function call information
 		type: Type of the tool call
 	"""
+
 	id: str
 	function: Function
 	type: str
@@ -32,13 +34,14 @@ class CompletionMessageToolCall(BaseModel):
 class CompletionMessage(BaseModel):
 	"""
 	Completion message information
-	
+
 	Attributes:
 		content: Message content
 		role: Role of the message sender
 		reasoning_content: Reasoning content
 		tool_calls: List of tool calls in the message
 	"""
+
 	content: Optional[str] = None
 	role: str
 	reasoning_content: Optional[str] = None
@@ -52,7 +55,9 @@ class PromptTokensDetails(BaseModel):
 	Attributes:
 		cached_tokens: Number of tokens reused from cache
 	"""
+
 	cached_tokens: int
+
 
 class CompletionTokensDetails(BaseModel):
 	"""
@@ -61,12 +66,14 @@ class CompletionTokensDetails(BaseModel):
 	Attributes:
 	    reasoning_tokens: Number of tokens used for reasoning steps
 	"""
+
 	reasoning_tokens: int
+
 
 class CompletionUsage(BaseModel):
 	"""
 	Token usage information for completion
-	
+
 	Attributes:
 		prompt_tokens: Number of tokens in the prompt
 		prompt_tokens_details: Detailed breakdown of token usage for the input prompt
@@ -74,6 +81,7 @@ class CompletionUsage(BaseModel):
 		completion_tokens_details: Detailed breakdown of token usage for the model completion
 		total_tokens: Total number of tokens used
 	"""
+
 	prompt_tokens: int
 	prompt_tokens_details: Optional[PromptTokensDetails] = None
 	completion_tokens: int
@@ -84,12 +92,13 @@ class CompletionUsage(BaseModel):
 class CompletionChoice(BaseModel):
 	"""
 	Completion choice information
-	
+
 	Attributes:
 		index: Index of the choice
 		finish_reason: Reason why the completion finished
 		message: Completion message
 	"""
+
 	index: int
 	finish_reason: str
 	message: CompletionMessage
@@ -98,7 +107,7 @@ class CompletionChoice(BaseModel):
 class Completion(BaseModel):
 	"""
 	Chat completion response
-	
+
 	Attributes:
 		model: Model used for the completion
 		created: Timestamp when the completion was created
@@ -107,6 +116,7 @@ class Completion(BaseModel):
 		id: Unique identifier for the completion
 		usage: Token usage information
 	"""
+
 	model: Optional[str] = None
 	created: Optional[int] = None
 	choices: List[CompletionChoice]

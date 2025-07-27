@@ -83,9 +83,7 @@ class APIResponseValidationError(APIResponseError):
 
 
 class APIConnectionError(APIResponseError):
-	def __init__(
-		self, *, message: str = 'Connection error.', request: httpx.Request
-	) -> None:
+	def __init__(self, *, message: str = 'Connection error.', request: httpx.Request) -> None:
 		super().__init__(message, request, json_data=None)
 
 

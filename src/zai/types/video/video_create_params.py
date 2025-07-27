@@ -28,6 +28,7 @@ class VideoCreateParams(TypedDict, total=False):
 			platform will generate default if not provided by client
 		user_id (str): User ID
 	"""
+
 	model: str
 	prompt: str
 	image_url: str | list[str] | dict

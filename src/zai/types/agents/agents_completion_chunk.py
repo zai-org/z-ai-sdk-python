@@ -11,6 +11,7 @@ class AgentsChoiceDelta(BaseModel):
 		content (Optional[object]): The content delta
 		role (Optional[str]): The role of the message sender
 	"""
+
 	content: Optional[object] = None
 	role: Optional[str] = None
 
@@ -24,6 +25,7 @@ class AgentsChoice(BaseModel):
 		finish_reason (Optional[str]): Reason why the generation finished
 		index (int): Index of this choice in the response
 	"""
+
 	delta: AgentsChoiceDelta
 	finish_reason: Optional[str] = None
 	index: int
@@ -38,6 +40,7 @@ class AgentsCompletionUsage(BaseModel):
 		completion_tokens (int): Number of tokens in the completion
 		total_tokens (int): Total number of tokens used
 	"""
+
 	prompt_tokens: int
 	completion_tokens: int
 	total_tokens: int
@@ -51,6 +54,7 @@ class AgentsError(BaseModel):
 		code (Optional[str]): Error code
 		message (Optional[str]): Error message
 	"""
+
 	code: Optional[str] = None
 	message: Optional[str] = None
 
@@ -67,6 +71,7 @@ class AgentsCompletionChunk(BaseModel):
 		usage (Optional[AgentsCompletionUsage]): Token usage statistics
 		error (Optional[AgentsError]): Error information if any
 	"""
+
 	agent_id: Optional[str] = None
 	conversation_id: Optional[str] = None
 	id: Optional[str] = None

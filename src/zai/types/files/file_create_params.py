@@ -11,7 +11,7 @@ from zai.types.files.upload_detail import UploadDetail
 class FileCreateParams(TypedDict, total=False):
 	"""
 	Parameters for creating a file upload
-	
+
 	Attributes:
 		file: File to upload (one of file and upload_detail is required)
 		upload_detail: Upload details for multiple files (one of file and upload_detail is required)
@@ -26,6 +26,7 @@ class FileCreateParams(TypedDict, total=False):
 		knowledge_id: When the file upload purpose is retrieval, you need to specify the knowledge base ID to upload
 		sentence_size: Sentence size parameter for retrieval purpose uploads
 	"""
+
 	file: FileTypes
 	upload_detail: List[UploadDetail]
 	purpose: Required[Literal['fine-tune', 'retrieval', 'batch']]

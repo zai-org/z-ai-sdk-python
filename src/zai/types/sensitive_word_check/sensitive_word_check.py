@@ -6,7 +6,7 @@ from typing_extensions import TypedDict
 class SensitiveWordCheckRequest(TypedDict, total=False):
 	"""
 	Sensitive word check request parameters
-	
+
 	Attributes:
 		type: Sensitive word type, currently only supports ALL
 		status: Sensitive word enable/disable status
@@ -16,5 +16,6 @@ class SensitiveWordCheckRequest(TypedDict, total=False):
 			      contact business to obtain corresponding permissions, otherwise the disable
 			      setting will not take effect.
 	"""
+
 	type: Optional[str]
 	status: Optional[str]

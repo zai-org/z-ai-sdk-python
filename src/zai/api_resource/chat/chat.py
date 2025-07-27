@@ -15,6 +15,7 @@ class Chat(BaseAPI):
 
 	Provides access to chat completions and async completions.
 	"""
+
 	@cached_property
 	def completions(self) -> Completions:
 		return Completions(self._client)

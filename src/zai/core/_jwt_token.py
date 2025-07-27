@@ -16,7 +16,7 @@ def generate_token(apikey: str):
 	try:
 		api_key, secret = apikey.split('.')
 	except Exception as e:
-		raise Exception('invalid api_key', e)
+		raise Exception('Invalid API key', e)
 
 	payload = {
 		'api_key': api_key,

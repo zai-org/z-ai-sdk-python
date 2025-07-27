@@ -30,10 +30,11 @@ if TYPE_CHECKING:
 class Audio(BaseAPI):
 	"""
 	API resource for audio operations
-	
+
 	Attributes:
 		transcriptions (Transcriptions): Audio transcription operations
 	"""
+
 	@cached_property
 	def transcriptions(self) -> Transcriptions:
 		return Transcriptions(self._client)
@@ -57,7 +58,7 @@ class Audio(BaseAPI):
 	) -> HttpxBinaryResponseContent:
 		"""
 		Generate speech audio from text input
-		
+
 		Arguments:
 			model (str): The model to use for speech generation
 			input (str): The text to convert to speech
@@ -105,7 +106,7 @@ class Audio(BaseAPI):
 	) -> HttpxBinaryResponseContent:
 		"""
 		Generate customized speech audio with voice cloning
-		
+
 		Arguments:
 			model (str): The model to use for speech generation
 			input (str): The text to convert to speech

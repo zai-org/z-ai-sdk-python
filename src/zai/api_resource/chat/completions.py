@@ -36,6 +36,7 @@ class Completions(BaseAPI):
 	Attributes:
 		client (ZaiClient): The ZAI client instance
 	"""
+
 	def __init__(self, client: 'ZaiClient') -> None:
 		super().__init__(client)
 
@@ -133,7 +134,7 @@ class Completions(BaseAPI):
 				'meta': meta,
 				'extra': maybe_transform(extra, code_geex_params.CodeGeexExtra),
 				'response_format': response_format,
-				"thinking": thinking
+				'thinking': thinking,
 			}
 		)
 		return self._post(

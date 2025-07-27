@@ -31,6 +31,7 @@ from .core import (
 	_jwt_token,
 )
 
+
 class BaseClient(HttpClient):
 	"""
 	Main client for interacting with the ZAI API
@@ -92,6 +93,7 @@ class BaseClient(HttpClient):
 		self.base_url = base_url
 
 		from ._version import __version__
+
 		super().__init__(
 			version=__version__,
 			base_url=base_url,
@@ -104,7 +106,7 @@ class BaseClient(HttpClient):
 
 	@property
 	def default_base_url(self):
-		raise NotImplementedError("Subclasses must define default_base_url")
+		raise NotImplementedError('Subclasses must define default_base_url')
 
 	@cached_property
 	def chat(self) -> Chat:
@@ -204,10 +206,12 @@ class BaseClient(HttpClient):
 
 		self.close()
 
+
 class ZaiClient(BaseClient):
 	@property
 	def default_base_url(self):
 		return 'https://api.z.ai/api/paas/v4'
+
 
 class ZhipuAiClient(BaseClient):
 	@property

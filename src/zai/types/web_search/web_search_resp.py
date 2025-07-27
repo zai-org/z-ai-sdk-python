@@ -4,17 +4,18 @@ from zai.core import BaseModel
 
 
 class SearchIntentResp(BaseModel):
-    """
-    Search intent response
+	"""
+	Search intent response
 
-    Attributes:
-        query (str): Search optimized query
-        intent (str): Determined intent type
-        keywords (str): Search keywords
-    """
-    query: str
-    intent: str
-    keywords: str
+	Attributes:
+	    query (str): Search optimized query
+	    intent (str): Determined intent type
+	    keywords (str): Search keywords
+	"""
+
+	query: str
+	intent: str
+	keywords: str
 
 
 class SearchResultResp(BaseModel):
@@ -30,6 +31,7 @@ class SearchResultResp(BaseModel):
 		refer (str): Reference number [ref_1]
 		publish_date (str): Publish date
 	"""
+
 	title: str
 	link: str
 	content: str
@@ -50,6 +52,7 @@ class WebSearchResp(BaseModel):
 		search_intent (Optional[SearchIntentResp]): Search intent response
 		search_result (Optional[SearchResultResp]): Search result response
 	"""
+
 	created: Optional[int] = None
 	request_id: Optional[str] = None
 	id: Optional[str] = None

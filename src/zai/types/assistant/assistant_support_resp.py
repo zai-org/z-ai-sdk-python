@@ -18,6 +18,7 @@ class AssistantSupport(BaseModel):
 		tools (List[str]): List of tool names supported by the assistant
 		starter_prompts (List[str]): Recommended startup prompts for the assistant
 	"""
+
 	assistant_id: str
 	created_at: int
 	updated_at: int
@@ -38,6 +39,7 @@ class AssistantSupportResp(BaseModel):
 		msg (str): Response message
 		data (List[AssistantSupport]): List of available assistants
 	"""
+
 	code: int
 	msg: str
 	data: List[AssistantSupport]

@@ -18,6 +18,7 @@ class Embeddings(BaseAPI):
 	Attributes:
 		client (ZaiClient): The ZAI client instance
 	"""
+
 	def __init__(self, client: 'ZaiClient') -> None:
 		super().__init__(client)
 

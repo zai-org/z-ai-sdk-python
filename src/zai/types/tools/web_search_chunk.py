@@ -16,6 +16,7 @@ class ChoiceDeltaToolCall(BaseModel):
 		search_recommend (Optional[SearchRecommend]): Search recommendations
 		type (Optional[str]): Type of the tool call
 	"""
+
 	index: int
 	id: Optional[str] = None
 
@@ -33,6 +34,7 @@ class ChoiceDelta(BaseModel):
 		role (Optional[str]): The role of the message sender
 		tool_calls (Optional[List[ChoiceDeltaToolCall]]): List of tool call deltas
 	"""
+
 	role: Optional[str] = None
 	tool_calls: Optional[List[ChoiceDeltaToolCall]] = None
 
@@ -46,6 +48,7 @@ class Choice(BaseModel):
 		finish_reason (Optional[str]): Reason why the generation finished
 		index (int): Index of this choice in the response
 	"""
+
 	delta: ChoiceDelta
 	finish_reason: Optional[str] = None
 	index: int
@@ -60,6 +63,7 @@ class WebSearchChunk(BaseModel):
 		choices (List[Choice]): List of choices in this chunk
 		created (Optional[int]): Timestamp when the chunk was created
 	"""
+
 	id: Optional[str] = None
 	choices: List[Choice]
 	created: Optional[int] = None

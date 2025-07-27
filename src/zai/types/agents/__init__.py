@@ -4,12 +4,12 @@ from .agents_completion_chunk import AgentsCompletionUsage as AgentsCompletionCh
 from .chat_completions_create_param import Reference
 
 __all__ = [
-    'AgentsCompletion',
-    'AgentsCompletionUsage',
-    'AgentsCompletionChunkUsage',
-    'AgentsCompletionChunk',
-    'AgentsChoice',
-    'AgentsChoiceDelta',
-    'AgentsError',
-    'Reference',
+	'AgentsCompletion',
+	'AgentsCompletionUsage',
+	'AgentsCompletionChunkUsage',
+	'AgentsCompletionChunk',
+	'AgentsChoice',
+	'AgentsChoiceDelta',
+	'AgentsError',
+	'Reference',
 ]

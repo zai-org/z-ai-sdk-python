@@ -6,10 +6,10 @@ from .tools_type import ToolsType
 from .web_browser_delta_block import WebBrowserToolBlock
 
 __all__ = [
-    'CodeInterpreterToolBlock',
-    'DrawingToolBlock',
-    'FunctionToolBlock',
-    'RetrievalToolBlock',
-    'WebBrowserToolBlock',
-    'ToolsType',
+	'CodeInterpreterToolBlock',
+	'DrawingToolBlock',
+	'FunctionToolBlock',
+	'RetrievalToolBlock',
+	'WebBrowserToolBlock',
+	'ToolsType',
 ]

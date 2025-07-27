@@ -31,6 +31,7 @@ class Tools(BaseAPI):
 
 	Provides access to various tool operations including web search.
 	"""
+
 	def __init__(self, client: 'ZaiClient') -> None:
 		super().__init__(client)
 
@@ -50,7 +51,7 @@ class Tools(BaseAPI):
 	) -> WebSearch | StreamResponse[WebSearchChunk]:
 		"""
 		Perform web search using AI models
-		
+
 		Arguments:
 			model (str): The model to use for web search
 			request_id (Optional[str]): Unique identifier for the request
