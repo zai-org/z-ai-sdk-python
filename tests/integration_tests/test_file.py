@@ -71,11 +71,14 @@ class TestZaiClientFileServer:
 
 	def test_delete_files(self, test_server):
 		try:
-			delete1 = test_server.client.files.delete(file_id=test_server.file_id1)
-			print(delete1)
+			# Only delete files if they were successfully created
+			if test_server.file_id1:
+				delete1 = test_server.client.files.delete(file_id=test_server.file_id1)
+				print(delete1)
 
-			delete2 = test_server.client.files.delete(file_id=test_server.file_id2)
-			print(delete2)
+			if test_server.file_id2:
+				delete2 = test_server.client.files.delete(file_id=test_server.file_id2)
+				print(delete2)
 
 		except zai.core._errors.APIRequestFailedError as err:
 			print(err)

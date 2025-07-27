@@ -30,11 +30,11 @@ if TYPE_CHECKING:
 	from zai._client import ZaiClient
 
 
-
 class Transcriptions(BaseAPI):
 	"""
 	API resource for audio transcription operations
 	"""
+
 	def __init__(self, client: 'ZaiClient') -> None:
 		super().__init__(client)
 
@@ -54,7 +54,7 @@ class Transcriptions(BaseAPI):
 	) -> Completion | StreamResponse[ChatCompletionChunk]:
 		"""
 		Transcribe audio files to text
-		
+
 		Arguments:
 			file (FileTypes): Audio file to transcribe
 			model (str): The model to use for transcription

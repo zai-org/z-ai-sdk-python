@@ -12,6 +12,7 @@ class Usage(BaseModel):
 		completion_tokens (int): Number of tokens in model output
 		total_tokens (int): Total number of tokens used
 	"""
+
 	prompt_tokens: int
 	completion_tokens: int
 	total_tokens: int
@@ -28,6 +29,7 @@ class ConversationUsage(BaseModel):
 		update_time (int): Last update timestamp
 		usage (Usage): Token usage statistics for this conversation
 	"""
+
 	id: str
 	assistant_id: str
 	create_time: int
@@ -44,6 +46,7 @@ class ConversationUsageList(BaseModel):
 		has_more (bool): Whether there are more pages available
 		conversation_list (List[ConversationUsage]): List of conversation usage records
 	"""
+
 	assistant_id: str
 	has_more: bool
 	conversation_list: List[ConversationUsage]
@@ -58,6 +61,7 @@ class ConversationUsageListResp(BaseModel):
 		msg (str): Response message
 		data (ConversationUsageList): Conversation usage data
 	"""
+
 	code: int
 	msg: str
 	data: ConversationUsageList

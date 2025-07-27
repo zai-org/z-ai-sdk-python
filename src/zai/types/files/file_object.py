@@ -17,6 +17,7 @@ class FileObject(BaseModel):
 		status (Optional[str]): Current status of the file
 		status_details (Optional[str]): Additional details about the file status
 	"""
+
 	id: Optional[str] = None
 	bytes: Optional[int] = None
 	created_at: Optional[int] = None
@@ -36,6 +37,7 @@ class ListOfFileObject(BaseModel):
 		data (List[FileObject]): List of file objects
 		has_more (Optional[bool]): Whether there are more files available
 	"""
+
 	object: Optional[str] = None
 	data: List[FileObject]
 	has_more: Optional[bool] = None

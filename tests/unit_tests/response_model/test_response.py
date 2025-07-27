@@ -132,7 +132,7 @@ def test_response_chat_model_cast(R: Type[BaseModel]) -> None:
 		assert model.id == 'completion123'
 		assert model.request_id == 'request456'
 		assert model.model == 'model-name'
-		assert model.created == None
+		assert model.created is None
 		assert isinstance(model.choices, list)
 		assert isinstance(model.choices[0], ChatCompletionChoice)
 		assert model.choices[0].index == 0
@@ -303,7 +303,7 @@ def test_response_file_list_model_cast(R: Type[BaseModel]) -> None:
 	assert model.data[0].purpose == 'example purpose'
 	assert model.data[0].status == 'uploaded'
 	assert model.data[0].status_details == 'File uploaded successfully'
-	assert model.has_more == True
+	assert model.has_more
 
 
 @pytest.mark.parametrize('R', [ImagesResponded])

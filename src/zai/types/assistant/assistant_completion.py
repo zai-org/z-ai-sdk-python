@@ -62,7 +62,7 @@ class AssistantCompletion(BaseModel):
 		assistant_id (str): Assistant identifier
 		created (int): Request creation time as Unix timestamp
 		status (str): Response status (completed: generation finished,
-                      in_progress: generating, failed: generation exception)
+	              in_progress: generating, failed: generation exception)
 		last_error (Optional[ErrorInfo]): Error information if generation failed
 		choices (List[AssistantChoice]): List of response choices with incremental information
 		metadata (Optional[Dict[str, Any]]): Optional metadata extension field

@@ -21,6 +21,7 @@ class AudioSpeechParams(TypedDict, total=False):
 			platform will generate default if not provided by client
 		user_id (str): User ID
 	"""
+
 	model: str
 	input: str
 	voice: str

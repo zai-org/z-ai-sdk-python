@@ -32,6 +32,7 @@ class AsyncCompletions(BaseAPI):
 
 	Provides access to asynchronous chat completion operations.
 	"""
+
 	def __init__(self, client: 'ZaiClient') -> None:
 		super().__init__(client)
 
@@ -61,7 +62,7 @@ class AsyncCompletions(BaseAPI):
 	) -> AsyncTaskStatus:
 		"""
 		Create an asynchronous chat completion task
-		
+
 		Arguments:
 			model (str): Model name to use for completion
 			request_id (Optional[str]): Request identifier
@@ -125,8 +126,8 @@ class AsyncCompletions(BaseAPI):
 			'tool_choice': tool_choice,
 			'meta': meta,
 			'extra': maybe_transform(extra, code_geex_params.CodeGeexExtra),
-			"response_format": response_format,
-			"thinking": thinking
+			'response_format': response_format,
+			'thinking': thinking,
 		}
 		return self._post(
 			'/async/chat/completions',
@@ -145,7 +146,7 @@ class AsyncCompletions(BaseAPI):
 	) -> Union[AsyncCompletion, AsyncTaskStatus]:
 		"""
 		Retrieve the result of an asynchronous chat completion task
-		
+
 		Arguments:
 			id (str): The task ID to retrieve results for
 			extra_headers (Headers): Additional HTTP headers

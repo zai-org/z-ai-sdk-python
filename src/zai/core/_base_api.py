@@ -16,6 +16,7 @@ class BaseAPI:
 	Attributes:
 		_client (ZaiClient): The client instance for making API requests
 	"""
+
 	_client: ZaiClient
 
 	def __init__(self, client: ZaiClient) -> None:

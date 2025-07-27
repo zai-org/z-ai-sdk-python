@@ -14,6 +14,7 @@ class AsyncTaskStatus(BaseModel):
 		model (Optional[str]): Model used for the task
 		task_status (Optional[str]): Current status of the task
 	"""
+
 	id: Optional[str] = None
 	request_id: Optional[str] = None
 	model: Optional[str] = None
@@ -32,6 +33,7 @@ class AsyncCompletion(BaseModel):
 		choices (List[CompletionChoice]): List of completion choices
 		usage (CompletionUsage): Token usage statistics
 	"""
+
 	id: Optional[str] = None
 	request_id: Optional[str] = None
 	model: Optional[str] = None

@@ -16,6 +16,7 @@ class Images(BaseAPI):
 	"""
 	API resource for image generation operations
 	"""
+
 	def __init__(self, client: 'ZaiClient') -> None:
 		super().__init__(client)
 
@@ -40,7 +41,7 @@ class Images(BaseAPI):
 	) -> ImagesResponded:
 		"""
 		Generate images from text prompts
-		
+
 		Arguments:
 			prompt (str): Text description of the desired image
 			model (str): The model to use for image generation
