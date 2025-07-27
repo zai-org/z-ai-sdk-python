@@ -77,6 +77,16 @@ pip install zai-sdk
 ## 🚀 Quick Start
 
 ### Create API Key
+
+#### Get API Key
+- **Overseas regions**: Visit [Z.ai Open Platform](https://docs.z.ai/) to get your API key
+- **Mainland China regions**: Visit [Zhipu AI Open Platform](https://www.bigmodel.cn/) to get your API key
+
+#### API BASE URL
+- **Mainland China regions**: `https://open.bigmodel.cn/api/paas/v4/`
+- **Overseas regions**: `https://api.z.ai/api/paas/v4/`
+
+#### Usage Steps
 1. **Create client with API key**
 2. **Call the corresponding API methods**
 
@@ -85,10 +95,13 @@ For complete examples, please refer to the open platform [API Reference](https:/
 ### Basic Usage
 
 ```python
-from zai import ZaiClient
+from zai import ZaiClient, ZhipuAiClient
 
-# Initialize client
+# For Overseas users, create the ZaiClient
 client = ZaiClient(api_key="your-api-key")
+
+# For Chinese users, create the ZhipuAiClient
+client = ZhipuAiClient(api_key="your-api-key")
 
 # Create chat completion
 response = client.chat.completions.create(
