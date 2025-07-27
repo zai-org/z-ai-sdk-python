@@ -2,7 +2,7 @@
 
 [![PyPI version](https://img.shields.io/pypi/v/zai-sdk.svg)](https://pypi.org/project/zai-sdk/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+[![Python](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 
 [中文文档](README_CN.md) | English
 
@@ -121,7 +121,7 @@ client = ZaiClient(
     base_url="https://api.z.ai/api/paas/v4/"  # Optional
 )
 
-# if you want to use ZhipuAiClient
+# if you want to use Zhipu's domain service
 zhipu_client = ZhipuAiClient(
     api_key="your-api-key",
     base_url="https://open.bigmodel.cn/api/paas/v4/"  # Optional

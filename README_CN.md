@@ -2,7 +2,7 @@
 
 [![PyPI version](https://img.shields.io/pypi/v/zai-sdk.svg)](https://pypi.org/project/zai-sdk/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+[![Python](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 
 [English Readme](README.md)
 
@@ -47,7 +47,7 @@
 ## 📦 安装
 
 ### 环境要求
-- Python 3.9 或更高版本
+- Python 3.8 或更高版本
 - pip 包管理器
 
 ### 使用 pip 安装
@@ -102,7 +102,7 @@ client = ZaiClient(
     base_url="https://api.z.ai/api/paas/v4/"  # 可选
 )
 
-# if you want to use ZhipuAiClient
+# 如果你想使用智谱的域名
 zhipu_client = ZhipuAiClient(
     api_key="your_api_key_here",  # 填写您的 APIKey
     base_url="https://open.bigmodel.cn/api/paas/v4/"  # 可选
