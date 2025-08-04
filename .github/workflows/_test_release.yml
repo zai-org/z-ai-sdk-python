@@ -7,7 +7,13 @@ on:
         required: true
         type: string
         description: "From which folder this pipeline executes"
-
+  workflow_dispatch:
+    inputs:
+      working-directory:
+        required: true
+        type: string
+        default: '.'
+        description: "From which folder this pipeline executes"
 env:
   POETRY_VERSION: "1.8.2"
   PYTHON_VERSION: "3.9"
