@@ -204,7 +204,13 @@ class BaseClient(HttpClient):
 		if self._has_custom_http_client:
 			return
 
-		self.close()
+		try:
+			# Check if client is still valid before closing
+			if hasattr(self, '_client') and self._client is not None:
+				self.close()
+		except Exception:
+			# Ignore any exceptions during cleanup to avoid masking the original error
+			pass
 
 
 class ZaiClient(BaseClient):

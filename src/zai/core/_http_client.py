@@ -481,7 +481,12 @@ class HttpClient:
 		return self._client.is_closed
 
 	def close(self):
-		self._client.close()
+		try:
+			if hasattr(self, '_client') and self._client is not None and not self._client.is_closed:
+				self._client.close()
+		except Exception:
+			# Ignore any exceptions during cleanup to avoid masking the original error
+			pass
 
 	def __enter__(self):
 		return self
