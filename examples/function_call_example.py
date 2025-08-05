@@ -1,6 +1,6 @@
 from zai import ZhipuAiClient
 import json
-client = ZhipuAiClient()
+client = ZhipuAiClient(api_key='4b921d052af44ba09349b5b138957feb.N64Vue2HP9wZZ3yi')
 
 def get_flight_number(date: str, departure: str, destination: str):
     flight_number = {
@@ -41,7 +41,7 @@ def parse_function_call(model_response, messages):
             tools=tools,
         )
         print(response.choices[0].message)
-        messages.append(response.choices[0].message.model_dump())
+        messages.append(response.choices[0].message)
 
 messages = []
 tools = [
@@ -104,7 +104,7 @@ response = client.chat.completions.create(
     tools=tools,
 )
 print(response.choices[0].message)
-messages.append(response.choices[0].message.model_dump())
+messages.append(response.choices[0].message)
 
 parse_function_call(response, messages)
 
@@ -115,6 +115,6 @@ response = client.chat.completions.create(
     tools=tools,
 )
 print(response.choices[0].message)
-messages.append(response.choices[0].message.model_dump())
+messages.append(response.choices[0].message)
 
 parse_function_call(response, messages)

@@ -160,6 +160,43 @@ class BaseModel(pydantic.BaseModel):
 			warnings=warnings,
 		)
 
+	def get(self, key: str, default: Any = None) -> Any:
+		"""Get the value of an attribute by name, with an optional default value.
+		
+		This method allows you to access model attributes by their string name,
+		similar to how dict.get() works.
+		
+		Args:
+		    key: The name of the attribute to get
+		    default: The value to return if the attribute doesn't exist or is None.
+		        Defaults to None.
+		        
+		Returns:
+		    The value of the attribute if it exists, otherwise the default value.
+		    
+		Examples:
+		    >>> model = MyModel(name="test", age=25)
+		    >>> model.get("name")  # Returns "test"
+		    >>> model.get("nonexistent")  # Returns None
+		    >>> model.get("nonexistent", "default")  # Returns "default"
+		"""
+		try:
+			value = getattr(self, key)
+			return value if value is not None else default
+		except AttributeError:
+			return default
+
+	def __json__(self) -> dict[str, Any]:
+		"""Custom JSON serialization method.
+		
+		This method is called by JSON encoders that support the __json__ protocol,
+		making BaseModel objects directly serializable without requiring model_dump().
+		
+		Returns:
+		    A dictionary representation of the model suitable for JSON serialization.
+		"""
+		return self.model_dump(by_alias=True, exclude_unset=True)
+
 	@override
 	def __str__(self) -> str:
 		# mypy complains about an invalid self arg
