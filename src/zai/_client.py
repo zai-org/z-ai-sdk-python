@@ -218,6 +218,13 @@ class ZaiClient(BaseClient):
 	def default_base_url(self):
 		return 'https://api.z.ai/api/paas/v4'
 
+	@property
+	@override
+	def auth_headers(self) -> dict[str, str]:
+		headers = super().auth_headers
+		headers['Accept-Language'] = 'en-US,en'
+		return headers
+
 
 class ZhipuAiClient(BaseClient):
 	@property
