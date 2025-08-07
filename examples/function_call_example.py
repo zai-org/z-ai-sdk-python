@@ -41,7 +41,7 @@ def parse_function_call(model_response, messages):
             tools=tools,
         )
         print(response.choices[0].message)
-        messages.append(response.choices[0].message.model_dump())
+        messages.append(response.choices[0].message)
 
 messages = []
 tools = [
@@ -104,7 +104,7 @@ response = client.chat.completions.create(
     tools=tools,
 )
 print(response.choices[0].message)
-messages.append(response.choices[0].message.model_dump())
+messages.append(response.choices[0].message)
 
 parse_function_call(response, messages)
 
@@ -115,6 +115,6 @@ response = client.chat.completions.create(
     tools=tools,
 )
 print(response.choices[0].message)
-messages.append(response.choices[0].message.model_dump())
+messages.append(response.choices[0].message)
 
 parse_function_call(response, messages)

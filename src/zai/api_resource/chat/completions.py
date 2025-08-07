@@ -18,6 +18,7 @@ from zai.core import (
 	make_request_options,
 	maybe_transform,
 )
+from zai.core._base_models import BaseModel
 from zai.types.chat.chat_completion import Completion
 from zai.types.chat.chat_completion_chunk import ChatCompletionChunk
 from zai.types.chat.code_geex import code_geex_params
@@ -112,7 +113,9 @@ class Completions(BaseAPI):
 		logger.debug(f'temperature:{temperature}, top_p:{top_p}')
 		if isinstance(messages, List):
 			for item in messages:
-				if item.get('content'):
+				if isinstance(item, BaseModel) and hasattr(item, 'content'):
+					item.content = drop_prefix_image_data(item.content)
+				elif isinstance(item, dict) and item.get('content'):
 					item['content'] = drop_prefix_image_data(item['content'])
 
 		body = deepcopy_minimal(
