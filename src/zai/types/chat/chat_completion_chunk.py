@@ -94,6 +94,26 @@ class Choice(BaseModel):
 	finish_reason: Optional[str] = None
 	index: int
 
+class PromptTokensDetails(BaseModel):
+	"""
+	Detailed breakdown of token usage for the input prompt
+
+	Attributes:
+		cached_tokens: Number of tokens reused from cache
+	"""
+
+	cached_tokens: int
+
+
+class CompletionTokensDetails(BaseModel):
+	"""
+	Detailed breakdown of token usage for the model completion
+
+	Attributes:
+	    reasoning_tokens: Number of tokens used for reasoning steps
+	"""
+
+	reasoning_tokens: int
 
 class CompletionUsage(BaseModel):
 	"""
@@ -106,7 +126,9 @@ class CompletionUsage(BaseModel):
 	"""
 
 	prompt_tokens: int
+	prompt_tokens_details: Optional[PromptTokensDetails] = None
 	completion_tokens: int
+	completion_tokens_details: Optional[CompletionTokensDetails] = None
 	total_tokens: int
 
 
