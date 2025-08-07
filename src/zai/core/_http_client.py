@@ -65,6 +65,7 @@ from ._request_opt import FinalRequestOptions, UserRequestInput
 from ._response import APIResponse, BaseAPIResponse, extract_response_type
 from ._streaming import StreamResponse
 from ._utils import flatten, is_given, is_mapping
+from ._json_encoder import json_dumps
 
 log: logging.Logger = logging.getLogger(__name__)
 
@@ -355,6 +356,9 @@ class HttpClient:
 			else:
 				raise RuntimeError(f'Unexpected JSON data type, {type(json_data)}, cannot merge with `extra_body`')
 
+		# Convert BaseModel objects to dicts before passing to httpx
+		json_data = self._prepare_json_data(json_data)
+
 		content_type = headers.get('Content-Type')
 		# multipart/form-data; boundary=---abc--
 		if headers.get('Content-Type') == 'multipart/form-data':
@@ -376,6 +380,24 @@ class HttpClient:
 			params=options.params,
 			**kwargs,
 		)
+
+	def _prepare_json_data(self, json_data: Any) -> Any:
+		"""Prepare JSON data for httpx by converting BaseModel objects to dicts."""
+		from ._base_models import BaseModel
+		
+		if json_data is None:
+			return None
+		
+		if isinstance(json_data, BaseModel):
+			return json_data.model_dump(by_alias=True, exclude_unset=True)
+		
+		if isinstance(json_data, list):
+			return [self._prepare_json_data(item) for item in json_data]
+		
+		if isinstance(json_data, dict):
+			return {key: self._prepare_json_data(value) for key, value in json_data.items()}
+		
+		return json_data
 
 	def _object_to_formfata(self, key: str, value: Data | Mapping[object, object]) -> list[tuple[str, str]]:
 		items = []

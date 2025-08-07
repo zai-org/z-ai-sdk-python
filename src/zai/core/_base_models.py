@@ -75,10 +75,10 @@ class BaseModel(pydantic.BaseModel):
 		@override
 		def model_fields_set(self) -> set[str]:
 			# a forwards-compat shim for pydantic v2
-			return self.__fields_set__  # type: ignore
+			return self.model_fields_set  # type: ignore
 
-		class Config(pydantic.BaseConfig):  # pyright: ignore[reportDeprecated]
-			extra: Any = pydantic.Extra.allow  # type: ignore
+		class Config(pydantic.ConfigDict):  # pyright: ignore[reportDeprecated]
+			extra: Any = Literal['allow']  # type: ignore
 
 	def to_dict(
 		self,
@@ -196,6 +196,27 @@ class BaseModel(pydantic.BaseModel):
 		    A dictionary representation of the model suitable for JSON serialization.
 		"""
 		return self.model_dump(by_alias=True, exclude_unset=True)
+	
+	def __reduce_ex__(self, protocol):
+		"""Support for pickle serialization by returning the dict representation."""
+		return (self.__class__.model_validate, (self.model_dump(by_alias=True, exclude_unset=True),))
+	
+	def __iter__(self):
+		"""Make BaseModel iterable to support dict() conversion."""
+		data = self.model_dump(by_alias=True, exclude_unset=True)
+		return iter(data.items())
+	
+	def keys(self):
+		"""Return keys for dict-like interface."""
+		return self.model_dump(by_alias=True, exclude_unset=True).keys()
+	
+	def values(self):
+		"""Return values for dict-like interface."""
+		return self.model_dump(by_alias=True, exclude_unset=True).values()
+	
+	def items(self):
+		"""Return items for dict-like interface."""
+		return self.model_dump(by_alias=True, exclude_unset=True).items()
 
 	@override
 	def __str__(self) -> str:
