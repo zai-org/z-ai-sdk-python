@@ -75,10 +75,10 @@ class BaseModel(pydantic.BaseModel):
 		@override
 		def model_fields_set(self) -> set[str]:
 			# a forwards-compat shim for pydantic v2
-			return self.model_fields_set  # type: ignore
+			return self.__fields_set__  # type: ignore
 
-		class Config(pydantic.ConfigDict):  # pyright: ignore[reportDeprecated]
-			extra: Any = Literal['allow']  # type: ignore
+		class Config(pydantic.BaseConfig):  # pyright: ignore[reportDeprecated]
+			extra: Any = pydantic.Extra.allow  # type: ignore
 
 	def to_dict(
 		self,
