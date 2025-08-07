@@ -6,7 +6,7 @@ import traceback
 from typing import Optional
 
 from example_types import MessageList, SamplerBase
-from zai import ZhipuAiClient
+from zai import ZhipuAiClient, ZaiClient
 
 
 class ZaiSampler(SamplerBase):
@@ -27,57 +27,49 @@ class ZaiSampler(SamplerBase):
         self.temperature = temperature
         self.max_tokens = max_tokens
         self.model = model
-        self.client = ZhipuAiClient(api_key=api_key)
+        self.client = ZaiClient(api_key=api_key)
         self.stream = stream
         
     def get_resp(self, message_list):
-        for _ in range(3):
-            try:
-                chat_completion = self.client.chat.completions.create(
-                    messages=message_list,
-                    model=self.model,
-                    temperature=self.temperature,
-                    top_p=self.top_p,
-                    max_tokens=self.max_tokens
-                )
-                output = chat_completion.choices[0].message.content
-                return output
-            except Exception as e:
-                print(f"Exception: {e}\nTraceback: {traceback.format_exc()}")
-                time.sleep(1)
-                continue
-        print(f"failed, last exception: {e if 'e' in locals() else ''}")
-        return ''
+        try:
+            chat_completion = self.client.chat.completions.create(
+                messages=message_list,
+                model=self.model,
+                temperature=self.temperature,
+                top_p=self.top_p,
+                max_tokens=self.max_tokens
+            )
+            output = chat_completion.choices[0].message.content
+            return output
+        except Exception as e:
+            print(f"Exception: {e}\nTraceback: {traceback.format_exc()}")
+            raise
 
 
     def get_resp_stream(self, message_list, top_p=-1, temperature=-1):
         temperature = temperature if temperature > 0 else self.temperature
         top_p = top_p if top_p > 0 else 0.95
         final = ''
-        for _ in range(200):
-            try:
-                chat_completion_res = self.client.chat.completions.create(
-                    model=self.model,
-                    messages=message_list,
-                    thinking={
-                        "type": "enabled",
-                    },
-                    stream=True,
-                    max_tokens=self.max_tokens,
-                    temperature=temperature
-                )
-                for chunk in chat_completion_res:
-                    if chunk.choices[0].delta.content:
-                        final += chunk.choices[0].delta.content
-                break
-            except Exception as e:
-                final = ""
-                print(f"Exception: {e}\nTraceback: {traceback.format_exc()}")
-                time.sleep(5)
-                continue
-            
+        try:
+            chat_completion_res = self.client.chat.completions.create(
+                model=self.model,
+                messages=message_list,
+                thinking={
+                    "type": "enabled",
+                },
+                stream=True,
+                max_tokens=self.max_tokens,
+                temperature=temperature
+            )
+            for chunk in chat_completion_res:
+                if chunk.choices[0].delta.content:
+                    final += chunk.choices[0].delta.content
+        except Exception as e:
+            print(f"Exception: {e}\nTraceback: {traceback.format_exc()}")
+            raise
+        
         if final == '':
-            print(f"failed in get_resp for 50 times, last exception: {e if 'e' in locals() else ''}")
+            print(f"failed in get_resp, no content received")
             return ''
         
         content = ''
@@ -105,9 +97,13 @@ class ZaiSampler(SamplerBase):
         
 
 if __name__ == "__main__":
-    client = ZaiSampler(model="glm-4.5", api_key=os.getenv("ZAI_API_KEY"), stream=True)
-    messages = [
-        {"role": "user", "content": "Hi?"},
-    ]
-    response = client(messages)
-    print(response)
+    try:
+        client = ZaiSampler(model="glm-4.5", api_key=os.getenv("ZAI_API_KEY"), stream=True)
+        messages = [
+            {"role": "user", "content": "Hi? Tell me a joke."},
+        ]
+        response = client(messages)
+        print(response)
+    except Exception as e:
+        print(f"Fatal error: {e}\nTraceback: {traceback.format_exc()}")
+        sys.exit(1)
