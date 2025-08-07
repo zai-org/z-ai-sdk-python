@@ -113,9 +113,9 @@ class Completions(BaseAPI):
 		logger.debug(f'temperature:{temperature}, top_p:{top_p}')
 		if isinstance(messages, List):
 			for item in messages:
-				if isinstance(item, BaseModel):
+				if isinstance(item, BaseModel) and hasattr(item, 'content'):
 					item.content = drop_prefix_image_data(item.content)
-				elif isinstance(item, dict):
+				elif isinstance(item, dict) and item.get('content'):
 					item['content'] = drop_prefix_image_data(item['content'])
 
 		body = deepcopy_minimal(
