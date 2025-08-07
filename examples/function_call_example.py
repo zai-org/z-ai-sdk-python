@@ -1,6 +1,6 @@
 from zai import ZhipuAiClient
 import json
-client = ZhipuAiClient(api_key='4b921d052af44ba09349b5b138957feb.N64Vue2HP9wZZ3yi')
+client = ZhipuAiClient()
 
 def get_flight_number(date: str, departure: str, destination: str):
     flight_number = {
