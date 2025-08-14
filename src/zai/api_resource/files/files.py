@@ -28,7 +28,7 @@ from zai.types.files import (
 )
 
 if TYPE_CHECKING:
-	from .._client import ZaiClient
+	from zai._client import ZaiClient
 
 
 class Files(BaseAPI):
