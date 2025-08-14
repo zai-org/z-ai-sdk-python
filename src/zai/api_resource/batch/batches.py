@@ -17,7 +17,7 @@ from zai.core.pagination import SyncCursorPage
 from zai.types.batch import Batch, BatchCreateParams, BatchListParams
 
 if TYPE_CHECKING:
-	from .._client import ZaiClient
+	from zai._client import ZaiClient
 
 
 class Batches(BaseAPI):
