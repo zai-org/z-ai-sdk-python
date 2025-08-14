@@ -4,35 +4,36 @@ import datetime
 import functools
 import inspect
 import logging
+import os
 from typing import (
 	TYPE_CHECKING,
 	Any,
+	AsyncIterator,
 	Callable,
 	Generic,
+	Iterator,
 	TypeVar,
 	Union,
 	cast,
 	overload,
 )
 
+import anyio
 import httpx
 import pydantic
-from typing_extensions import ParamSpec, get_origin, override
+from typing_extensions import Awaitable, ParamSpec, deprecated, get_origin, override
 
-from ._base_models import BaseModel, is_basemodel
-from ._base_type import NoneType
+from ._base_models import BaseModel, add_request_id, is_basemodel
 from ._constants import RAW_RESPONSE_HEADER
-from ._errors import APIResponseValidationError
-from ._legacy_binary_response import (
-	HttpxResponseContent,
-	HttpxTextBinaryResponseContent,
-)
-from ._streaming import StreamResponse, extract_stream_chunk_type, is_stream_class_type
-from ._utils import extract_type_arg, is_annotated_type, is_given
+from ._exceptions import APIResponseValidationError
+from ._streaming import AsyncStreamResponse, StreamResponse, extract_stream_chunk_type, is_stream_class_type
+from ._types import NoneType
+from ._utils import extract_type_arg, is_annotated_type, is_given, is_type_alias_type
 
 if TYPE_CHECKING:
-	from ._http_client import HttpClient
-	from ._request_opt import FinalRequestOptions
+	from .._client import BaseClient
+	from ._base_models import FinalRequestOptions
+
 
 P = ParamSpec('P')
 R = TypeVar('R')
@@ -54,32 +55,37 @@ class LegacyAPIResponse(Generic[R]):
 	be smooth.
 	"""
 
-	_cast_type: type[R]
-	_client: 'HttpClient'
+	_cast_to: type[R]
+	_client: BaseClient[Any, Any]
 	_parsed_by_type: dict[type[Any], Any]
 	_stream: bool
-	_stream_cls: type[StreamResponse[Any]] | None
+	_stream_cls: type[StreamResponse[Any]] | type[AsyncStreamResponse[Any]] | None
 	_options: FinalRequestOptions
 
 	http_response: httpx.Response
+
+	retries_taken: int
+	"""The number of retries made. If no retries happened this will be `0`"""
 
 	def __init__(
 		self,
 		*,
 		raw: httpx.Response,
-		cast_type: type[R],
-		client: 'HttpClient',
+		cast_to: type[R],
+		client: BaseClient[Any, Any],
 		stream: bool,
-		stream_cls: type[StreamResponse[Any]] | None,
+		stream_cls: type[StreamResponse[Any]] | type[AsyncStreamResponse[Any]] | None,
 		options: FinalRequestOptions,
+		retries_taken: int = 0,
 	) -> None:
-		self._cast_type = cast_type
+		self._cast_to = cast_to
 		self._client = client
 		self._parsed_by_type = {}
 		self._stream = stream
 		self._stream_cls = stream_cls
 		self._options = options
 		self.http_response = raw
+		self.retries_taken = retries_taken
 
 	@property
 	def request_id(self) -> str | None:
@@ -102,7 +108,7 @@ class LegacyAPIResponse(Generic[R]):
 		the `to` argument, e.g.
 
 		```py
-		from zai import BaseModel
+		from openai import BaseModel
 
 
 		class MyModel(BaseModel):
@@ -123,7 +129,7 @@ class LegacyAPIResponse(Generic[R]):
 		  - `float`
 		  - `httpx.Response`
 		"""
-		cache_key = to if to is not None else self._cast_type
+		cache_key = to if to is not None else self._cast_to
 		cached = self._parsed_by_type.get(cache_key)
 		if cached is not None:
 			return cached  # type: ignore[no-any-return]
@@ -132,8 +138,11 @@ class LegacyAPIResponse(Generic[R]):
 		if is_given(self._options.post_parser):
 			parsed = self._options.post_parser(parsed)
 
+		if isinstance(parsed, BaseModel):
+			add_request_id(parsed, self.request_id)
+
 		self._parsed_by_type[cache_key] = parsed
-		return parsed
+		return cast(R, parsed)
 
 	@property
 	def headers(self) -> httpx.Headers:
@@ -186,22 +195,31 @@ class LegacyAPIResponse(Generic[R]):
 		return self.http_response.elapsed
 
 	def _parse(self, *, to: type[_T] | None = None) -> R | _T:
+		cast_to = to if to is not None else self._cast_to
+
+		# unwrap `TypeAlias('Name', T)` -> `T`
+		if is_type_alias_type(cast_to):
+			cast_to = cast_to.__value__  # type: ignore[unreachable]
+
 		# unwrap `Annotated[T, ...]` -> `T`
-		if to and is_annotated_type(to):
-			to = extract_type_arg(to, 0)
+		if cast_to and is_annotated_type(cast_to):
+			cast_to = extract_type_arg(cast_to, 0)
+
+		origin = get_origin(cast_to) or cast_to
 
 		if self._stream:
 			if to:
 				if not is_stream_class_type(to):
-					raise TypeError(f'Expected custom parse type to be a subclass of {StreamResponse}')
+					raise TypeError(
+						f'Expected custom parse type to be a subclass of {StreamResponse} or {AsyncStreamResponse}'
+					)
 
 				return cast(
 					_T,
 					to(
-						cast_type=extract_stream_chunk_type(
+						cast_to=extract_stream_chunk_type(
 							to,
-							failure_message='Expected custom stream type to be passed with a type argument, '
-							'e.g. StreamResponse[ChunkType]',
+							failure_message='Expected custom stream type to be passed with a type argument, e.g. StreamResponse[ChunkType]',
 						),
 						response=self.http_response,
 						client=cast(Any, self._client),
@@ -212,113 +230,102 @@ class LegacyAPIResponse(Generic[R]):
 				return cast(
 					R,
 					self._stream_cls(
-						cast_type=extract_stream_chunk_type(self._stream_cls),
+						cast_to=extract_stream_chunk_type(self._stream_cls),
 						response=self.http_response,
 						client=cast(Any, self._client),
 					),
 				)
 
-			stream_cls = cast('type[StreamResponse[Any]] | None', self._client._default_stream_cls)
+			stream_cls = cast(
+				'type[StreamResponse[Any]] | type[AsyncStreamResponse[Any]] | None', self._client._default_stream_cls
+			)
 			if stream_cls is None:
 				raise MissingStreamClassError()
 
 			return cast(
 				R,
 				stream_cls(
-					cast_type=self._cast_type,
+					cast_to=cast_to,
 					response=self.http_response,
 					client=cast(Any, self._client),
 				),
 			)
 
-		cast_type = to if to is not None else self._cast_type
-
-		# unwrap `Annotated[T, ...]` -> `T`
-		if is_annotated_type(cast_type):
-			cast_type = extract_type_arg(cast_type, 0)
-
-		if cast_type is NoneType:
+		if cast_to is NoneType:
 			return cast(R, None)
 
 		response = self.http_response
-		if cast_type is str:
+		if cast_to is str:
 			return cast(R, response.text)
 
-		if cast_type is int:
+		if cast_to is int:
 			return cast(R, int(response.text))
 
-		if cast_type is float:
+		if cast_to is float:
 			return cast(R, float(response.text))
 
-		origin = get_origin(cast_type) or cast_type
+		if cast_to is bool:
+			return cast(R, response.text.lower() == 'true')
 
-		if inspect.isclass(origin) and issubclass(origin, HttpxResponseContent):
-			# in the response, e.g. mime file
-			*_, filename = response.headers.get('content-disposition', '').split('filename=')
-			# Determine if the file type is jsonl and use HttpxTextBinaryResponseContent
-			if filename and filename.endswith('.jsonl'):
-				return cast(R, HttpxTextBinaryResponseContent(response))
-			elif filename and filename.endswith('.xlsx'):
-				return cast(R, HttpxTextBinaryResponseContent(response))
-			else:
-				return cast(R, cast_type(response))  # type: ignore
+		if inspect.isclass(origin) and issubclass(origin, HttpxBinaryResponseContent):
+			return cast(R, cast_to(response))  # type: ignore
 
 		if origin == LegacyAPIResponse:
-			raise RuntimeError('Unexpected state - cast_type is `APIResponse`')
+			raise RuntimeError('Unexpected state - cast_to is `APIResponse`')
 
-		if inspect.isclass(origin) and issubclass(origin, httpx.Response):
+		if inspect.isclass(
+			origin  # pyright: ignore[reportUnknownArgumentType]
+		) and issubclass(origin, httpx.Response):
 			# Because of the invariance of our ResponseT TypeVar, users can subclass httpx.Response
 			# and pass that class to our request functions. We cannot change the variance to be either
 			# covariant or contravariant as that makes our usage of ResponseT illegal. We could construct
 			# the response class ourselves but that is something that should be supported directly in httpx
 			# as it would be easy to incorrectly construct the Response object due to the multitude of arguments.
-			if cast_type != httpx.Response:
-				raise ValueError('Subclasses of httpx.Response cannot be passed to `cast_type`')
+			if cast_to != httpx.Response:
+				raise ValueError('Subclasses of httpx.Response cannot be passed to `cast_to`')
 			return cast(R, response)
 
-		if inspect.isclass(origin) and not issubclass(origin, BaseModel) and issubclass(origin, pydantic.BaseModel):
+		if (
+			inspect.isclass(
+				origin  # pyright: ignore[reportUnknownArgumentType]
+			)
+			and not issubclass(origin, BaseModel)
+			and issubclass(origin, pydantic.BaseModel)
+		):
 			raise TypeError('Pydantic models must subclass our base model type, e.g. `from openai import BaseModel`')
 
 		if (
-			cast_type is not object
+			cast_to is not object
 			and origin is not list
 			and origin is not dict
 			and origin is not Union
 			and not issubclass(origin, BaseModel)
 		):
 			raise RuntimeError(
-				f'Unsupported type, expected {cast_type} to be a subclass of {BaseModel}, {dict}, '
-				f'{list}, {Union}, {NoneType}, {str} or {httpx.Response}.'
+				f'Unsupported type, expected {cast_to} to be a subclass of {BaseModel}, {dict}, {list}, {Union}, {NoneType}, {str} or {httpx.Response}.'
 			)
 
 		# split is required to handle cases where additional information is included
 		# in the response, e.g. application/json; charset=utf-8
 		content_type, *_ = response.headers.get('content-type', '*').split(';')
-		if content_type != 'application/json':
-			if is_basemodel(cast_type):
+		if not content_type.endswith('json'):
+			if is_basemodel(cast_to):
 				try:
 					data = response.json()
 				except Exception as exc:
-					log.debug(
-						'Could not read JSON from response data due to %s - %s',
-						type(exc),
-						exc,
-					)
+					log.debug('Could not read JSON from response data due to %s - %s', type(exc), exc)
 				else:
 					return self._client._process_response_data(
 						data=data,
-						cast_type=cast_type,  # type: ignore
+						cast_to=cast_to,  # type: ignore
 						response=response,
 					)
 
 			if self._client._strict_response_validation:
 				raise APIResponseValidationError(
 					response=response,
-					message=(
-						f'Expected Content-Type response header to be `application/json` '
-						f'but received `{content_type}` instead.'
-					),
-					json_data=response.text,
+					message=f'Expected Content-Type response header to be `application/json` but received `{content_type}` instead.',
+					body=response.text,
 				)
 
 			# If the API responds with content that isn't JSON then we just return
@@ -330,20 +337,19 @@ class LegacyAPIResponse(Generic[R]):
 
 		return self._client._process_response_data(
 			data=data,
-			cast_type=cast_type,  # type: ignore
+			cast_to=cast_to,  # type: ignore
 			response=response,
 		)
 
 	@override
 	def __repr__(self) -> str:
-		return f'<APIResponse [{self.status_code} {self.http_response.reason_phrase}] type={self._cast_type}>'
+		return f'<APIResponse [{self.status_code} {self.http_response.reason_phrase}] type={self._cast_to}>'
 
 
 class MissingStreamClassError(TypeError):
 	def __init__(self) -> None:
 		super().__init__(
-			'The `stream` argument was set to `True` but the `stream_cls` argument was not given. '
-			'See `openai._streaming` for reference',
+			'The `stream` argument was set to `True` but the `stream_cls` argument was not given. See `openai._streaming` for reference',
 		)
 
 
@@ -362,3 +368,125 @@ def to_raw_response_wrapper(func: Callable[P, R]) -> Callable[P, LegacyAPIRespon
 		return cast(LegacyAPIResponse[R], func(*args, **kwargs))
 
 	return wrapped
+
+
+def async_to_raw_response_wrapper(func: Callable[P, Awaitable[R]]) -> Callable[P, Awaitable[LegacyAPIResponse[R]]]:
+	"""Higher order function that takes one of our bound API methods and wraps it
+	to support returning the raw `APIResponse` object directly.
+	"""
+
+	@functools.wraps(func)
+	async def wrapped(*args: P.args, **kwargs: P.kwargs) -> LegacyAPIResponse[R]:
+		extra_headers: dict[str, str] = {**(cast(Any, kwargs.get('extra_headers')) or {})}
+		extra_headers[RAW_RESPONSE_HEADER] = 'true'
+
+		kwargs['extra_headers'] = extra_headers
+
+		return cast(LegacyAPIResponse[R], await func(*args, **kwargs))
+
+	return wrapped
+
+
+class HttpxBinaryResponseContent:
+	response: httpx.Response
+
+	def __init__(self, response: httpx.Response) -> None:
+		self.response = response
+
+	@property
+	def content(self) -> bytes:
+		return self.response.content
+
+	@property
+	def text(self) -> str:
+		return self.response.text
+
+	@property
+	def encoding(self) -> str | None:
+		return self.response.encoding
+
+	@property
+	def charset_encoding(self) -> str | None:
+		return self.response.charset_encoding
+
+	def json(self, **kwargs: Any) -> Any:
+		return self.response.json(**kwargs)
+
+	def read(self) -> bytes:
+		return self.response.read()
+
+	def iter_bytes(self, chunk_size: int | None = None) -> Iterator[bytes]:
+		return self.response.iter_bytes(chunk_size)
+
+	def iter_text(self, chunk_size: int | None = None) -> Iterator[str]:
+		return self.response.iter_text(chunk_size)
+
+	def iter_lines(self) -> Iterator[str]:
+		return self.response.iter_lines()
+
+	def iter_raw(self, chunk_size: int | None = None) -> Iterator[bytes]:
+		return self.response.iter_raw(chunk_size)
+
+	def write_to_file(
+		self,
+		file: str | os.PathLike[str],
+	) -> None:
+		"""Write the output to the given file.
+
+		Accepts a filename or any path-like object, e.g. pathlib.Path
+
+		Note: if you want to stream the data to the file instead of writing
+		all at once then you should use `.with_streaming_response` when making
+		the API request, e.g. `client.with_streaming_response.foo().stream_to_file('my_filename.txt')`
+		"""
+		with open(file, mode='wb') as f:
+			for data in self.response.iter_bytes():
+				f.write(data)
+
+	@deprecated(
+		"Due to a bug, this method doesn't actually stream the response content, `.with_streaming_response.method()` should be used instead"
+	)
+	def stream_to_file(
+		self,
+		file: str | os.PathLike[str],
+		*,
+		chunk_size: int | None = None,
+	) -> None:
+		with open(file, mode='wb') as f:
+			for data in self.response.iter_bytes(chunk_size):
+				f.write(data)
+
+	def close(self) -> None:
+		return self.response.close()
+
+	async def aread(self) -> bytes:
+		return await self.response.aread()
+
+	async def aiter_bytes(self, chunk_size: int | None = None) -> AsyncIterator[bytes]:
+		return self.response.aiter_bytes(chunk_size)
+
+	async def aiter_text(self, chunk_size: int | None = None) -> AsyncIterator[str]:
+		return self.response.aiter_text(chunk_size)
+
+	async def aiter_lines(self) -> AsyncIterator[str]:
+		return self.response.aiter_lines()
+
+	async def aiter_raw(self, chunk_size: int | None = None) -> AsyncIterator[bytes]:
+		return self.response.aiter_raw(chunk_size)
+
+	@deprecated(
+		"Due to a bug, this method doesn't actually stream the response content, `.with_streaming_response.method()` should be used instead"
+	)
+	async def astream_to_file(
+		self,
+		file: str | os.PathLike[str],
+		*,
+		chunk_size: int | None = None,
+	) -> None:
+		path = anyio.Path(file)
+		async with await path.open(mode='wb') as f:
+			async for data in self.response.aiter_bytes(chunk_size):
+				await f.write(data)
+
+	async def aclose(self) -> None:
+		return await self.response.aclose()

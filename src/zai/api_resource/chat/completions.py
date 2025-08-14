@@ -1,9 +1,11 @@
 from __future__ import annotations
 
+import inspect
 import logging
 from typing import TYPE_CHECKING, Dict, List, Optional, Union
 
 import httpx
+import pydantic
 from typing_extensions import Literal
 
 from zai.core import (
@@ -13,6 +15,8 @@ from zai.core import (
 	Headers,
 	NotGiven,
 	StreamResponse,
+	_legacy_response,
+	cached_property,
 	deepcopy_minimal,
 	drop_prefix_image_data,
 	make_request_options,
@@ -148,3 +152,121 @@ class Completions(BaseAPI):
 			stream=stream or False,
 			stream_cls=StreamResponse[ChatCompletionChunk],
 		)
+
+class CompletionsWithRawResponse:
+    def __init__(self, completions: Completions) -> None:
+        self._completions = completions
+
+        self.parse = _legacy_response.to_raw_response_wrapper(
+            completions.parse,
+        )
+        self.create = _legacy_response.to_raw_response_wrapper(
+            completions.create,
+        )
+        self.retrieve = _legacy_response.to_raw_response_wrapper(
+            completions.retrieve,
+        )
+        self.update = _legacy_response.to_raw_response_wrapper(
+            completions.update,
+        )
+        self.list = _legacy_response.to_raw_response_wrapper(
+            completions.list,
+        )
+        self.delete = _legacy_response.to_raw_response_wrapper(
+            completions.delete,
+        )
+
+    @cached_property
+    def messages(self) -> MessagesWithRawResponse:
+        return MessagesWithRawResponse(self._completions.messages)
+
+
+class AsyncCompletionsWithRawResponse:
+    def __init__(self, completions: AsyncCompletions) -> None:
+        self._completions = completions
+
+        self.parse = _legacy_response.async_to_raw_response_wrapper(
+            completions.parse,
+        )
+        self.create = _legacy_response.async_to_raw_response_wrapper(
+            completions.create,
+        )
+        self.retrieve = _legacy_response.async_to_raw_response_wrapper(
+            completions.retrieve,
+        )
+        self.update = _legacy_response.async_to_raw_response_wrapper(
+            completions.update,
+        )
+        self.list = _legacy_response.async_to_raw_response_wrapper(
+            completions.list,
+        )
+        self.delete = _legacy_response.async_to_raw_response_wrapper(
+            completions.delete,
+        )
+
+    @cached_property
+    def messages(self) -> AsyncMessagesWithRawResponse:
+        return AsyncMessagesWithRawResponse(self._completions.messages)
+
+
+class CompletionsWithStreamingResponse:
+    def __init__(self, completions: Completions) -> None:
+        self._completions = completions
+
+        self.parse = to_streamed_response_wrapper(
+            completions.parse,
+        )
+        self.create = to_streamed_response_wrapper(
+            completions.create,
+        )
+        self.retrieve = to_streamed_response_wrapper(
+            completions.retrieve,
+        )
+        self.update = to_streamed_response_wrapper(
+            completions.update,
+        )
+        self.list = to_streamed_response_wrapper(
+            completions.list,
+        )
+        self.delete = to_streamed_response_wrapper(
+            completions.delete,
+        )
+
+    @cached_property
+    def messages(self) -> MessagesWithStreamingResponse:
+        return MessagesWithStreamingResponse(self._completions.messages)
+
+
+class AsyncCompletionsWithStreamingResponse:
+    def __init__(self, completions: AsyncCompletions) -> None:
+        self._completions = completions
+
+        self.parse = async_to_streamed_response_wrapper(
+            completions.parse,
+        )
+        self.create = async_to_streamed_response_wrapper(
+            completions.create,
+        )
+        self.retrieve = async_to_streamed_response_wrapper(
+            completions.retrieve,
+        )
+        self.update = async_to_streamed_response_wrapper(
+            completions.update,
+        )
+        self.list = async_to_streamed_response_wrapper(
+            completions.list,
+        )
+        self.delete = async_to_streamed_response_wrapper(
+            completions.delete,
+        )
+
+    @cached_property
+    def messages(self) -> AsyncMessagesWithStreamingResponse:
+        return AsyncMessagesWithStreamingResponse(self._completions.messages)
+
+
+def validate_response_format(response_format: object) -> None:
+    if inspect.isclass(response_format) and issubclass(response_format, pydantic.BaseModel):
+        raise TypeError(
+            "You tried to pass a `BaseModel` class to `chat.completions.create()`; You must use `chat.completions.parse()` instead"
+        )

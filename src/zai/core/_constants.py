@@ -1,6 +1,7 @@
 import httpx
 
 RAW_RESPONSE_HEADER = 'X-Stainless-Raw-Response'
+OVERRIDE_CAST_TO_HEADER = '____stainless_override_cast_to'
 # Control interface `connect` and `read` timeout through `Timeout`, default is `timeout=300.0, connect=8.0`
 ZAI_DEFAULT_TIMEOUT = httpx.Timeout(timeout=300.0, connect=8.0)
 # Control retry count through `retry` parameter, default is 3 times
