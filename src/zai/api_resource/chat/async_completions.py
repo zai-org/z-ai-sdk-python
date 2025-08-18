@@ -85,7 +85,7 @@ class AsyncCompletions(BaseAPI):
 			timeout (float | httpx.Timeout): Request timeout
 			response_format (Optional[object]): Response format specification
 			thinking (Optional[object]): Configuration parameters for model reasoning
-			watermark_enabled (Optional[bool]): Whether to enable watermark on generated images
+			watermark_enabled (Optional[bool]): Whether to enable watermark on generated audio
 		"""
 		_cast_type = AsyncTaskStatus
 		logger.debug(f'temperature:{temperature}, top_p:{top_p}')

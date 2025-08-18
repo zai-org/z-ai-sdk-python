@@ -120,7 +120,7 @@ class Audio(BaseAPI):
 			extra_headers (Headers): Additional headers to send
 			extra_body (Body): Additional body parameters
 			timeout (float | httpx.Timeout): Request timeout
-			watermark_enabled (Optional[bool]): Whether to enable watermark on generated images
+			watermark_enabled (Optional[bool]): Whether to enable watermark on generated audio
 		"""
 		body = deepcopy_minimal(
 			{
