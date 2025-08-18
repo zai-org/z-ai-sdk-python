@@ -20,6 +20,7 @@ if TYPE_CHECKING:
 	from zai.api_resource.moderations import Moderations
 	from zai.api_resource.tools import Tools
 	from zai.api_resource.videos import Videos
+	from zai.api_resource.voice import Voice
 	from zai.api_resource.web_search import WebSearchApi
 
 from .core import (
@@ -179,6 +180,12 @@ class BaseClient(HttpClient):
 		from zai.api_resource.moderations import Moderations
 
 		return Moderations(self)
+
+	@cached_property
+	def voice(self) -> Voice:
+		from zai.api_resource.voice import Voice
+
+		return Voice(self)
 
 	@property
 	@override
