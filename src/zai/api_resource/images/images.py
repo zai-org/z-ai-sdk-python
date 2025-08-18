@@ -38,6 +38,7 @@ class Images(BaseAPI):
 		extra_body: Body | None = None,
 		disable_strict_validation: Optional[bool] | None = None,
 		timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+		watermark_enabled: Optional[bool] | NotGiven = NOT_GIVEN,
 	) -> ImagesResponded:
 		"""
 		Generate images from text prompts
@@ -58,6 +59,7 @@ class Images(BaseAPI):
 			extra_body (Body): Additional body parameters
 			disable_strict_validation (Optional[bool]): Whether to disable strict validation
 			timeout (float | httpx.Timeout): Request timeout
+			watermark_enabled (Optional[bool]): Whether to enable watermark on generated images
 		"""
 		_cast_type = ImagesResponded
 		if disable_strict_validation:
@@ -76,6 +78,7 @@ class Images(BaseAPI):
 				'user': user,
 				'user_id': user_id,
 				'request_id': request_id,
+				'watermark_enabled': watermark_enabled,
 			},
 			options=make_request_options(extra_headers=extra_headers, extra_body=extra_body, timeout=timeout),
 			cast_type=_cast_type,
