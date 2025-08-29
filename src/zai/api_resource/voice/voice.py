@@ -39,23 +39,25 @@ class Voice(BaseAPI):
 		self,
 		*,
 		voice_name: str,
-		voice_text_input: str,
-		voice_text_output: str,
+		text: str,
+		input: str,
 		file_id: str,
 		request_id: Optional[str] = None,
+		model: str,
 		extra_headers: Headers | None = None,
 		extra_body: Body | None = None,
 		timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
 	) -> VoiceCloneResult:
 		"""
 		Clone a voice with the provided audio sample and parameters
-		
+
 		Args:
 			voice_name: Name for the cloned voice
-			voice_text_input: Text content corresponding to the sample audio
-			voice_text_output: Target text for preview audio
+			text: Text content corresponding to the sample audio
+			input: Target text for preview audio
 			file_id: File ID of the uploaded audio file
 			request_id: Optional request ID for tracking
+			model: Model
 			extra_headers: Additional headers to include in the request
 			extra_body: Additional body parameters
 			timeout: Request timeout
@@ -69,10 +71,11 @@ class Voice(BaseAPI):
 			body=maybe_transform(
 				{
 					"voice_name": voice_name,
-					"voice_text_input": voice_text_input,
-					"voice_text_output": voice_text_output,
+					"text": text,
+					"input": input,
 					"file_id": file_id,
 					"request_id": request_id,
+					"model": model,
 				},
 				VoiceCloneParams,
 			),
@@ -88,7 +91,7 @@ class Voice(BaseAPI):
 	def delete(
 		self,
 		*,
-		voice_id: str,
+		voice: str,
 		request_id: Optional[str] = None,
 		extra_headers: Headers | None = None,
 		extra_body: Body | None = None,
@@ -98,7 +101,7 @@ class Voice(BaseAPI):
 		Delete a cloned voice by voice ID
 		
 		Args:
-			voice_id: The ID of the voice to delete
+			voice: The voice to delete
 			request_id: Optional request ID for tracking
 			extra_headers: Additional headers to include in the request
 			extra_body: Additional body parameters
@@ -111,7 +114,7 @@ class Voice(BaseAPI):
 			"/voice/delete",
 			body=maybe_transform(
 				{
-					"voice_id": voice_id,
+					"voice": voice,
 					"request_id": request_id,
 				},
 				VoiceDeleteParams,

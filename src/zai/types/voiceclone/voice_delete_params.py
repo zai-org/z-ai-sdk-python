@@ -10,9 +10,9 @@ class VoiceDeleteParams(TypedDict, total=False):
 	Parameters for voice deletion
 	
 	Attributes:
-		voice_id (str): The ID of the voice to delete
+		voice (str): The voice to delete
 		request_id (Optional[str]): Optional request ID for tracking
 	"""
 	
-	voice_id: Required[str]
+	voice: Required[str]
 	request_id: Optional[str]

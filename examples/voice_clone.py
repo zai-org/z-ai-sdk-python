@@ -29,11 +29,12 @@ def voice_clone():
 
 	# Step 2: Clone voice using the uploaded file ID
 	response = client.voice.clone(
-		voice_name="My Test Voice",
-		voice_text_input="This is sample text for voice cloning training",
-		voice_text_output="This is target text for voice preview generation",
+		voice_name="My Test Voice!",
+		text="This is sample text for voice cloning training",
+		input="This is target text for voice preview generation",
 		file_id=file_id,
-		request_id=f"voice_clone_request_{int(time.time() * 1000)}"
+		request_id=f"voice_clone_request_{int(time.time() * 1000)}",
+		model="CogTTS-3.0-clone"
 	)
 	print(f"Voice clone response: {response}")
 
@@ -43,7 +44,7 @@ def voice_delete():
 
 	# Delete voice
 	response = client.voice.delete(
-		voice_id="06d42e03-af32-5cfa-b6b3-7b1a0f2e7b7c",
+		voice="975c62c1-3330-52eb-a6e2-893b070aa417",
 		request_id=f"voice_delete_request_{int(time.time() * 1000)}"
 	)
 	print(response)

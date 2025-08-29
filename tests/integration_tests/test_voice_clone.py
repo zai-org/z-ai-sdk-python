@@ -24,10 +24,11 @@ def test_voice_clone(logging_conf):
 		request_id = f"voice_clone_only_test_{int(time.time() * 1000)}"
 		response = client.voice.clone(
 			voice_name="Test Voice Clone Only",
-			voice_text_input="This is sample text for voice cloning training",
-			voice_text_output="This is target text for voice preview generation",
+			text="This is sample text for voice cloning training",
+			input="This is target text for voice preview generation",
 			file_id=upload_response.id,
-			request_id=request_id
+			request_id=request_id,
+			model="CogTTS-3.0-clone"
 		)
 		print(f"Voice clone response: {response}")
 		
@@ -68,11 +69,11 @@ def test_voice_delete(logging_conf):
 	client = ZaiClient()  # Fill in your own API Key
 	
 	try:
-		# Note: Replace with actual voice_id from a previous clone operation
-		voice_id = "test_voice_id_placeholder"
+		# Note: Replace with actual voice from a previous clone operation
+		voice = "test_voice_placeholder"
 		request_id = f"voice_delete_test_{int(time.time() * 1000)}"
 		response = client.voice.delete(
-			voice_id=voice_id,
+			voice=voice,
 			request_id=request_id
 		)
 		print(f"Voice delete response: {response}")
