@@ -24,11 +24,11 @@ class VoiceDeleteResult(BaseModel):
 	
 	Attributes:
 		voice (str): Voice
-		delete_time (str): Delete time (format: yyyy-MM-dd HH:mm:ss)
+		update_time (str): Delete time (format: yyyy-MM-dd HH:mm:ss)
 	"""
 	
 	voice: str
-	delete_time: str
+	update_time: str
 
 
 class VoiceData(BaseModel):
