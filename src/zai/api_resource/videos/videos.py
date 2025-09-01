@@ -42,6 +42,7 @@ class Videos(BaseAPI):
 		fps: int = None,
 		style: str = None,
 		aspect_ratio: str = None,
+		off_peak: bool = None,
 		movement_amplitude: str = None,
 		sensitive_word_check: Optional[SensitiveWordCheckRequest] | NotGiven = NOT_GIVEN,
 		request_id: str = None,
@@ -49,6 +50,7 @@ class Videos(BaseAPI):
 		extra_headers: Headers | None = None,
 		extra_body: Body | None = None,
 		timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+		watermark_enabled: Optional[bool] | NotGiven = NOT_GIVEN,
 	) -> VideoObject:
 		"""
 		Generate videos from text prompts or images
@@ -71,6 +73,7 @@ class Videos(BaseAPI):
 			extra_headers (Headers): Additional headers to send
 			extra_body (Body): Additional body parameters
 			timeout (float | httpx.Timeout): Request timeout
+			watermark_enabled (Optional[bool]): Whether to enable watermark on generated videos
 		"""
 		if not model:
 			raise ValueError('`model` must be provided.')
@@ -86,10 +89,12 @@ class Videos(BaseAPI):
 				'fps': fps,
 				'style': style,
 				'aspect_ratio': aspect_ratio,
+				'off_peak': off_peak,
 				'movement_amplitude': movement_amplitude,
 				'sensitive_word_check': sensitive_word_check,
 				'request_id': request_id,
 				'user_id': user_id,
+				'watermark_enabled': watermark_enabled,
 			}
 		)
 		return self._post(

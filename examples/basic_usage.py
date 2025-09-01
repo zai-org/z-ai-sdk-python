@@ -58,6 +58,61 @@ def completion_with_websearch():
 
 	print(response)
 
+def completion_with_mcp_server_url():
+	import os
+	
+	# Initialize client
+	client = ZaiClient()
+	
+	# Create chat completion with MCP server URL
+	response = client.chat.completions.create(
+		model='glm-4',
+		stream=False,
+		messages=[{'role': 'user', 'content': 'Hello, please introduce GPT?'}],
+		tools=[
+			{
+				'type': 'mcp',
+				'mcp': {
+					'server_url': 'https://open.bigmodel.cn/api/mcp/sogou/sse',
+					'server_label': 'sougou',
+					'transport_type': 'sse',
+					'headers': {
+						'Authorization': f'Bearer {os.getenv("ZAI_API_KEY")}'
+					}
+				}
+			}
+		],
+		temperature=0.7,
+	)
+	
+	print(response)
+
+def completion_with_mcp_server_label():
+	import os
+	
+	# Initialize client
+	client = ZaiClient()
+	
+	# Create chat completion with MCP server label
+	response = client.chat.completions.create(
+		model='glm-4',
+		stream=False,
+		messages=[{'role': 'user', 'content': 'Hello, please introduce GPT?'}],
+		tools=[
+			{
+				'type': 'mcp',
+				'mcp': {
+					'server_label': 'sougou_search',
+					'headers': {
+						'Authorization': f'Bearer {os.getenv("ZAI_API_KEY")}'
+					}
+				}
+			}
+		],
+		temperature=0.7,
+	)
+	
+	print(response)
 
 def multi_modal_chat():
 	import base64
