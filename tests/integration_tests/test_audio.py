@@ -10,12 +10,15 @@ def test_audio_speech(logging_conf):
 	logging.config.dictConfig(logging_conf)  # type: ignore
 	client = ZaiClient()  # Fill in your own API Key
 	try:
-		speech_file_path = Path(__file__).parent / 'asr1.wav'
+		speech_file_path = Path(__file__).parent / 'asr1.pcm'
 		response = client.audio.speech(
 			model='cogtts',
 			input='Hello, welcome to Z.ai Open Platform',
 			voice='female',
-			response_format='wav',
+			response_format='pcm',
+			encode_format='hex',
+			speed=1.0,
+			volume=1.0,
 		)
 		response.stream_to_file(speech_file_path)
 

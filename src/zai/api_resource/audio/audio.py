@@ -55,6 +55,8 @@ class Audio(BaseAPI):
 		extra_headers: Headers | None = None,
 		extra_body: Body | None = None,
 		timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+		speed: float | None = 1.0,
+		volume: float | None = 1.0,
 	) -> HttpxBinaryResponseContent:
 		"""
 		Generate speech audio from text input
@@ -80,6 +82,8 @@ class Audio(BaseAPI):
 				'sensitive_word_check': sensitive_word_check,
 				'request_id': request_id,
 				'user_id': user_id,
+				'speed': speed,
+				'volume': volume,
 			}
 		)
 		return self._post(
