@@ -44,7 +44,7 @@ def voice_delete():
 
 	# Delete voice
 	response = client.voice.delete(
-		voice="975c62c1-3330-52eb-a6e2-893b070aa417",
+		voice="Your voice id",
 		request_id=f"voice_delete_request_{int(time.time() * 1000)}"
 	)
 	print(response)
