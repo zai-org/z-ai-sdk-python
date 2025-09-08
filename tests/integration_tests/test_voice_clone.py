@@ -28,7 +28,7 @@ def test_voice_clone(logging_conf):
 			input="This is target text for voice preview generation",
 			file_id=upload_response.id,
 			request_id=request_id,
-			model="CogTTS-3.0-clone"
+			model="cogtts-clone"
 		)
 		print(f"Voice clone response: {response}")
 		

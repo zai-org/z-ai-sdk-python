@@ -34,7 +34,7 @@ def voice_clone():
 		input="This is target text for voice preview generation",
 		file_id=file_id,
 		request_id=f"voice_clone_request_{int(time.time() * 1000)}",
-		model="CogTTS-3.0-clone"
+		model="cogtts-clone"
 	)
 	print(f"Voice clone response: {response}")
 
