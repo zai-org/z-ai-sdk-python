@@ -103,6 +103,7 @@ class Audio(BaseAPI):
 		extra_headers: Headers | None = None,
 		extra_body: Body | None = None,
 		timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+		watermark_enabled: Optional[bool] | NotGiven = NOT_GIVEN,
 	) -> HttpxBinaryResponseContent:
 		"""
 		Generate customized speech audio with voice cloning
@@ -119,6 +120,7 @@ class Audio(BaseAPI):
 			extra_headers (Headers): Additional headers to send
 			extra_body (Body): Additional body parameters
 			timeout (float | httpx.Timeout): Request timeout
+			watermark_enabled (Optional[bool]): Whether to enable watermark on generated audio
 		"""
 		body = deepcopy_minimal(
 			{
@@ -130,6 +132,7 @@ class Audio(BaseAPI):
 				'sensitive_word_check': sensitive_word_check,
 				'request_id': request_id,
 				'user_id': user_id,
+				'watermark_enabled': watermark_enabled,
 			}
 		)
 		files = extract_files(cast(Mapping[str, object], body), paths=[['voice_data']])
