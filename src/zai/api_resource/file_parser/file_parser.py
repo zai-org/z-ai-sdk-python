@@ -95,14 +95,11 @@ class FileParser(BaseAPI):
         if not task_id:
             raise ValueError(f"Expected a non-empty value for `task_id` but received {task_id!r}")
         extra_headers = {"Accept": "application/binary", **(extra_headers or {})}
-        _legacy_binary_response.HttpxBinaryResponseContent = self._get(
+        httpxBinaryResponseContent = self._get(
             f"/files/parser/result/{task_id}/{format_type}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_body=extra_body, timeout=timeout
             ),
             cast_type=_legacy_binary_response.HttpxBinaryResponseContent,
         )
-        return _legacy_binary_response.HttpxBinaryResponseContent.response
-
-    # def json(self):
-    #     return json.loads(self.content.decode("utf-8"))
+        return httpxBinaryResponseContent.response
