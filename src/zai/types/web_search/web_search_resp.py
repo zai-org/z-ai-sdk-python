@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional,List
 
 from zai.core import BaseModel
 
@@ -39,6 +39,7 @@ class SearchResultResp(BaseModel):
 	media: str
 	refer: str
 	publish_date: str
+	images: List[str]
 
 
 class WebSearchResp(BaseModel):
