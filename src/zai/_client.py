@@ -9,231 +9,237 @@ from httpx import Timeout
 from typing_extensions import override
 
 if TYPE_CHECKING:
-	from zai.api_resource.agents import Agents
-	from zai.api_resource.assistant import Assistant
-	from zai.api_resource.audio import Audio
-	from zai.api_resource.batch import Batches
-	from zai.api_resource.chat import Chat
-	from zai.api_resource.embeddings import Embeddings
-	from zai.api_resource.files import Files
-	from zai.api_resource.images import Images
-	from zai.api_resource.moderations import Moderations
-	from zai.api_resource.tools import Tools
-	from zai.api_resource.videos import Videos
-	from zai.api_resource.voice import Voice
-	from zai.api_resource.web_search import WebSearchApi
+    from zai.api_resource.agents import Agents
+    from zai.api_resource.assistant import Assistant
+    from zai.api_resource.audio import Audio
+    from zai.api_resource.batch import Batches
+    from zai.api_resource.chat import Chat
+    from zai.api_resource.embeddings import Embeddings
+    from zai.api_resource.files import Files
+    from zai.api_resource.images import Images
+    from zai.api_resource.moderations import Moderations
+    from zai.api_resource.tools import Tools
+    from zai.api_resource.videos import Videos
+    from zai.api_resource.voice import Voice
+    from zai.api_resource.web_search import WebSearchApi
+    from zai.api_resource.file_parser import FileParser
 
 from .core import (
-	NOT_GIVEN,
-	ZAI_DEFAULT_MAX_RETRIES,
-	HttpClient,
-	NotGiven,
-	ZaiError,
-	_jwt_token,
+    NOT_GIVEN,
+    ZAI_DEFAULT_MAX_RETRIES,
+    HttpClient,
+    NotGiven,
+    ZaiError,
+    _jwt_token,
 )
 
 
 class BaseClient(HttpClient):
-	"""
-	Main client for interacting with the ZAI API
+    """
+    Main client for interacting with the ZAI API
 
-	Attributes:
-		chat (Chat): Chat completions API resource
-		api_key (str): API key for authentication
-		_disable_token_cache (bool): Whether to disable token caching
-		source_channel (str): Source channel identifier
-	"""
+    Attributes:
+        chat (Chat): Chat completions API resource
+        api_key (str): API key for authentication
+        _disable_token_cache (bool): Whether to disable token caching
+        source_channel (str): Source channel identifier
+    """
 
-	chat: Chat
-	api_key: str
-	base_url: str
-	disable_token_cache: bool = True
-	source_channel: str
+    chat: Chat
+    api_key: str
+    base_url: str
+    disable_token_cache: bool = True
+    source_channel: str
 
-	def __init__(
-		self,
-		*,
-		api_key: str | None = None,
-		base_url: str | httpx.URL | None = None,
-		timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
-		max_retries: int = ZAI_DEFAULT_MAX_RETRIES,
-		http_client: httpx.Client | None = None,
-		custom_headers: Mapping[str, str] | None = None,
-		disable_token_cache: bool = True,
-		_strict_response_validation: bool = False,
-		source_channel: str | None = None,
-	) -> None:
-		"""
-		Initialize the ZAI client
+    def __init__(
+            self,
+            *,
+            api_key: str | None = None,
+            base_url: str | httpx.URL | None = None,
+            timeout: Union[float, Timeout, None, NotGiven] = NOT_GIVEN,
+            max_retries: int = ZAI_DEFAULT_MAX_RETRIES,
+            http_client: httpx.Client | None = None,
+            custom_headers: Mapping[str, str] | None = None,
+            disable_token_cache: bool = True,
+            _strict_response_validation: bool = False,
+            source_channel: str | None = None,
+    ) -> None:
+        """
+        Initialize the ZAI client
 
-		Arguments:
-			api_key (str | None): API key for authentication.
-									If None, will try to get from ZAI_API_KEY environment variable.
-			base_url (str | httpx.URL | None): Base URL for the API.
-									If None, will try to get from ZAI_BASE_URL environment variable
-			timeout (Union[float, Timeout, None, NotGiven]): Request timeout configuration
-			max_retries (int): Maximum number of retries for failed requests
-			http_client (httpx.Client | None): Custom HTTP client to use
-			custom_headers (Mapping[str, str] | None): Additional headers to include in requests
-			disable_token_cache (bool): Whether to disable JWT token caching
-			_strict_response_validation (bool): Whether to enable strict response validation
-			source_channel (str | None): Source channel identifier
-		"""
-		if api_key is None:
-			api_key = os.environ.get('ZAI_API_KEY')
-		if api_key is None:
-			raise ZaiError('api_key not provided, please provide it through parameters or environment variables')
-		self.api_key = api_key
-		self.source_channel = source_channel
-		self.disable_token_cache = disable_token_cache
+        Arguments:
+            api_key (str | None): API key for authentication.
+                                    If None, will try to get from ZAI_API_KEY environment variable.
+            base_url (str | httpx.URL | None): Base URL for the API.
+                                    If None, will try to get from ZAI_BASE_URL environment variable
+            timeout (Union[float, Timeout, None, NotGiven]): Request timeout configuration
+            max_retries (int): Maximum number of retries for failed requests
+            http_client (httpx.Client | None): Custom HTTP client to use
+            custom_headers (Mapping[str, str] | None): Additional headers to include in requests
+            disable_token_cache (bool): Whether to disable JWT token caching
+            _strict_response_validation (bool): Whether to enable strict response validation
+            source_channel (str | None): Source channel identifier
+        """
+        if api_key is None:
+            api_key = os.environ.get('ZAI_API_KEY')
+        if api_key is None:
+            raise ZaiError('api_key not provided, please provide it through parameters or environment variables')
+        self.api_key = api_key
+        self.source_channel = source_channel
+        self.disable_token_cache = disable_token_cache
 
-		if base_url is None:
-			base_url = os.environ.get('ZAI_BASE_URL')
-		if base_url is None:
-			base_url = self.default_base_url
-		self.base_url = base_url
+        if base_url is None:
+            base_url = os.environ.get('ZAI_BASE_URL')
+        if base_url is None:
+            base_url = self.default_base_url
+        self.base_url = base_url
 
-		from ._version import __version__
+        from ._version import __version__
 
-		super().__init__(
-			version=__version__,
-			base_url=base_url,
-			max_retries=max_retries,
-			timeout=timeout,
-			custom_httpx_client=http_client,
-			custom_headers=custom_headers,
-			_strict_response_validation=_strict_response_validation,
-		)
+        super().__init__(
+            version=__version__,
+            base_url=base_url,
+            max_retries=max_retries,
+            timeout=timeout,
+            custom_httpx_client=http_client,
+            custom_headers=custom_headers,
+            _strict_response_validation=_strict_response_validation,
+        )
 
-	@property
-	def default_base_url(self):
-		raise NotImplementedError('Subclasses must define default_base_url')
+    @property
+    def default_base_url(self):
+        raise NotImplementedError('Subclasses must define default_base_url')
 
-	@cached_property
-	def chat(self) -> Chat:
-		from zai.api_resource.chat import Chat
+    @cached_property
+    def chat(self) -> Chat:
+        from zai.api_resource.chat import Chat
 
-		return Chat(self)
+        return Chat(self)
 
-	@cached_property
-	def assistant(self) -> Assistant:
-		from zai.api_resource.assistant import Assistant
+    @cached_property
+    def assistant(self) -> Assistant:
+        from zai.api_resource.assistant import Assistant
 
-		return Assistant(self)
+        return Assistant(self)
 
-	@cached_property
-	def agents(self) -> Agents:
-		from zai.api_resource.agents import Agents
+    @cached_property
+    def agents(self) -> Agents:
+        from zai.api_resource.agents import Agents
 
-		return Agents(self)
+        return Agents(self)
 
-	@cached_property
-	def embeddings(self) -> Embeddings:
-		from zai.api_resource.embeddings import Embeddings
+    @cached_property
+    def embeddings(self) -> Embeddings:
+        from zai.api_resource.embeddings import Embeddings
 
-		return Embeddings(self)
+        return Embeddings(self)
 
-	@cached_property
-	def batches(self) -> Batches:
-		from zai.api_resource.batch import Batches
+    @cached_property
+    def batches(self) -> Batches:
+        from zai.api_resource.batch import Batches
 
-		return Batches(self)
+        return Batches(self)
 
-	@cached_property
-	def tools(self) -> Tools:
-		from zai.api_resource.tools import Tools
+    @cached_property
+    def tools(self) -> Tools:
+        from zai.api_resource.tools import Tools
 
-		return Tools(self)
+        return Tools(self)
 
-	@cached_property
-	def web_search(self) -> WebSearchApi:
-		from zai.api_resource.web_search import WebSearchApi
+    @cached_property
+    def web_search(self) -> WebSearchApi:
+        from zai.api_resource.web_search import WebSearchApi
 
-		return WebSearchApi(self)
+        return WebSearchApi(self)
 
-	@cached_property
-	def files(self) -> Files:
-		from zai.api_resource.files import Files
+    @cached_property
+    def files(self) -> Files:
+        from zai.api_resource.files import Files
 
-		return Files(self)
+        return Files(self)
 
-	@cached_property
-	def images(self) -> Images:
-		from zai.api_resource.images import Images
+    @cached_property
+    def images(self) -> Images:
+        from zai.api_resource.images import Images
 
-		return Images(self)
+        return Images(self)
 
-	@cached_property
-	def audio(self) -> Audio:
-		from zai.api_resource.audio import Audio
+    @cached_property
+    def audio(self) -> Audio:
+        from zai.api_resource.audio import Audio
 
-		return Audio(self)
+        return Audio(self)
 
-	@cached_property
-	def videos(self) -> Videos:
-		from zai.api_resource.videos import Videos
+    @cached_property
+    def videos(self) -> Videos:
+        from zai.api_resource.videos import Videos
 
-		return Videos(self)
+        return Videos(self)
 
-	@cached_property
-	def moderations(self) -> Moderations:
-		from zai.api_resource.moderations import Moderations
+    @cached_property
+    def moderations(self) -> Moderations:
+        from zai.api_resource.moderations import Moderations
 
-		return Moderations(self)
+        return Moderations(self)
 
-	@cached_property
-	def voice(self) -> Voice:
-		from zai.api_resource.voice import Voice
+    @cached_property
+    def voice(self) -> Voice:
+        from zai.api_resource.voice import Voice
 
-		return Voice(self)
+        return Voice(self)
 
-	@property
-	@override
-	def auth_headers(self) -> dict[str, str]:
-		api_key = self.api_key
-		source_channel = self.source_channel or 'python-sdk'
-		if self.disable_token_cache:
-			return {
-				'Authorization': f'Bearer {api_key}',
-				'x-source-channel': source_channel,
-			}
-		else:
-			return {
-				'Authorization': f'Bearer {_jwt_token.generate_token(api_key)}',
-				'x-source-channel': source_channel,
-			}
+    @cached_property
+    def file_parser(self) -> FileParser:
+        from zai.api_resource.file_parser import FileParser
+        return FileParser(self)
 
-	def __del__(self) -> None:
-		if not hasattr(self, '_has_custom_http_client') or not hasattr(self, 'close') or not hasattr(self, '_client'):
-			# if the '__init__' method raised an error, self would not have client attr
-			return
+    @property
+    @override
+    def auth_headers(self) -> dict[str, str]:
+        api_key = self.api_key
+        source_channel = self.source_channel or 'python-sdk'
+        if self.disable_token_cache:
+            return {
+                'Authorization': f'Bearer {api_key}',
+                 'x-source-channel': source_channel,
+            }
+        else:
+            return {
+                'Authorization': f'Bearer {_jwt_token.generate_token(api_key)}',
+                'x-source-channel': source_channel,
+            }
 
-		if self._has_custom_http_client:
-			return
+    def __del__(self) -> None:
+        if not hasattr(self, '_has_custom_http_client') or not hasattr(self, 'close') or not hasattr(self, '_client'):
+            # if the '__init__' method raised an error, self would not have client attr
+            return
 
-		try:
-			# Check if client is still valid before closing
-			if hasattr(self, '_client') and self._client is not None:
-				self.close()
-		except Exception:
-			# Ignore any exceptions during cleanup to avoid masking the original error
-			pass
+        if self._has_custom_http_client:
+            return
+
+        try:
+            # Check if client is still valid before closing
+            if hasattr(self, '_client') and self._client is not None:
+                self.close()
+        except Exception:
+            # Ignore any exceptions during cleanup to avoid masking the original error
+            pass
 
 
 class ZaiClient(BaseClient):
-	@property
-	def default_base_url(self):
-		return 'https://api.z.ai/api/paas/v4'
+    @property
+    def default_base_url(self):
+        return 'https://api.z.ai/api/paas/v4'
 
-	@property
-	@override
-	def auth_headers(self) -> dict[str, str]:
-		headers = super().auth_headers
-		headers['Accept-Language'] = 'en-US,en'
-		return headers
+    @property
+    @override
+    def auth_headers(self) -> dict[str, str]:
+        headers = super().auth_headers
+        headers['Accept-Language'] = 'en-US,en'
+        return headers
 
 
 class ZhipuAiClient(BaseClient):
-	@property
-	def default_base_url(self):
-		return 'https://open.bigmodel.cn/api/paas/v4'
+    @property
+    def default_base_url(self):
+        return 'https://open.bigmodel.cn/api/paas/v4'
