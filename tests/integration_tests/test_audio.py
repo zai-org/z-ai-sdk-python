@@ -6,12 +6,9 @@ from pathlib import Path
 import zai
 from zai import ZaiClient
 
-from zai import ZhipuAiClient
-
-
 def test_audio_speech(logging_conf):
 	logging.config.dictConfig(logging_conf)  # type: ignore
-	client = ZhipuAiClient()  # Fill in your own API Key
+	client = ZaiClient()  # Fill in your own API Key
 	try:
 		speech_file_path = Path(__file__).parent / 'asr1.pcm'
 		response = client.audio.speech(
