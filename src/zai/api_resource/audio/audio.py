@@ -23,6 +23,8 @@ from zai.types.audio import AudioSpeechParams, audio_customization_param
 from zai.types.sensitive_word_check import SensitiveWordCheckRequest
 
 from .transcriptions import Transcriptions
+from ...core import StreamResponse
+from ...types.audio import AudioSpeechChunk
 
 if TYPE_CHECKING:
 	from zai._client import ZaiClient
@@ -60,7 +62,7 @@ class Audio(BaseAPI):
 		speed: float | None = 1.0,
 		volume: float | None = 1.0,
 		stream: bool | None = False
-	) -> HttpxBinaryResponseContent:
+	) -> HttpxBinaryResponseContent | StreamResponse[AudioSpeechChunk]:
 		"""
 		Generate speech audio from text input
 
