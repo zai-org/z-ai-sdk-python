@@ -16,7 +16,8 @@ def test_audio_speech(logging_conf):
 			input='Hello, welcome to Z.ai Open Platform',
 			voice='female',
 			response_format='pcm',
-			encode_format='hex',
+			encode_format='base64',
+			stream=False,
 			speed=1.0,
 			volume=1.0,
 		)
