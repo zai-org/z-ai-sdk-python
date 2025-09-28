@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Mapping, Optional, cast
 
 import httpx
+from httpx import stream
 
 from zai.core import (
 	NOT_GIVEN,
@@ -58,6 +59,7 @@ class Audio(BaseAPI):
 		encode_format: str = None,
 		speed: float | None = 1.0,
 		volume: float | None = 1.0,
+		stream: bool | None = False
 	) -> HttpxBinaryResponseContent:
 		"""
 		Generate speech audio from text input
@@ -86,6 +88,7 @@ class Audio(BaseAPI):
 				'user_id': user_id,
 				'speed': speed,
 				'volume': volume,
+				'stream': stream
 			}
 		)
 		return self._post(
