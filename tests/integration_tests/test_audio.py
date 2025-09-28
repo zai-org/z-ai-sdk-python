@@ -8,7 +8,7 @@ from zai import ZaiClient
 
 def test_audio_speech(logging_conf):
 	logging.config.dictConfig(logging_conf)  # type: ignore
-	client = ZaiClient(base_url='', api_key='')  # Fill in your own API Key
+	client = ZaiClient()  # Fill in your own API Key
 	try:
 		speech_file_path = Path(__file__).parent / 'asr1.pcm'
 		response = client.audio.speech(
