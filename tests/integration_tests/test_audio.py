@@ -6,12 +6,12 @@ from pathlib import Path
 import zai
 from zai import ZaiClient
 
-from src.zai import ZhipuAiClient
+from zai import ZhipuAiClient
 
 
 def test_audio_speech(logging_conf):
 	logging.config.dictConfig(logging_conf)  # type: ignore
-	client = ZhipuAiClient(base_url='https://open.bigmodel.cn/api/paas/v4', api_key='adf953faf621426da79103110eb41473.3FCVJZcTaq0Q7i3W')  # Fill in your own API Key
+	client = ZhipuAiClient()  # Fill in your own API Key
 	try:
 		speech_file_path = Path(__file__).parent / 'asr1.pcm'
 		response = client.audio.speech(
@@ -20,7 +20,7 @@ def test_audio_speech(logging_conf):
 			voice='female',
 			response_format='pcm',
 			encode_format='base64',
-			stream=False,
+			stream=True,
 			speed=1.0,
 			volume=1.0,
 		)
@@ -29,9 +29,9 @@ def test_audio_speech(logging_conf):
 				choice = item.choices[0]
 				index = choice.index
 				finish_reason = choice.finish_reason
-				audio_delta = choice.delta.content
-				if finish_reason is not None:
+				if choice.delta is None:
 					break
+				audio_delta = choice.delta.content
 				f.write(base64.b64decode(audio_delta))
 
 	except zai.core._errors.APIRequestFailedError as err:
