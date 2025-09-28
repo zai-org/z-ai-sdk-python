@@ -40,7 +40,7 @@ class Files(BaseAPI):
 		*,
 		file: FileTypes = None,
 		upload_detail: List[UploadDetail] = None,
-		purpose: Literal['fine-tune', 'retrieval', 'batch'],
+		purpose: Literal['fine-tune', 'retrieval', 'batch', 'voice-clone-input'],
 		knowledge_id: str = None,
 		sentence_size: int = None,
 		extra_headers: Headers | None = None,

@@ -22,7 +22,7 @@ def test_audio_speech(logging_conf):
 		)
 		response.stream_to_file(speech_file_path)
 
-	except Exception as err:
+	except zai.core._errors.APIRequestFailedError as err:
 		print(err)
 	except zai.core._errors.APIInternalError as err:
 		print(err)
