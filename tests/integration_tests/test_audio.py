@@ -1,10 +1,10 @@
+import base64
 import logging
 import logging.config
 from pathlib import Path
 
 import zai
 from zai import ZaiClient
-
 
 def test_audio_speech(logging_conf):
 	logging.config.dictConfig(logging_conf)  # type: ignore
@@ -17,11 +17,19 @@ def test_audio_speech(logging_conf):
 			voice='female',
 			response_format='pcm',
 			encode_format='base64',
-			stream=False,
+			stream=True,
 			speed=1.0,
 			volume=1.0,
 		)
-		response.stream_to_file(speech_file_path)
+		with open("output.pcm", "wb") as f:
+			for item in response:
+				choice = item.choices[0]
+				index = choice.index
+				finish_reason = choice.finish_reason
+				if choice.delta is None:
+					break
+				audio_delta = choice.delta.content
+				f.write(base64.b64decode(audio_delta))
 
 	except zai.core._errors.APIRequestFailedError as err:
 		print(err)

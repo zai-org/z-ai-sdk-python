@@ -29,3 +29,7 @@ class AudioSpeechParams(TypedDict, total=False):
 	sensitive_word_check: Optional[SensitiveWordCheckRequest]
 	request_id: str
 	user_id: str
+	encode_format: str
+	speed: float
+	volume: float
+	stream: bool
