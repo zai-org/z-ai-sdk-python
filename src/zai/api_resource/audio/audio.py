@@ -55,6 +55,7 @@ class Audio(BaseAPI):
 		extra_headers: Headers | None = None,
 		extra_body: Body | None = None,
 		timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+		encode_format: str = None,
 		speed: float | None = 1.0,
 		volume: float | None = 1.0,
 	) -> HttpxBinaryResponseContent:
@@ -79,6 +80,7 @@ class Audio(BaseAPI):
 				'input': input,
 				'voice': voice,
 				'response_format': response_format,
+				'encode_format': encode_format,
 				'sensitive_word_check': sensitive_word_check,
 				'request_id': request_id,
 				'user_id': user_id,

@@ -8,7 +8,7 @@ from zai import ZaiClient
 
 def test_audio_speech(logging_conf):
 	logging.config.dictConfig(logging_conf)  # type: ignore
-	client = ZaiClient()  # Fill in your own API Key
+	client = ZaiClient(base_url='https://open.bigmodel.cn/api/paas/v4', api_key='')  # Fill in your own API Key
 	try:
 		speech_file_path = Path(__file__).parent / 'asr1.pcm'
 		response = client.audio.speech(
@@ -16,13 +16,13 @@ def test_audio_speech(logging_conf):
 			input='Hello, welcome to Z.ai Open Platform',
 			voice='female',
 			response_format='pcm',
-			encode_format='hex',
+			encode_format='base64',
 			speed=1.0,
 			volume=1.0,
 		)
 		response.stream_to_file(speech_file_path)
 
-	except zai.core._errors.APIRequestFailedError as err:
+	except Exception as err:
 		print(err)
 	except zai.core._errors.APIInternalError as err:
 		print(err)
