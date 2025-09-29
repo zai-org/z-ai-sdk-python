@@ -20,3 +20,12 @@ class FileParserDownloadParams(TypedDict):
     """解析任务id"""
     format_type: Literal["text", "download_link"]
     """结果返回类型"""
+
+
+class FileParserSyncParams(TypedDict):
+    file: FileTypes
+    """上传的文件"""
+    file_type: str
+    """文件类型"""
+    tool_type: Literal["prime-sync"]
+    """工具类型"""
