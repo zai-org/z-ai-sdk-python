@@ -66,6 +66,7 @@ class Completions(BaseAPI):
 		response_format: object | None = None,
 		thinking: object | None = None,
 		watermark_enabled: Optional[bool] | NotGiven = NOT_GIVEN,
+        tool_stream: bool | NotGiven = NOT_GIVEN,
 	) -> Completion | StreamResponse[ChatCompletionChunk]:
 		"""
 		Create a chat completion
@@ -93,6 +94,7 @@ class Completions(BaseAPI):
 			response_format (object): Response format specification
 			thinking (Optional[object]): Configuration parameters for model reasoning
 			watermark_enabled (Optional[bool]): Whether to enable watermark on generated audio
+			tool_stream (Optional[bool]): Whether to enable tool streaming
 		"""
 		logger.debug(f'temperature:{temperature}, top_p:{top_p}')
 		if temperature is not None and temperature != NOT_GIVEN:
@@ -141,6 +143,7 @@ class Completions(BaseAPI):
 				'response_format': response_format,
 				'thinking': thinking,
 				'watermark_enabled': watermark_enabled,
+                'tool_stream': tool_stream,
 			}
 		)
 		return self._post(
