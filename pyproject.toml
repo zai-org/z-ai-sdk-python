@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "zai-sdk"
-version = "0.0.3.6"
+version = "0.0.3.7"
 description = "A SDK library for accessing big model apis from Z.ai"
 authors = ["Z.ai"]
 readme = "README.md"
