@@ -88,25 +88,6 @@ class AsyncCompletions(BaseAPI):
 			watermark_enabled (Optional[bool]): Whether to enable watermark on generated audio
 		"""
 		_cast_type = AsyncTaskStatus
-		logger.debug(f'temperature:{temperature}, top_p:{top_p}')
-		if temperature is not None and temperature != NOT_GIVEN:
-			if temperature <= 0:
-				do_sample = False
-				temperature = 0.01
-				# logger.warning("temperature: value range is (0.0, 1.0) open interval,"
-				# "do_sample rewritten as false (parameters top_p temperature do not take effect)")
-			if temperature >= 1:
-				temperature = 0.99
-				# logger.warning("temperature: value range is (0.0, 1.0) open interval")
-		if top_p is not None and top_p != NOT_GIVEN:
-			if top_p >= 1:
-				top_p = 0.99
-				# logger.warning("top_p: value range is (0.0, 1.0) open interval, cannot equal 0 or 1")
-			if top_p <= 0:
-				top_p = 0.01
-				# logger.warning("top_p: value range is (0.0, 1.0) open interval, cannot equal 0 or 1")
-
-		logger.debug(f'temperature:{temperature}, top_p:{top_p}')
 		if isinstance(messages, List):
 			for item in messages:
 				if item.get('content'):
