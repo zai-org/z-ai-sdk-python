@@ -1,6 +1,5 @@
 from zai import ZaiClient
 import time
-import json
 import traceback
 
 client = ZaiClient(
