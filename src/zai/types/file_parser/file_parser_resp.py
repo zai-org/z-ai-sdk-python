@@ -9,8 +9,8 @@ __all__ = [
 
 class FileParserTaskCreateResp(BaseModel):
     task_id: str
-    # 任务id
+    # Task ID
     message: str
-    # message
+    # Message
     success: bool
-    # 是否成功
+    # Whether successful

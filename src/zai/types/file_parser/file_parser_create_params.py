@@ -8,15 +8,15 @@ __all__ = ["FileParserCreateParams", "FileParserDownloadParams"]
 
 class FileParserCreateParams(TypedDict):
     file: FileTypes
-    """上传的文件"""
+    """Uploaded file"""
     file_type: str
-    """文件类型"""
+    """File type"""
     tool_type: Literal["lite", "expert", "prime"]
-    """工具类型"""
+    """Tool type"""
 
 
 class FileParserDownloadParams(TypedDict):
     task_id: str
-    """解析任务id"""
+    """Parsing task id"""
     format_type: Literal["text", "download_link"]
-    """结果返回类型"""
+    """Result return type"""
