@@ -7,21 +7,21 @@ __all__ = ["FileParserTaskCreateResp", "FileParsingDownloadResp"]
 
 class FileParserTaskCreateResp(BaseModel):
     task_id: str
-    # 任务id
+    # Task ID
     message: str
-    # message
+    # Message
     success: bool
-    # 是否成功
+    # Whether successful
 
 
 class FileParsingDownloadResp(BaseModel):
     task_id: str
-    # 任务id
+    # Task ID
     message: str
-    # message
+    # Message
     status: bool
-    # 是否成功
+    # Whether successful
     content: str
-    # 解析结果文本内容
+    # Parsed result text content
     parsing_result_url: str
-    # 解析结果下载链接
+    # Parsed result download link

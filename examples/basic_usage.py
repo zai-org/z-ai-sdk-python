@@ -6,9 +6,9 @@ def completion():
 
 	# Create chat completion
 	response = client.chat.completions.create(
-		model='glm-4',
+		model='glm-4.6',
 		messages=[{'role': 'user', 'content': 'Hello, Z.ai!'}],
-		temperature=0.7,
+		temperature=1.0,
 	)
 	print(response.choices[0].message.content)
 
@@ -19,7 +19,7 @@ def completion_with_stream():
 
 	# Create chat completion
 	response = client.chat.completions.create(
-		model='glm-4',
+		model='glm-4.6',
 		messages=[
 			{'role': 'system', 'content': 'You are a helpful assistant.'},
 			{'role': 'user', 'content': 'Tell me a story about AI.'},
@@ -38,7 +38,7 @@ def completion_with_websearch():
 
 	# Create chat completion
 	response = client.chat.completions.create(
-		model='glm-4',
+		model='glm-4.6',
 		messages=[
 			{'role': 'system', 'content': 'You are a helpful assistant.'},
 			{'role': 'user', 'content': 'What is artificial intelligence?'},
@@ -52,7 +52,7 @@ def completion_with_websearch():
 				},
 			}
 		],
-		temperature=0.5,
+		temperature=1.0,
 		max_tokens=2000,
 	)
 
@@ -234,10 +234,10 @@ def ofZhipu():
 	print(response.choices[0].message.content)
 
 if __name__ == '__main__':
-    # completion()
-    # completion_with_stream()
+    completion()
+    completion_with_stream()
     # completion_with_websearch()
-    multi_modal_chat()
+    # multi_modal_chat()
     # role_play()
     # assistant_conversation()
     # video_generation()

@@ -23,7 +23,7 @@ def file_parser_create_example(file_path, tool_type, file_type):
         )
         print("Task created successfully. Response:")
         print(response)
-        # 一般可获取 task_id
+        # Usually you can get task_id
         task_id = getattr(response, "task_id", None)
         return task_id
 
@@ -49,17 +49,16 @@ def file_parser_complete_example():
     """
     Full Example: Submit file for parsing, then poll until result is ready
     """
-    # 1. 创建解析任务
-    # 请修改本地文件路径
+    # 1. Create parsing task
+    # Please modify the local file path
     file_path = 'your file path'
     task_id = file_parser_create_example(file_path=file_path, tool_type="lite", file_type="pdf")
     if not task_id:
         print("Could not submit file for parsing.")
         return
 
-    ''
-    # 2. 轮询获取结果
-    max_wait = 60  # 最多等待1分钟
+    # 2. Poll to get the result
+    max_wait = 60  # Wait up to 1 minute
     wait_time = 0
     while wait_time < max_wait:
         print(f"Waiting {wait_time}/{max_wait} seconds before querying result...")

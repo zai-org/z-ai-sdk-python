@@ -22,6 +22,8 @@ from zai.types.audio import AudioSpeechParams, audio_customization_param
 from zai.types.sensitive_word_check import SensitiveWordCheckRequest
 
 from .transcriptions import Transcriptions
+from zai.core._streaming import StreamResponse
+from zai.types.audio import AudioSpeechChunk
 
 if TYPE_CHECKING:
 	from zai._client import ZaiClient
@@ -55,9 +57,11 @@ class Audio(BaseAPI):
 		extra_headers: Headers | None = None,
 		extra_body: Body | None = None,
 		timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+		encode_format: str = None,
 		speed: float | None = 1.0,
 		volume: float | None = 1.0,
-	) -> HttpxBinaryResponseContent:
+		stream: bool | None = False
+	) -> HttpxBinaryResponseContent | StreamResponse[AudioSpeechChunk]:
 		"""
 		Generate speech audio from text input
 
@@ -79,11 +83,12 @@ class Audio(BaseAPI):
 				'input': input,
 				'voice': voice,
 				'response_format': response_format,
-				'sensitive_word_check': sensitive_word_check,
+				'encode_format': encode_format,
 				'request_id': request_id,
 				'user_id': user_id,
 				'speed': speed,
 				'volume': volume,
+				'stream': stream
 			}
 		)
 		return self._post(
@@ -91,6 +96,8 @@ class Audio(BaseAPI):
 			body=maybe_transform(body, AudioSpeechParams),
 			options=make_request_options(extra_headers=extra_headers, extra_body=extra_body, timeout=timeout),
 			cast_type=HttpxBinaryResponseContent,
+			stream=stream or False,
+			stream_cls=StreamResponse[AudioSpeechChunk]
 		)
 
 	def customization(
