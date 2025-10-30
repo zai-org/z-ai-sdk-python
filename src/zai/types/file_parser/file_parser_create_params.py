@@ -20,3 +20,11 @@ class FileParserDownloadParams(TypedDict):
     """Parsing task id"""
     format_type: Literal["text", "download_link"]
     """Result return type"""
+
+class FileParserSyncParams(TypedDict):
+    file: FileTypes
+    """Uploaded file"""
+    file_type: str
+    """File type"""
+    tool_type: Literal["prime-sync"]
+    """Tool type"""

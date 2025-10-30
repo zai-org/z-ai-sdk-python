@@ -1,5 +1,6 @@
 from zai import ZaiClient
 import time
+import json
 import traceback
 
 client = ZaiClient(
@@ -76,6 +77,28 @@ def file_parser_complete_example():
     print("File parser demo completed.")
 
 
+def file_parser_sync_example():
+    """
+    Full Example: Submit file for parsing and wait for the result to be returned.
+    """
+    # Create parsing task
+    # Please modify the local file path
+    file_path = 'your file path'
+    with open(file_path, 'rb') as f:
+        print("Submitting file parsing task ...")
+        response = client.file_parser.create_sync(
+            file=f,
+            file_type="pdf",
+            tool_type="prime-sync",
+        )
+        print("Task created successfully. Response:")
+        print(response)
+
+    print("File parser demo completed.")
+
 if __name__ == "__main__":
     print("=== File Parsing Quick Demo ===\n")
     file_parser_complete_example()
+
+    print("=== File synchronized parsing quick demo (Prime only) ===\n")
+    file_parser_sync_example()
