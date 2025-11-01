@@ -345,9 +345,9 @@ try:
     )
     print(response.choices[0].message.content)
     
-except zai.APIStatusError as err:
+except zai.core.APIStatusError as err:
     print(f"API Status Error: {err}")
-except zai.APITimeoutError as err:
+except zai.core.APITimeoutError as err:
     print(f"Request Timeout: {err}")
 except Exception as err:
     print(f"Unexpected Error: {err}")
