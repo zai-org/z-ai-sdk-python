@@ -18,6 +18,7 @@ from .videos import (
 	Videos,
 )
 from .web_search import WebSearchApi
+from .web_reader import WebReaderApi
 from .file_parser import FileParser
 
 
@@ -36,6 +37,7 @@ __all__ = [
 	'Audio',
 	'Moderations',
 	'WebSearchApi',
+	'WebReaderApi',
 	'Agents',
 	'FileParser',
 ]
