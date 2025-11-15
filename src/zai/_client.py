@@ -22,6 +22,7 @@ if TYPE_CHECKING:
     from zai.api_resource.videos import Videos
     from zai.api_resource.voice import Voice
     from zai.api_resource.web_search import WebSearchApi
+    from zai.api_resource.web_reader import WebReaderApi
     from zai.api_resource.file_parser import FileParser
 
 from .core import (
@@ -151,6 +152,12 @@ class BaseClient(HttpClient):
         from zai.api_resource.web_search import WebSearchApi
 
         return WebSearchApi(self)
+
+    @cached_property
+    def web_reader(self) -> WebReaderApi:
+        from zai.api_resource.web_reader import WebReaderApi
+
+        return WebReaderApi(self)
 
     @cached_property
     def files(self) -> Files:
