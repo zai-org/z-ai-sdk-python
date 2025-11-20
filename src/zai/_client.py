@@ -24,6 +24,7 @@ if TYPE_CHECKING:
     from zai.api_resource.web_search import WebSearchApi
     from zai.api_resource.web_reader import WebReaderApi
     from zai.api_resource.file_parser import FileParser
+    from zai.api_resource.file_parser import HandwritingOCR
 
 from .core import (
     NOT_GIVEN,
@@ -199,6 +200,11 @@ class BaseClient(HttpClient):
     def file_parser(self) -> FileParser:
         from zai.api_resource.file_parser import FileParser
         return FileParser(self)
+
+    @cached_property
+    def file_parser(self) -> HandwritingOCR:
+        from zai.api_resource.file_parser import HandwritingOCR
+        return HandwritingOCR(self)
 
     @property
     @override

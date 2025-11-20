@@ -19,8 +19,7 @@ from .videos import (
 )
 from .web_search import WebSearchApi
 from .web_reader import WebReaderApi
-from .file_parser import FileParser
-
+from .file_parser import FileParser, HandwritingOCR
 
 __all__ = [
 	'Videos',
@@ -40,4 +39,5 @@ __all__ = [
 	'WebReaderApi',
 	'Agents',
 	'FileParser',
+	'HandwritingOCR'
 ]
