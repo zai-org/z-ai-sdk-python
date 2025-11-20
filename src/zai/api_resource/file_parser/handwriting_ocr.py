@@ -24,6 +24,7 @@ if TYPE_CHECKING:
 
 __all__ = ["HandwritingOCR"]
 
+
 class HandwritingOCR(BaseAPI):
 
     def __init__(self, client: "ZaiClient") -> None:
@@ -34,7 +35,7 @@ class HandwritingOCR(BaseAPI):
             *,
             file: FileTypes,
             tool_type: Literal["hand_write"],
-            language_type: str = None,   # optional
+            language_type: str = None,  # optional
             extra_headers: Headers | None = None,
             extra_body: Body | None = None,
             timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
