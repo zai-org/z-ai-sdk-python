@@ -24,6 +24,7 @@ if TYPE_CHECKING:
     from zai.api_resource.web_search import WebSearchApi
     from zai.api_resource.web_reader import WebReaderApi
     from zai.api_resource.file_parser import FileParser
+    from zai.api_resource.ocr import HandwritingOCR
 
 from .core import (
     NOT_GIVEN,
@@ -200,6 +201,11 @@ class BaseClient(HttpClient):
         from zai.api_resource.file_parser import FileParser
         return FileParser(self)
 
+    @cached_property
+    def ocr(self) -> HandwritingOCR:
+        from zai.api_resource.ocr import HandwritingOCR
+        return HandwritingOCR(self)
+
     @property
     @override
     def auth_headers(self) -> dict[str, str]:
@@ -208,7 +214,7 @@ class BaseClient(HttpClient):
         if self.disable_token_cache:
             return {
                 'Authorization': f'Bearer {api_key}',
-                 'x-source-channel': source_channel,
+                'x-source-channel': source_channel,
             }
         else:
             return {
