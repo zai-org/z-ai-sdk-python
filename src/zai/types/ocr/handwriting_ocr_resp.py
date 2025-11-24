@@ -13,9 +13,16 @@ class Location(BaseModel):
     height: int
 
 
+class Probability(BaseModel):
+    average: float
+    variance: float
+    min: float
+
+
 class WordsResult(BaseModel):
     location: Location
     words: str
+    probability: Probability
 
 
 class HandwritingOCRResp(BaseModel):

@@ -16,8 +16,8 @@ from zai.core import (
     extract_files,
     make_request_options
 )
-from zai.types.file_parser.handwriting_ocr_params import HandwritingOCRParams
-from zai.types.file_parser.handwriting_ocr_resp import HandwritingOCRResp
+from zai.types.ocr.handwriting_ocr_params import HandwritingOCRParams
+from zai.types.ocr.handwriting_ocr_resp import HandwritingOCRResp
 
 if TYPE_CHECKING:
     from zai._client import ZaiClient
@@ -35,7 +35,8 @@ class HandwritingOCR(BaseAPI):
             *,
             file: FileTypes,
             tool_type: Literal["hand_write"],
-            language_type: str = None,  # optional
+            language_type: str = None,  # optional,
+            probability: bool = None,
             extra_headers: Headers | None = None,
             extra_body: Body | None = None,
             timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
@@ -49,6 +50,7 @@ class HandwritingOCR(BaseAPI):
                 "file": file,
                 "tool_type": tool_type,
                 "language_type": language_type,
+                "probability": probability
             }
         )
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
