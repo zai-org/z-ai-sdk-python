@@ -5,6 +5,7 @@ description = "A SDK library for accessing big model apis from Z.ai"
 authors = ["Z.ai"]
 readme = "README.md"
 packages = [{include = "zai", from = "src"}]
+include = ["zai/py.typed"]
 
 [tool.poetry.dependencies]
 python = ">=3.8,<4.0.0,!=3.9.7 "
