@@ -107,7 +107,7 @@ client = ZhipuAiClient(api_key="your-api-key")
 
 # Create chat completion
 response = client.chat.completions.create(
-    model="glm-4",
+    model="glm-4.6",
     messages=[
         {"role": "user", "content": "Hello, Z.ai!"}
     ]
@@ -175,7 +175,7 @@ client = ZaiClient(api_key="your-api-key")
 
 # 创建对话
 response = client.chat.completions.create(
-    model='glm-4',
+    model='glm-4.6',
     messages=[
         {'role': 'system', 'content': 'You are a helpful assistant.'},
         {'role': 'user', 'content': 'Tell me a story about AI.'},
@@ -198,7 +198,7 @@ client = ZaiClient(api_key="your-api-key")
 
 # 创建对话
 response = client.chat.completions.create(
-    model='glm-4',
+    model='glm-4.6',
     messages=[
         {'role': 'system', 'content': 'You are a helpful assistant.'},
         {'role': 'user', 'content': 'What is artificial intelligence?'},
@@ -344,7 +344,7 @@ client = ZaiClient(api_key="your-api-key")  # 请填写您自己的APIKey
 
 try:
     response = client.chat.completions.create(
-        model="glm-4",
+        model="glm-4.6",
         messages=[
             {"role": "user", "content": "你好， Z.ai ！"}
         ]
