@@ -126,7 +126,7 @@ def multi_modal_chat():
 	base64_image = encode_image('examples/test_multi_modal.jpeg')
 
 	response = client.chat.completions.create(
-		model='glm-4v',
+		model='glm-4.6v',
 		messages=[
 			{
 				'role': 'user',

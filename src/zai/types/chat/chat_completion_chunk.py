@@ -68,7 +68,7 @@ class ChoiceDelta(BaseModel):
 	Attributes:
 		content: Content delta
 		role: Role of the message sender
-		reasoning_content: Reasoning content delta
+		reasoning_content: Reasoning content delta, it's recommended to return the model's reasoning_content in next request to achieve better results in multi-turn conversations.
 		tool_calls: List of tool call deltas
 		audio: Audio completion chunk
 	"""

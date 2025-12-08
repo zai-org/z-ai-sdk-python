@@ -323,7 +323,7 @@ def test_completions_stream_with_tools(logging_conf):
 		print(f'request_id:{request_id}')
 		response = client.chat.completions.create(
 			request_id=request_id,
-			model='glm-4v',  # Fill in the model name to call
+			model='glm-4.6v',  # Fill in the model name to call
 			extra_body={'temperature': 0.5, 'max_tokens': 50},
 			messages=[
 				{
@@ -361,7 +361,7 @@ def test_completions_vis_base64(test_file_path, logging_conf):
 		print(f'request_id:{request_id}')
 		response = client.chat.completions.create(
 			request_id=request_id,
-			model='glm-4v',  # Fill in the model name to call
+			model='glm-4.6v',  # Fill in the model name to call
 			extra_body={'temperature': 0.5, 'max_tokens': 50},
 			messages=[
 				{
@@ -402,7 +402,7 @@ def test_async_completions(logging_conf):
 		print(f'request_id:{request_id}')
 		response = client.chat.completions.create(
 			request_id=request_id,
-			model='glm-4v',  # Fill in the model name to call
+			model='glm-4.6v',  # Fill in the model name to call
 			messages=[
 				{
 					'role': 'user',

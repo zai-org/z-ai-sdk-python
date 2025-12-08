@@ -169,7 +169,7 @@ client = ZaiClient(api_key="your-api-key")
 
 # Create chat completion
 response = client.chat.completions.create(
-    model='glm-4',
+    model='glm-4.6',
     messages=[
         {'role': 'system', 'content': 'You are a helpful assistant.'},
         {'role': 'user', 'content': 'Tell me a story about AI.'},
@@ -192,7 +192,7 @@ client = ZaiClient(api_key="your-api-key")
 
 # Create chat completion
 response = client.chat.completions.create(
-    model='glm-4',
+    model='glm-4.6',
     messages=[
         {'role': 'system', 'content': 'You are a helpful assistant.'},
         {'role': 'user', 'content': 'What is artificial intelligence?'},
@@ -228,7 +228,7 @@ client = ZaiClient(api_key="your-api-key")
 base64_image = encode_image('examples/test_multi_modal.jpeg')
 
 response = client.chat.completions.create(
-    model='glm-4v',
+    model='glm-4.6v',
     messages=[
         {
             'role': 'user',
@@ -338,7 +338,7 @@ client = ZaiClient(api_key="your-api-key")
 
 try:
     response = client.chat.completions.create(
-        model="glm-4",
+        model="glm-4.6",
         messages=[
             {"role": "user", "content": "Hello, Z.ai!"}
         ]
