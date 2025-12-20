@@ -1,6 +1,5 @@
 from zai import ZaiClient, ZhipuAiClient
 import time
-import os
 
 def voice_clone():
 	# Initialize client
