@@ -16,7 +16,7 @@ def test_completions_temp0(logging_conf):
 		print(f'request_id:{request_id}')
 		response = client.chat.completions.create(
 			request_id=request_id,
-			model='glm-4',
+			model='glm-4.7',
 			messages=[{'role': 'user', 'content': 'tell me a joke'}],
 			top_p=0.7,
 			temperature=0,
@@ -42,7 +42,7 @@ def test_completions_temp1(logging_conf):
 		print(f'request_id:{request_id}')
 		response = client.chat.completions.create(
 			request_id=request_id,
-			model='glm-4',
+			model='glm-4.7',
 			messages=[{'role': 'user', 'content': 'tell me a joke'}],
 			top_p=0.7,
 			temperature=1,
@@ -68,7 +68,7 @@ def test_completions_top0(logging_conf):
 		print(f'request_id:{request_id}')
 		response = client.chat.completions.create(
 			request_id=request_id,
-			model='glm-4',
+			model='glm-4.7',
 			messages=[{'role': 'user', 'content': 'tell me a joke'}],
 			top_p=0,
 			temperature=0.9,
@@ -94,7 +94,7 @@ def test_completions_top1(logging_conf):
 		print(f'request_id:{request_id}')
 		response = client.chat.completions.create(
 			request_id=request_id,
-			model='glm-4',
+			model='glm-4.7',
 			messages=[{'role': 'user', 'content': 'tell me a joke'}],
 			top_p=1,
 			temperature=0.9,
@@ -120,7 +120,7 @@ def test_completions(logging_conf):
 		print(f'request_id:{request_id}')
 		response = client.chat.completions.create(
 			request_id=request_id,
-			model='glm-4',  # Fill in the model name to call
+			model='glm-4.7',  # Fill in the model name to call
 			messages=[
 				{
 					'role': 'user',
@@ -170,7 +170,7 @@ def test_completions_disenable_web_search(logging_conf):
 		print(f'request_id:{request_id}')
 		response = client.chat.completions.create(
 			request_id=request_id,
-			model='glm-4',  # Fill in the model name to call
+			model='glm-4.7',  # Fill in the model name to call
 			messages=[
 				{
 					'role': 'user',
@@ -221,7 +221,7 @@ def test_completions_enable_web_search(logging_conf):
 		print(f'request_id:{request_id}')
 		response = client.chat.completions.create(
 			request_id=request_id,
-			model='glm-4',  # Fill in the model name to call
+			model='glm-4.7',  # Fill in the model name to call
 			messages=[
 				{
 					'role': 'user',
@@ -272,7 +272,7 @@ def test_completions_sensitive_word_check(logging_conf):
 		print(f'request_id:{request_id}')
 		response = client.chat.completions.create(
 			request_id=request_id,
-			model='glm-4',  # Fill in the model name to call
+			model='glm-4.7',  # Fill in the model name to call
 			stream=True,
 			messages=[
 				{
@@ -467,7 +467,7 @@ def test_completions_vis(logging_conf):
 		print(f'request_id:{request_id}')
 		response = client.chat.completions.create(
 			request_id=request_id,
-			model='glm-4',
+			model='glm-4.7',
 			messages=[{'role': 'user', 'content': 'tell me a joke'}],
 			top_p=1,
 			temperature=0.9,
