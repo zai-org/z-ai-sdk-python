@@ -36,7 +36,7 @@ def parse_function_call(model_response, messages):
             "tool_call_id": tool_call.id
         })
         response = client.chat.completions.create(
-            model="glm-4",  # Specify the model name to use
+            model="glm-4.7",  # Specify the model name to use
             messages=messages,
             tools=tools,
         )
@@ -99,7 +99,7 @@ messages.append({"role": "system", "content": "Do not assume or guess the values
 messages.append({"role": "user", "content": "Help me check the flights from Beijing to Guangzhou on January 23."})
 
 response = client.chat.completions.create(
-    model="glm-4",  # Specify the model name to use
+    model="glm-4.7",  # Specify the model name to use
     messages=messages,
     tools=tools,
 )
@@ -110,7 +110,7 @@ parse_function_call(response, messages)
 
 messages.append({"role": "user", "content": "What is the price of flight 8321?"})
 response = client.chat.completions.create(
-    model="glm-4",  # Specify the model name to use
+    model="glm-4.7",  # Specify the model name to use
     messages=messages,
     tools=tools,
 )

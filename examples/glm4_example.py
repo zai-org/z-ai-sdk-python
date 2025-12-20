@@ -23,7 +23,7 @@ def stream_web_search_example():
     }]
     client = ZaiClient()
     response = client.chat.completions.create(
-        model="glm-4-air",
+        model="glm-4.7",
         messages=messages,
         tools=tools,
         stream=True
@@ -35,7 +35,7 @@ def sync_example():
     print("=== GLM-4 Synchronous Example ===")
     client = ZaiClient()
     response = client.chat.completions.create(
-        model="glm-4-plus",
+        model="glm-4.7",
         messages=[
             {"role": "system", "content": "You are a helpful assistant who provides professional, accurate, and insightful advice."},
             {"role": "user", "content": "I'm very interested in the planets of the solar system, especially Saturn. Please provide basic information about Saturn, including its size, composition, ring system, and any unique astronomical phenomena."},
@@ -47,7 +47,7 @@ def async_example():
     print("=== GLM-4 Async Example ===")
     client = ZaiClient()
     response = client.chat.asyncCompletions.create(
-        model="glm-4-plus",
+        model="glm-4.7",
         messages=[
             {
                 "role": "user",
