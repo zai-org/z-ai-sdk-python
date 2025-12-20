@@ -11,7 +11,7 @@
 ## ✨ Core Features
 
 ### 🤖 **Chat Completions**
-- **Standard Chat**: Create chat completions with various models including `glm-4`, `charglm-3`
+- **Standard Chat**: Create chat completions with various models including `glm-4.7`
 - **Streaming Support**: Real-time streaming responses for interactive applications
 - **Tool Calling**: Function calling capabilities for enhanced AI interactions
 - **Character Role-Playing**: Support for character-based conversations with `charglm-3` model
@@ -105,7 +105,7 @@ client = ZhipuAiClient(api_key="your-api-key")
 
 # Create chat completion
 response = client.chat.completions.create(
-    model="glm-4",
+    model="glm-4.7",
     messages=[
         {"role": "user", "content": "Hello, Z.ai!"}
     ]
@@ -169,7 +169,7 @@ client = ZaiClient(api_key="your-api-key")
 
 # Create chat completion
 response = client.chat.completions.create(
-    model='glm-4.6',
+    model='glm-4.7',
     messages=[
         {'role': 'system', 'content': 'You are a helpful assistant.'},
         {'role': 'user', 'content': 'Tell me a story about AI.'},
@@ -192,7 +192,7 @@ client = ZaiClient(api_key="your-api-key")
 
 # Create chat completion
 response = client.chat.completions.create(
-    model='glm-4.6',
+    model='glm-4.7',
     messages=[
         {'role': 'system', 'content': 'You are a helpful assistant.'},
         {'role': 'user', 'content': 'What is artificial intelligence?'},
@@ -244,65 +244,6 @@ response = client.chat.completions.create(
 print(response)
 ```
 
-### Character Role-Playing
-
-```python
-from zai import ZaiClient
-
-# Initialize client
-client = ZaiClient(api_key="your-api-key")
-
-# Create chat completion
-response = client.chat.completions.create(
-    model='charglm-3',
-    messages=[{'role': 'user', 'content': 'Hello, how are you doing lately?'}],
-    meta={
-        'user_info': 'I am a film director who specializes in music-themed movies.',
-        'bot_info': 'You are a popular domestic female singer and actress with outstanding musical talent.',
-        'bot_name': 'Alice',
-        'user_name': 'Director',
-    },
-)
-print(response)
-```
-
-### Assistant Conversation
-
-```python
-from zai import ZaiClient
-
-# Initialize client
-client = ZaiClient(api_key="your-api-key")
-
-# Create assistant conversation
-response = client.assistant.conversation(
-    # You can use 65940acff94777010aa6b796 for testing
-    # or you can create your own assistant_id in Z.ai console
-    assistant_id='your own assistant_id',
-    model='glm-4-assistant',
-    messages=[
-        {
-            'role': 'user',
-            'content': [
-                {
-                    'type': 'text',
-                    'text': 'Help me search for the latest Z.ai product information',
-                }
-            ],
-        }
-    ],
-    stream=True,
-    attachments=None,
-    metadata=None,
-    request_id='request_1790291013237211136',
-    user_id='12345678',
-)
-
-for chunk in response:
-    if chunk.choices[0].delta.type == 'content':
-        print(chunk.choices[0].delta.content, end='')
-```
-
 ### Video Generation
 
 ```python
@@ -311,7 +252,7 @@ client = ZaiClient(api_key="your-api-key")
 
 # Generate video
 response = client.videos.generations(
-    model="cogvideox-2",
+    model="cogvideox-3",
     prompt="A cat is playing with a ball.",
     quality="quality",  # Output mode, "quality" for quality priority, "speed" for speed priority
     with_audio=True, # Whether to include audio
@@ -338,7 +279,7 @@ client = ZaiClient(api_key="your-api-key")
 
 try:
     response = client.chat.completions.create(
-        model="glm-4.6",
+        model="glm-4.7",
         messages=[
             {"role": "user", "content": "Hello, Z.ai!"}
         ]

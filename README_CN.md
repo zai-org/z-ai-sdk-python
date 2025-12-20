@@ -6,12 +6,12 @@
 
 [English Readme](README.md)
 
-[Z.ai 开放平台](https://docs.z.ai/)官方 Python SDK，帮助开发者快速集成 Z.ai 强大的人工智能能力到Python应用中。
+[智谱开放平台](https://docs.bigmodel.cn/)官方 Python SDK，帮助开发者快速集成智谱强大的人工智能能力到Python应用中。
 
 ## ✨ 核心功能
 
 ### 🤖 **对话补全**
-- **标准对话**: 支持 `glm-4`、`charglm-3` 等多种模型的对话补全
+- **标准对话**: 支持 `glm-4.7` 等多种模型的对话补全
 - **流式支持**: 实时流式响应，适用于交互式应用
 - **工具调用**: 函数调用能力，增强 AI 交互体验
 - **角色扮演**: 支持基于 `charglm-3` 模型的角色对话
@@ -107,7 +107,7 @@ client = ZhipuAiClient(api_key="your-api-key")
 
 # Create chat completion
 response = client.chat.completions.create(
-    model="glm-4.6",
+    model="glm-4.7",
     messages=[
         {"role": "user", "content": "Hello, Z.ai!"}
     ]
@@ -250,64 +250,6 @@ response = client.chat.completions.create(
 print(response)
 ```
 
-### 角色扮演
-
-```python
-from zai import ZaiClient
-
-# 初始化客户端
-client = ZaiClient(api_key="your-api-key")
-
-# 创建对话
-response = client.chat.completions.create(
-    model='charglm-3',
-    messages=[{'role': 'user', 'content': 'Hello, how are you doing lately?'}],
-    meta={
-        'user_info': 'I am a film director who specializes in music-themed movies.',
-        'bot_info': 'You are a popular domestic female singer and actress with outstanding musical talent.',
-        'bot_name': 'Alice',
-        'user_name': 'Director',
-    },
-)
-print(response)
-```
-
-### 智能体对话
-
-```python
-from zai import ZaiClient
-
-# Initialize client
-client = ZaiClient(api_key="your-api-key")
-
-# Create assistant conversation
-response = client.assistant.conversation(
-    # 你可使用 65940acff94777010aa6b796 作为测试ID
-    assistant_id='你的assistant_id',
-    model='glm-4-assistant',
-    messages=[
-        {
-            'role': 'user',
-            'content': [
-                {
-                    'type': 'text',
-                    'text': 'Help me search for the latest Z.ai product information',
-                }
-            ],
-        }
-    ],
-    stream=True,
-    attachments=None,
-    metadata=None,
-    request_id='request_1790291013237211136',
-    user_id='12345678',
-)
-
-for chunk in response:
-    if chunk.choices[0].delta.type == 'content':
-        print(chunk.choices[0].delta.content, end='')
-```
-
 ### 视频生成
 
 ```python
@@ -317,7 +259,7 @@ client = ZaiClient()  # 请填写您自己的APIKey
 
 # 提交生成任务
 response = client.videos.generations(
-    model="cogvideox-2",  # 使用的视频生成模型
+    model="cogvideox-3",  # 使用的视频生成模型
     image_url=image_url,  # 提供的图片URL地址或者 Base64 编码
     prompt="让画面动起来",  
     quality="speed",  # 输出模式，"quality"为质量优先，"speed"为速度优先
@@ -344,7 +286,7 @@ client = ZaiClient(api_key="your-api-key")  # 请填写您自己的APIKey
 
 try:
     response = client.chat.completions.create(
-        model="glm-4.6",
+        model="glm-4.7",
         messages=[
             {"role": "user", "content": "你好， Z.ai ！"}
         ]
