@@ -15,7 +15,7 @@ def test_completions_vlm_thinking(logging_conf):
 		print(f'request_id:{request_id}')
 		response = client.chat.completions.create(
 			request_id=request_id,
-			model='glm-4.1v-thinking-flash',  # Fill in the model name to call
+			model='glm-4.6v',  # Fill in the model name to call
 			messages=[
 				{
 					'role': 'user',
@@ -53,7 +53,7 @@ def test_completions_vlm_thinking_stream(logging_conf):
 		print(f'request_id:{request_id}')
 		response = client.chat.completions.create(
 			request_id=request_id,
-			model='glm-4.1v-thinking-flash',  # Fill in the model name to call
+			model='glm-4.6v',  # Fill in the model name to call
 			messages=[
 				{
 					'role': 'user',

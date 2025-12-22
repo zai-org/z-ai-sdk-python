@@ -15,7 +15,7 @@ def test_chat_completion_with_thinking(logging_conf):
 		print(f'request_id:{request_id}')
 		response = client.chat.completions.create(
 			request_id=request_id,
-			model='glm-4.5',
+			model='glm-4.7',
 			messages=[{'role': 'user', 'content': '请介绍一下Agent的原理，并给出详细的推理过程'}],
 			top_p=0.7,
 			temperature=0.9,
@@ -39,7 +39,7 @@ def test_chat_completion_without_thinking(logging_conf):
 		print(f'request_id:{request_id}')
 		response = client.chat.completions.create(
 			request_id=request_id,
-			model='glm-4.5',
+			model='glm-4.7',
 			messages=[{'role': 'user', 'content': '请介绍一下Agent的原理'}],
 			top_p=0.7,
 			temperature=0.9,

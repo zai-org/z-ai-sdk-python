@@ -6,7 +6,7 @@ def completion():
 
 	# Create chat completion
 	response = client.chat.completions.create(
-		model='glm-4.6',
+		model='glm-4.7',
 		messages=[{'role': 'user', 'content': 'Hello, Z.ai!'}],
 		temperature=1.0,
 	)
@@ -19,7 +19,7 @@ def completion_with_stream():
 
 	# Create chat completion
 	response = client.chat.completions.create(
-		model='glm-4.6',
+		model='glm-4.7',
 		messages=[
 			{'role': 'system', 'content': 'You are a helpful assistant.'},
 			{'role': 'user', 'content': 'Tell me a story about AI.'},
@@ -38,7 +38,7 @@ def completion_with_websearch():
 
 	# Create chat completion
 	response = client.chat.completions.create(
-		model='glm-4.6',
+		model='glm-4.7',
 		messages=[
 			{'role': 'system', 'content': 'You are a helpful assistant.'},
 			{'role': 'user', 'content': 'What is artificial intelligence?'},
@@ -66,7 +66,7 @@ def completion_with_mcp_server_url():
 	
 	# Create chat completion with MCP server URL
 	response = client.chat.completions.create(
-		model='glm-4',
+		model='glm-4.7',
 		stream=False,
 		messages=[{'role': 'user', 'content': 'Hello, please introduce GPT?'}],
 		tools=[
@@ -95,7 +95,7 @@ def completion_with_mcp_server_label():
 	
 	# Create chat completion with MCP server label
 	response = client.chat.completions.create(
-		model='glm-4',
+		model='glm-4.7',
 		stream=False,
 		messages=[{'role': 'user', 'content': 'Hello, please introduce GPT?'}],
 		tools=[
@@ -208,7 +208,7 @@ def audio_transcription():
 
 	# Create audio transcription
 	response = client.audio.transcriptions.create(
-		model='glm-4',
+		model='glm-asr-2512',
 		file='audio.mp3',
 	)
 	print(response.text)
@@ -217,7 +217,7 @@ def ofZai():
     client = ZaiClient()
     print(client.base_url)
     response = client.chat.completions.create(
-        model='glm-4',
+        model='glm-4.7',
         messages=[{'role': 'user', 'content': 'Hello, Z.ai!'}],
         temperature=0.7,
     )
@@ -227,7 +227,7 @@ def ofZhipu():
 	client = ZhipuAiClient()
 	print(client.base_url)
 	response = client.chat.completions.create(
-		model='glm-4',
+		model='glm-4.7',
 		messages=[{'role': 'user', 'content': 'Hello, Z.ai!'}],
 		temperature=0.7,
 	)
