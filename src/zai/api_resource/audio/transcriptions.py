@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING, Mapping, Optional, cast
+from typing import TYPE_CHECKING, List, Mapping, Optional, cast
 
 import httpx
 from typing_extensions import Literal
@@ -43,10 +43,12 @@ class Transcriptions(BaseAPI):
 		*,
 		file: FileTypes,
 		model: str,
+		file_base64: Optional[str] | NotGiven = NOT_GIVEN,
+		prompt: Optional[str] | NotGiven = NOT_GIVEN,
+		hotwords: Optional[List[str]] | NotGiven = NOT_GIVEN,
 		request_id: Optional[str] | NotGiven = NOT_GIVEN,
 		user_id: Optional[str] | NotGiven = NOT_GIVEN,
 		stream: Optional[Literal[False]] | Literal[True] | NotGiven = NOT_GIVEN,
-		temperature: Optional[float] | NotGiven = NOT_GIVEN,
 		sensitive_word_check: Optional[SensitiveWordCheckRequest] | NotGiven = NOT_GIVEN,
 		extra_headers: Headers | None = None,
 		extra_body: Body | None = None,
@@ -58,28 +60,26 @@ class Transcriptions(BaseAPI):
 		Arguments:
 			file (FileTypes): Audio file to transcribe
 			model (str): The model to use for transcription
+			file_base64 (Optional[str]): Base64 encoded audio file (alternative to file)
+			prompt (Optional[str]): Previous transcription result for context
+			hotwords (Optional[List[str]]): Hot words to improve recognition rate
 			request_id (Optional[str]): Unique identifier for the request
 			user_id (Optional[str]): User identifier
 			stream (Optional[Literal[False]] | Literal[True]): Whether to stream the response
-			temperature (Optional[float]): Sampling temperature for transcription
 			sensitive_word_check (Optional[SensitiveWordCheckRequest]): Sensitive word check configuration
 			extra_headers (Headers): Additional headers to send
 			extra_body (Body): Additional body parameters
 			timeout (float | httpx.Timeout): Request timeout
 		"""
-		if temperature is not None and temperature != NOT_GIVEN:
-			if temperature <= 0:
-				temperature = 0.01
-			if temperature >= 1:
-				temperature = 0.99
-
 		body = deepcopy_minimal(
 			{
 				'model': model,
 				'file': file,
+				'file_base64': file_base64,
+				'prompt': prompt,
+				'hotwords': hotwords,
 				'request_id': request_id,
 				'user_id': user_id,
-				'temperature': temperature,
 				'sensitive_word_check': sensitive_word_check,
 				'stream': stream,
 			}

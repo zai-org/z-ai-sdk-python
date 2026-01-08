@@ -51,6 +51,7 @@ class Audio(BaseAPI):
 		input: str = None,
 		voice: str = None,
 		response_format: str = None,
+		watermark_enabled: Optional[bool] | NotGiven = NOT_GIVEN,
 		sensitive_word_check: Optional[SensitiveWordCheckRequest] | NotGiven = NOT_GIVEN,
 		request_id: str = None,
 		user_id: str = None,
@@ -66,13 +67,18 @@ class Audio(BaseAPI):
 		Generate speech audio from text input
 
 		Arguments:
-			model (str): The model to use for speech generation
-			input (str): The text to convert to speech
-			voice (str): The voice to use for speech generation
-			response_format (str): The format of the response audio
+			model (str): The model to use for speech generation (e.g., 'glm-tts')
+			input (str): The text to convert to speech (max length: 1024 characters)
+			voice (str): The voice to use for speech generation (e.g., 'tongtong', 'chuichui', 'xiaochen', etc.)
+			response_format (str): The format of the response audio ('wav' or 'pcm', default 'pcm')
+			watermark_enabled (Optional[bool]): Whether to enable watermark on generated audio
 			sensitive_word_check (Optional[SensitiveWordCheckRequest]): Sensitive word check configuration
 			request_id (str): Unique identifier for the request
 			user_id (str): User identifier
+			encode_format (str): Encoding format for streaming response ('base64' or 'hex', default 'base64')
+			speed (float): Speech speed, default 1.0, valid range [0.5, 2]
+			volume (float): Audio volume, default 1.0, valid range (0, 10]
+			stream (bool): Whether to use streaming output (default False)
 			extra_headers (Headers): Additional headers to send
 			extra_body (Body): Additional body parameters
 			timeout (float | httpx.Timeout): Request timeout
@@ -83,6 +89,8 @@ class Audio(BaseAPI):
 				'input': input,
 				'voice': voice,
 				'response_format': response_format,
+				'watermark_enabled': watermark_enabled,
+				'sensitive_word_check': sensitive_word_check,
 				'encode_format': encode_format,
 				'request_id': request_id,
 				'user_id': user_id,
