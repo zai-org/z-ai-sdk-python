@@ -100,7 +100,7 @@ class Images(BaseAPI):
 		watermark_enabled: Optional[bool] | NotGiven = NOT_GIVEN,
 	) -> AsyncImagesResponded:
 		"""
-		Asynchronously generate images from text prompts.
+		Asynchronously generate images from text prompts. Only support glm-image model
 		Use retrieve_images_result() to poll for the result.
 
 		Arguments:
