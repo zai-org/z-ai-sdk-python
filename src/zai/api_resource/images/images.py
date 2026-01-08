@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING, Optional
 import httpx
 
 from zai.core import NOT_GIVEN, BaseAPI, Body, Headers, NotGiven, make_request_options
-from zai.types.image import ImagesResponded
+from zai.types.image import AsyncImagesResponded, ImagesResponded
 from zai.types.sensitive_word_check import SensitiveWordCheckRequest
 
 if TYPE_CHECKING:
@@ -83,4 +83,76 @@ class Images(BaseAPI):
 			options=make_request_options(extra_headers=extra_headers, extra_body=extra_body, timeout=timeout),
 			cast_type=_cast_type,
 			stream=False,
+		)
+
+	def async_generations(
+		self,
+		*,
+		prompt: str,
+		model: str | NotGiven = NOT_GIVEN,
+		quality: Optional[str] | NotGiven = NOT_GIVEN,
+		size: Optional[str] | NotGiven = NOT_GIVEN,
+		request_id: Optional[str] | NotGiven = NOT_GIVEN,
+		user_id: Optional[str] | NotGiven = NOT_GIVEN,
+		extra_headers: Headers | None = None,
+		extra_body: Body | None = None,
+		timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+		watermark_enabled: Optional[bool] | NotGiven = NOT_GIVEN,
+	) -> AsyncImagesResponded:
+		"""
+		Asynchronously generate images from text prompts.
+		Use retrieve_images_result() to poll for the result.
+
+		Arguments:
+			prompt (str): Text description of the desired image
+			model (str): The model to use for image generation
+			quality (Optional[str]): Quality level of the generated images
+			size (Optional[str]): Size of the generated images
+			request_id (Optional[str]): Unique identifier for the request
+			user_id (Optional[str]): User identifier
+			extra_headers (Headers): Additional headers to send
+			extra_body (Body): Additional body parameters
+			timeout (float | httpx.Timeout): Request timeout
+			watermark_enabled (Optional[bool]): Whether to enable watermark on generated images
+		"""
+		return self._post(
+			'/async/images/generations',
+			body={
+				'prompt': prompt,
+				'model': model,
+				'quality': quality,
+				'size': size,
+				'user_id': user_id,
+				'request_id': request_id,
+				'watermark_enabled': watermark_enabled,
+			},
+			options=make_request_options(extra_headers=extra_headers, extra_body=extra_body, timeout=timeout),
+			cast_type=AsyncImagesResponded,
+			stream=False,
+		)
+
+	def retrieve_images_result(
+		self,
+		id: str,
+		*,
+		extra_headers: Headers | None = None,
+		extra_body: Body | None = None,
+		timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+	) -> AsyncImagesResponded:
+		"""
+		Retrieve the result of an async image generation operation
+
+		Arguments:
+			id (str): Unique identifier for the image generation task
+			extra_headers (Headers): Additional headers to send
+			extra_body (Body): Additional body parameters
+			timeout (float | httpx.Timeout): Request timeout
+		"""
+		if not id:
+			raise ValueError('`id` must be provided.')
+
+		return self._get(
+			f'/async-result/{id}',
+			options=make_request_options(extra_headers=extra_headers, extra_body=extra_body, timeout=timeout),
+			cast_type=AsyncImagesResponded,
 		)
