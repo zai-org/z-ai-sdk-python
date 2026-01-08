@@ -63,7 +63,7 @@ class AsyncImageGenerator:
                     return result
                 elif result.task_status == 'FAIL':
                     raise Exception(f'Image generation failed: {result}')
-                elif result.task_status in ['PROCESSING', 'SUBMITTED']:
+                elif result.task_status in ['PROCESSING']:
                     print(f'Task in progress, status: {result.task_status}')
                 else:
                     print(f'Unknown status: {result.task_status}')
