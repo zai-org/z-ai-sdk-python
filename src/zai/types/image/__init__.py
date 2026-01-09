@@ -1,6 +1,7 @@
-from .image import GeneratedImage, ImagesResponded
+from .image import AsyncImagesResponded, GeneratedImage, ImagesResponded
 
 __all__ = [
 	'GeneratedImage',
 	'ImagesResponded',
+	'AsyncImagesResponded',
 ]
