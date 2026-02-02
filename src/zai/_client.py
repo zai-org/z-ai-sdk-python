@@ -24,7 +24,7 @@ if TYPE_CHECKING:
     from zai.api_resource.web_search import WebSearchApi
     from zai.api_resource.web_reader import WebReaderApi
     from zai.api_resource.file_parser import FileParser
-    from zai.api_resource.ocr import HandwritingOCR
+    from zai.api_resource.ocr import HandwritingOCR, LayoutParsing
 
 from .core import (
     NOT_GIVEN,
@@ -205,6 +205,11 @@ class BaseClient(HttpClient):
     def ocr(self) -> HandwritingOCR:
         from zai.api_resource.ocr import HandwritingOCR
         return HandwritingOCR(self)
+
+    @cached_property
+    def layout_parsing(self) -> LayoutParsing:
+        from zai.api_resource.ocr import LayoutParsing
+        return LayoutParsing(self)
 
     @property
     @override

@@ -14,7 +14,7 @@ from .file_parser import FileParser
 from .files import Files, FilesWithRawResponse
 from .images import Images
 from .moderations import Moderations
-from .ocr import HandwritingOCR
+from .ocr import HandwritingOCR, LayoutParsing
 from .tools import Tools
 from .videos import (
 	Videos,
@@ -40,5 +40,6 @@ __all__ = [
     'WebReaderApi',
     'Agents',
     'FileParser',
-    'HandwritingOCR'
+    'HandwritingOCR',
+    'LayoutParsing',
 ]
