@@ -1,8 +1,16 @@
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 
 from zai.core import BaseModel
 
-__all__ = ["LayoutParsingResp", "LayoutDetail", "DataInfo", "PageInfo"]
+__all__ = ["LayoutParsingResp", "LayoutDetail", "DataInfo", "PageInfo", "Usage"]
+
+
+class Usage(BaseModel):
+    """Token usage information"""
+    completion_tokens: int
+    prompt_tokens: int
+    prompt_tokens_details: Optional[Dict[str, Any]] = None
+    total_tokens: int
 
 
 class PageInfo(BaseModel):
@@ -36,4 +44,5 @@ class LayoutParsingResp(BaseModel):
     layout_details: Optional[List[List[LayoutDetail]]] = None
     layout_visualization: Optional[List[str]] = None
     data_info: Optional[DataInfo] = None
+    usage: Optional[Usage] = None
     request_id: Optional[str] = None

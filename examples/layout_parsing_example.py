@@ -3,6 +3,11 @@ Layout Parsing Example
 
 This example demonstrates how to use the layout_parsing API to parse
 images and PDFs for OCR with detailed layout detection.
+
+The API returns:
+- Markdown formatted text
+- Detailed layout information (element positions, types, content)
+- Visualization images
 """
 from zai import ZaiClient
 
@@ -55,6 +60,15 @@ def layout_parsing_example_with_url():
             print(f"\n=== Visualization URLs ===")
             for i, url in enumerate(response.layout_visualization):
                 print(f"  Page {i + 1}: {url}")
+
+        # Print usage information
+        if response.usage:
+            print(f"\n=== Token Usage ===")
+            print(f"  - Prompt tokens: {response.usage.prompt_tokens}")
+            print(f"  - Completion tokens: {response.usage.completion_tokens}")
+            print(f"  - Total tokens: {response.usage.total_tokens}")
+            if response.usage.prompt_tokens_details:
+                print(f"  - Prompt details: {response.usage.prompt_tokens_details}")
 
     except Exception as e:
         print(f"\n✗ Error: {e}")
