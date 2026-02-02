@@ -37,7 +37,8 @@ class LayoutParsing(BaseAPI):
         *,
         model: str,
         file: str,
-        use_layout_details: Optional[bool] | NotGiven = NOT_GIVEN,
+        return_crop_images: Optional[bool] | NotGiven = NOT_GIVEN,
+        need_layout_visualization: Optional[bool] | NotGiven = NOT_GIVEN,
         start_page_id: Optional[int] | NotGiven = NOT_GIVEN,
         end_page_id: Optional[int] | NotGiven = NOT_GIVEN,
         request_id: Optional[str] | NotGiven = NOT_GIVEN,
@@ -54,8 +55,10 @@ class LayoutParsing(BaseAPI):
             file (str): URL or base64 encoded image/PDF to parse.
                 Supported formats: PDF, JPG, PNG.
                 Size limits: Image ≤ 10MB, PDF ≤ 50MB, max 100 pages.
-            use_layout_details (Optional[bool]): Whether to return detailed layout info.
-                Defaults to True. When True, returns more detailed element positions and types.
+            return_crop_images (Optional[bool]): Whether to return crop images.
+                Defaults to False. When True, returns cropped image information.
+            need_layout_visualization (Optional[bool]): Whether to return detailed layout visualization results.
+                Defaults to False. When True, returns detailed layout image result information.
             start_page_id (Optional[int]): Starting page number for PDF parsing.
             end_page_id (Optional[int]): Ending page number for PDF parsing.
             request_id (Optional[str]): Unique request identifier. Auto-generated if not provided.
@@ -71,8 +74,8 @@ class LayoutParsing(BaseAPI):
                 - created: Unix timestamp
                 - model: Model name
                 - md_results: Markdown formatted recognition result
-                - layout_details: Detailed layout information (if use_layout_details=True)
-                - layout_visualization: Visualization image URLs
+                - crop_images: Cropped image information (if return_crop_images=True)
+                - layout_visualization: Detailed layout visualization information (if need_layout_visualization=True)
                 - data_info: Document metadata (page count, dimensions)
         """
         if not model:
@@ -84,7 +87,8 @@ class LayoutParsing(BaseAPI):
             {
                 "model": model,
                 "file": file,
-                "use_layout_details": use_layout_details,
+                "return_crop_images": return_crop_images,
+                "need_layout_visualization": need_layout_visualization,
                 "start_page_id": start_page_id,
                 "end_page_id": end_page_id,
                 "request_id": request_id,

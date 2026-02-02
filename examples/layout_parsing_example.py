@@ -23,8 +23,7 @@ def layout_parsing_example_with_url():
     try:
         response = client.layout_parsing.create(
             model="glm-ocr",
-            file=image_url,
-            use_layout_details=True  # Get detailed layout info
+            file=image_url
         )
 
         print("\n✓ Request successful!")
