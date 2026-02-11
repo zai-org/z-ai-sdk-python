@@ -15,7 +15,7 @@ class ZaiSampler(SamplerBase):
 
     def __init__(
         self,
-        model: str = "glm-4.7",
+        model: str = "glm-5",
         api_key: str = '',
         system_message: Optional[str] = None,
         temperature: float = 0.0,

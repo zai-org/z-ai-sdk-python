@@ -107,7 +107,7 @@ client = ZhipuAiClient(api_key="your-api-key")
 
 # Create chat completion
 response = client.chat.completions.create(
-    model="glm-4.7",
+    model="glm-5",
     messages=[
         {"role": "user", "content": "Hello, Z.ai!"}
     ]
@@ -286,7 +286,7 @@ client = ZaiClient(api_key="your-api-key")  # 请填写您自己的APIKey
 
 try:
     response = client.chat.completions.create(
-        model="glm-4.7",
+        model="glm-5",
         messages=[
             {"role": "user", "content": "你好， Z.ai ！"}
         ]
