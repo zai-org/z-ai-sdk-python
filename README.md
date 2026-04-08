@@ -11,10 +11,9 @@
 ## ✨ Core Features
 
 ### 🤖 **Chat Completions**
-- **Standard Chat**: Create chat completions with various models including `glm-4.7`
+- **Standard Chat**: Create chat completions with various models including `glm-5.1`
 - **Streaming Support**: Real-time streaming responses for interactive applications
 - **Tool Calling**: Function calling capabilities for enhanced AI interactions
-- **Character Role-Playing**: Support for character-based conversations with `charglm-3` model
 - **Multimodal Chat**: Image understanding capabilities with vision models
 
 ### 🧠 **Embeddings**
@@ -105,7 +104,7 @@ client = ZhipuAiClient(api_key="your-api-key")
 
 # Create chat completion
 response = client.chat.completions.create(
-    model="glm-5",
+    model="glm-5.1",
     messages=[
         {"role": "user", "content": "Hello, Z.ai!"}
     ]
@@ -169,7 +168,7 @@ client = ZaiClient(api_key="your-api-key")
 
 # Create chat completion
 response = client.chat.completions.create(
-    model='glm-4.7',
+    model='glm-5.1',
     messages=[
         {'role': 'system', 'content': 'You are a helpful assistant.'},
         {'role': 'user', 'content': 'Tell me a story about AI.'},
@@ -192,7 +191,7 @@ client = ZaiClient(api_key="your-api-key")
 
 # Create chat completion
 response = client.chat.completions.create(
-    model='glm-4.7',
+    model='glm-5.1',
     messages=[
         {'role': 'system', 'content': 'You are a helpful assistant.'},
         {'role': 'user', 'content': 'What is artificial intelligence?'},
@@ -228,7 +227,7 @@ client = ZaiClient(api_key="your-api-key")
 base64_image = encode_image('examples/test_multi_modal.jpeg')
 
 response = client.chat.completions.create(
-    model='glm-4.6v',
+    model='glm-5v-turbo',
     messages=[
         {
             'role': 'user',
@@ -279,7 +278,7 @@ client = ZaiClient(api_key="your-api-key")
 
 try:
     response = client.chat.completions.create(
-        model="glm-5",
+        model="glm-5.1",
         messages=[
             {"role": "user", "content": "Hello, Z.ai!"}
         ]
