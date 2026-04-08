@@ -4,7 +4,7 @@ def main():
     client = ZhipuAiClient()
     # create chat completion with tool calls and streaming
     response = client.chat.completions.create(
-        model="glm-5",
+        model="glm-5.1",
         messages=[
             {"role": "user", "content": "How is the weather in Beijing and Shanghai? Please provide the answer in Celsius."},
         ],

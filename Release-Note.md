@@ -104,7 +104,7 @@ This release brings significant improvements to the SDK structure, comprehensive
 #### 📖 **New Example Files**
 - **`examples/video_models_examples.py`**: Complete guide for all video generation models
 - **`examples/agent_examples.py`**: Agent invocation patterns and best practices
-- **`examples/glm4_example.py`**: GLM-4 model usage in all modes (sync, async, streaming)
+- **`examples/glm_example.py`**: GLM-4 model usage in all modes (sync, async, streaming)
 - **`examples/web_search_example.py`**: Web search integration and configuration
 - **`examples/video_generator.py`**: Enhanced async video generation (updated)
 

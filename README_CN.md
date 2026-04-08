@@ -11,10 +11,9 @@
 ## ✨ 核心功能
 
 ### 🤖 **对话补全**
-- **标准对话**: 支持 `glm-4.7` 等多种模型的对话补全
+- **标准对话**: 支持 `glm-5.1` 等多种模型的对话补全
 - **流式支持**: 实时流式响应，适用于交互式应用
 - **工具调用**: 函数调用能力，增强 AI 交互体验
-- **角色扮演**: 支持基于 `charglm-3` 模型的角色对话
 - **多模态对话**: 支持图像理解的视觉模型
 
 ### 🧠 **向量嵌入**
@@ -107,7 +106,7 @@ client = ZhipuAiClient(api_key="your-api-key")
 
 # Create chat completion
 response = client.chat.completions.create(
-    model="glm-5",
+    model="glm-5.1",
     messages=[
         {"role": "user", "content": "Hello, Z.ai!"}
     ]
@@ -175,7 +174,7 @@ client = ZaiClient(api_key="your-api-key")
 
 # 创建对话
 response = client.chat.completions.create(
-    model='glm-4.6',
+    model='glm-5.1',
     messages=[
         {'role': 'system', 'content': 'You are a helpful assistant.'},
         {'role': 'user', 'content': 'Tell me a story about AI.'},
@@ -198,7 +197,7 @@ client = ZaiClient(api_key="your-api-key")
 
 # 创建对话
 response = client.chat.completions.create(
-    model='glm-4.6',
+    model='glm-5.1',
     messages=[
         {'role': 'system', 'content': 'You are a helpful assistant.'},
         {'role': 'user', 'content': 'What is artificial intelligence?'},
@@ -234,7 +233,7 @@ client = ZaiClient(api_key="your-api-key")
 base64_image = encode_image('examples/test_multi_modal.jpeg')
 
 response = client.chat.completions.create(
-    model='glm-4.6v',
+    model='glm-5v-turbo',
     messages=[
         {
             'role': 'user',
@@ -286,7 +285,7 @@ client = ZaiClient(api_key="your-api-key")  # 请填写您自己的APIKey
 
 try:
     response = client.chat.completions.create(
-        model="glm-5",
+        model="glm-5.1",
         messages=[
             {"role": "user", "content": "你好， Z.ai ！"}
         ]
